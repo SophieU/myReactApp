@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.1.8",
+    "echarts": "^4.0.4",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-scripts": "^1.1.2"

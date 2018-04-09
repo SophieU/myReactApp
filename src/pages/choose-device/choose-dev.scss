@@ -1,0 +1,16 @@
+@import "../../style/base.scss";
+
+.devItem{
+  display: flex;
+  width:100%;
+  height:calcSize(88);
+  background: #fff;
+  padding:calcSize(10);
+  box-sizing: border-box;
+  color: #000;
+  img{
+    width:calcSize(60);
+    height:calcSize(60);
+    margin-right: calcSize(10);
+  }
+}

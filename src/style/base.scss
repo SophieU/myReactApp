@@ -1,0 +1,11 @@
+$baseSize:37.5;
+@function calcSize($px){
+  @return $px/$baseSize +rem;
+}
+.hide{
+  display: none!important;
+}
+.flexbox{
+  display: flex;
+  align-items: center;
+}

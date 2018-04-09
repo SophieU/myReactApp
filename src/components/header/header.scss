@@ -1,0 +1,12 @@
+@import "../../style/base.scss";
+.header-bar{
+  height:calcSize(50);
+  display: flex;
+  align-items: center;
+  box-sizing:border-box;
+  padding:calcSize(10);
+  .header-title{
+    flex:1;
+    text-align: center;
+  }
+}

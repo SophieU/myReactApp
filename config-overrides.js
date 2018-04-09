@@ -43,13 +43,48 @@ module.exports = function override(config, env) {
           loader: require.resolve('less-loader'),
           options: {
             // theme vars, also can use theme.js instead of this.
-            modifyVars: { "@brand-primary": "#1DA57A" },
+            // modifyVars: { "@brand-primary": "#108ee9" },
           },
         },
       ]
     }
   );
-
+  config.module.rules[1].oneOf.unshift(
+      {
+          test: /\.scss/,
+          use: [
+              require.resolve('style-loader'),
+              require.resolve('css-loader'),
+              {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                      // Necessary for external CSS imports to work
+                      // https://github.com/facebookincubator/create-react-app/issues/2677
+                      ident: 'postcss',
+                      plugins: () => [
+                          require('postcss-flexbugs-fixes'),
+                          autoprefixer({
+                              browsers: [
+                                  '>1%',
+                                  'last 4 versions',
+                                  'Firefox ESR',
+                                  'not ie < 9', // React doesn't support IE8 anyway
+                              ],
+                              flexbox: 'no-2009',
+                          }),
+                      ],
+                  },
+              },
+              {
+                  loader: require.resolve('sass-loader'),
+                  options: {
+                      // theme vars, also can use theme.js instead of this.
+                      // modifyVars: { "@brand-primary": "#108ee9" },
+                  },
+              },
+          ]
+      }
+  )
   // css-modules
   config.module.rules[1].oneOf.unshift(
     {

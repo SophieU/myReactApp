@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import './App.less';
+import './App.scss';
+import Router from './router.js'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">1234567859</h1>
-        </header>
+      <div className='App'>
+        <Router />
       </div>
     );
   }
 }
+
 
 export default App;

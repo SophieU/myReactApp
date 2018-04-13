@@ -1,16 +1,19 @@
 @import "../../style/base.scss";
-
+.chooseDev{
+  background: #fff;
+}
 .devItem{
   display: flex;
   width:100%;
-  height:calcSize(88);
-  background: #fff;
-  padding:calcSize(10);
+  height:calcSize(120);
+  padding:calcSize(20) calcSize(16);
   box-sizing: border-box;
   color: #000;
+  align-items: flex-start;
+  
   img{
-    width:calcSize(60);
-    height:calcSize(60);
-    margin-right: calcSize(10);
+    width:calcSize(80);
+    height:calcSize(80);
+    margin-right: calcSize(28);
   }
 }

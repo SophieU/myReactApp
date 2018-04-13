@@ -1,0 +1,103 @@
+@import "../../style/base";
+.health-tab-bar{
+  border-bottom:1px solid #DFE4E6;
+  height:calcSize(40);
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  color: #9A9A9A;
+  background: #fff;
+  padding:0 calcSize(10);
+  a{
+    font-size: 13px;
+    color: inherit;
+  }
+  .tab-item{
+    width:calcSize(66);
+    padding-bottom: calcSize(8);
+    &.active{
+      color: #3C6DF8;
+      position: relative;
+      &:after{
+        content:"";
+        display: block;
+        height: calcSize(2);
+        width:100%;
+        background: #3C6DF8;
+        position: absolute;
+        bottom:0;
+        left:0;
+        right:0;
+      }
+    }
+  }
+}
+.data-ball{
+  height:calcSize(230);
+  background: #fff;
+  padding-top:calcSize(30);
+  padding-bottom:calcSize(15);
+  box-sizing: border-box;
+  .data-show-wrapper{
+    margin:0 auto;
+    width:calcSize(150);
+    height:calcSize(150);
+    border-radius: 100%;
+    background-image:linear-gradient(to right,#00D2FA,#0078FA);
+    padding:calcSize(12);
+    box-sizing: border-box;
+    .data-show{
+      width:100%;
+      height:100%;
+      border-radius: 100%;
+      background: #fff;
+    }
+    .center-data{
+      text-align:center;
+      color: #1A1A1A;
+      height: 100%;
+      width:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      h3{
+        font-size: 28px;
+        margin-bottom: calcSize(14);
+      }
+      .walk-data{
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+      p{
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+  .data-time{
+    font-size: 14px;
+    color: #9A9A9A;
+    margin-top: calcSize(15);
+  }
+}
+.sleep{
+  .sleep-date{
+    margin:calcSize(6) 0;
+    .am-list-body{
+      &:before,&:after{
+        content:'';
+        display: none;
+        height:0;
+      }
+    }
+  }
+  .sleep-charts{
+    background: #fff;
+    padding: calcSize(20) 0;
+  }
+}
+#chart-container{
+  width:100%;
+  height:calcSize(220);
+}

@@ -1,0 +1,148 @@
+@import "../../style/base.scss";
+/*电量*/
+.energy-box{
+  display: flex;
+  justify-content: center;
+  padding-left: calcSize(10);
+  .energy-title{
+    font-size: 9px;
+    color: #529802;
+    margin-left: 4px;
+  }
+  .energy-bar{
+    width:calcSize(30);
+    height:calcSize(10);
+    background: #94E344;
+    border:1px solid #94E344;
+    border-radius: 4px;
+    overflow: hidden;
+    .energy-bar-line{
+      background: #fff;
+      height:100%;
+    }
+  }
+}
+/*device-status设备状态*/
+.device-status{
+  background: #fff;
+  padding:calcSize(22) 0 calcSize(16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .avatar{
+      border-radius: 100%;
+    width:calcSize(56);
+    height:calcSize(56);
+    margin-bottom: calcSize(12);
+  }
+  .status-text{
+    font-size: 14px;
+    color: #707070;
+    margin-top: calcSize(12);
+  }
+  .popover{
+    font-size: 13px;
+    color: #4a4a4a;
+    .am-popover-arrow{
+      display: none;
+    }
+  }
+
+}
+.control-panel{
+  margin-top:calcSize(6) ;
+  background: #fff;
+  padding:calcSize(16) calcSize(20) calcSize(23);
+}
+/*icon列表*/
+.icon-lists{
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: calcSize(17);
+
+  .icon-item{
+    width:calcSize(60);
+    text-align: center;
+    a{
+      color: #6A6A6A;
+    }
+  }
+  img{
+    width:calcSize(32);
+    height:calcSize(32);
+    border-radius: 100%;
+    margin:0 auto;
+    margin-bottom: calcSize(9);
+    display: block;
+  }
+  .icon-title{
+    white-space: nowrap;
+  }
+}
+.index-local{
+  display: block;
+  position: relative;
+  .local-text{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:161; /*比高德的图标高一层*/
+    height:calcSize(36);
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    line-height: calcSize(36);
+    border-bottom-left-radius: calcSize(8);
+    border-bottom-right-radius: calcSize(8);
+  }
+}
+#index-local{
+  margin-bottom: calcSize(16);
+  width:100%;
+  height:calcSize(110);
+  overflow: hidden;
+  border-radius:calcSize(8) ;
+  background: #efefef;
+
+}
+.watch-link{
+  border-top: 1px solid #EAEAEA;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .link-item{
+    width:calcSize(165);
+    height:calcSize(90);
+    position: relative;
+    margin-top: calcSize(16);
+    img{
+      width:100%;
+      height:100%;
+    }
+    .link-data{
+      position: absolute;
+      height:calcSize(45);
+      left:calcSize(15);
+      color: #FFFFFF;
+      z-index: 1;
+      top:50%;
+      margin-top: calcSize(-20);
+      p{
+        font-size: 13px;
+        text-align: left;
+        &:first-child{
+          margin-bottom: 4px;
+        }
+      }
+      strong{
+        font-size: 17px;
+        font-weight: 400;
+        margin-right: 2px;
+      }
+    }
+  }
+}

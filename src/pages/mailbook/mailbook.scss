@@ -1,0 +1,43 @@
+@import "../../style/base";
+.add-mail{
+  .upload-block{
+    height:calcSize(124);
+    .upload-input{
+      -webkit-appearance: none;
+      margin-top: calcSize(30);
+      //opacity: 0;
+      background: transparent;
+      position: relative;
+      width:calcSize(64);
+      height:calcSize(64);
+      border-radius: 100%;
+      overflow: hidden;
+      &::before{
+        content: "添加头像";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #E5E5E5;
+        position: absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        font-size: 12px;
+        text-align: center;
+      }
+    }
+  }
+  .form-label{
+    width:calcSize(56);
+    display: block;
+    text-align: justify;
+    text-align-last: justify;
+  }
+  input{
+    font-size: 14px;
+    &::placeholder{
+      font-size: 14px;
+    }
+  }
+}

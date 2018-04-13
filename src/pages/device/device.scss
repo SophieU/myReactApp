@@ -1,0 +1,78 @@
+@import "../../style/base";
+.delete-btn{
+  font-size: 12px;
+  background: transparent;
+  border:none;
+  color: #FF4040;
+  .am-icon{
+    margin-left: -5px;
+  }
+  //text-align: center;
+}
+.device-info{
+  img{
+    width:calcSize(42);
+    height:calcSize(42);
+    border-radius: 100%;
+    margin-right: calcSize(17);
+  }
+  h4{
+    font-size: 16px;
+    color: #2B2B2B;
+  }
+  p{
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+}
+
+
+/*register device*/
+.login-panel{
+  background: #fff;
+  position: absolute;
+  top:calcSize(45);
+  left:0;
+  right:0;
+  bottom: 0;
+  .login-bg{
+    height:calcSize(252);
+  }
+  p{
+    font-size: 12px;
+    color: #9B9B9B;
+  }
+}
+.form-wrapper{
+  padding:calcSize(15) calcSize(33);
+  .am-button{
+    margin-top: calcSize(26);
+  }
+  .am-list-body::after, .am-list-body::before{
+    content: "";
+    display: none!important;
+    opacity: 0;
+  }
+  input{
+    font-size: 14px;
+    &::placeholder{
+      font-size: 14px;
+      color: #B5B5B5;
+    }
+  }
+  .scan-btn{
+    width:calcSize(77);
+    font-size: 10px;
+    color: #4A4A4A;
+    white-space: nowrap;
+    text-align: center;
+    img{
+      width:calcSize(20);
+      height:calcSize(18);
+      display: block;
+      margin:0 auto;
+      margin-bottom: 4px;
+    }
+
+  }
+}

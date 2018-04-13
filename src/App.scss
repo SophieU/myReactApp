@@ -6,6 +6,7 @@
 #container{
   font-size: 12px;
 }
+
 a{
   text-decoration: none;
 }
@@ -22,6 +23,12 @@ a:visited,a:active,a:link{
   }
   .header-bar{
     font-size: 12px;
+  }
+  .header-bar .am-navbar-left,.header-bar .am-navbar-right{
+    font-size: 14px;
+  }
+  .icon-lists .icon-title{
+    font-size: 11px;
   }
 }
 @media screen and(min-width: 321px) and (max-width:421px){

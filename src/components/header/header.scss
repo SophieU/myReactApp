@@ -1,12 +1,18 @@
 @import "../../style/base.scss";
 .header-bar{
-  height:calcSize(50);
-  display: flex;
-  align-items: center;
-  box-sizing:border-box;
-  padding:calcSize(10);
-  .header-title{
-    flex:1;
-    text-align: center;
+  height:calcSize(45);
+  color: #4A4A4A;
+  background: #fff;
+  .am-navbar{
+    height:calcSize(45);
+  }
+  a{
+    color: #4A4A4A;
+  }
+  .text-black{
+    color: #4A4A4A;
+  }
+  .icon-color{
+    color: #3AA7FF;
   }
 }

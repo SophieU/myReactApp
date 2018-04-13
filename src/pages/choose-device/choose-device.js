@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 class ChooseDev extends React.Component{
     render(){
         return(
-            <div>
+            <div className="chooseDev insetShadow">
                 <Link to={'/index'} className='devItem'>
                     <img src={watch} alt=""/>
                     <div>

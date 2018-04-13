@@ -2,6 +2,18 @@ $baseSize:37.5;
 @function calcSize($px){
   @return $px/$baseSize +rem;
 }
+html,body{
+  max-width:750px;
+  margin:0 auto;
+  min-height:100%;
+  background: #f5f5f5;
+  font-family: '微软雅黑';
+}
+div,p,ul,li,h1,h2,h3,h4,h5{
+  margin:0;
+  padding:0;
+  list-style: none;
+}
 .hide{
   display: none!important;
 }
@@ -9,3 +21,69 @@ $baseSize:37.5;
   display: flex;
   align-items: center;
 }
+.insetShadow{
+  position: relative;
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:2px;
+    background: rgba(216,216,216,0.3);
+  }
+}
+@mixin list-style{
+  img{
+    width:calcSize(42);
+    height:calcSize(42);
+    border-radius: 100%;
+    margin-right: calcSize(17);
+  }
+  h4{
+    font-size: 16px;
+    color: #2B2B2B;
+  }
+  p{
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+}
+.list-style{
+  @include list-style;
+}
+.form-label{
+  font-size: 14px;
+  color: #4A4A4A;
+}
+.am-popover-placement-bottomRight .am-popover-arrow{
+  right:40%;
+}
+
+/*自定date range*/
+.date-range-wrapper{
+  .date-range-header{
+    height:calcSize(45);
+    background: #fff;
+    border-bottom:1px solid #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 calcSize(15);
+    .title{
+      flex:1;
+      color: #4a4a4a;
+      font-size: 16px;
+    }
+  }
+  .date-range-picker{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    .picker-col{
+      width:43%;
+    }
+  }
+}
+

@@ -1,0 +1,32 @@
+@import "../../style/base";
+.alarm-repeat{
+  font-size: 14px;
+  color: #333333;
+}
+.medicine-inner{
+  background: #fff;
+}
+.datetime-wrapper{
+  width:calcSize(200);
+  margin:0 auto;
+  overflow: hidden;
+  .am-picker{
+
+  }
+}
+.form-label{
+  font-size: 16px;
+  color: #4a4a4a;
+}
+.am-list .am-list-item.am-checkbox-item .am-list-thumb .am-checkbox-inner{
+  left:90%!important;
+  top: 12px;
+}
+.am-list-item .am-list-thumb{
+  width: 0 !important;
+  height:0!important;
+}
+.am-list-item .am-list-thumb:first-child{
+  margin-right: 0;
+  font-size: 12px;
+}

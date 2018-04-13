@@ -1,0 +1,54 @@
+@import "../../style/base";
+.geo-location-wrapper{
+  position: absolute;
+  top:calcSize(45);
+  bottom:0;
+  left:0;
+  right:0;
+}
+.controller{
+  position: absolute;
+  bottom:calcSize(16);
+  right:calcSize(6);
+  img{
+    display: block;
+    width:calcSize(48);
+    height:calcSize(48);
+    margin-bottom: calcSize(6);
+  }
+}
+#geo-location{
+  height:100%;
+  .loc-marker{
+    //border-radius: 48px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .avatar{
+      display: block;
+      width:calcSize(48);
+      height:calcSize(48);
+      border-radius: 100%;
+    }
+    .loc-text{
+      width:calcSize(200);
+      background: #fff;
+      position: absolute;
+      bottom:calcSize(60);
+      padding:calcSize(10);
+      left:calcSize(-100);
+      .loc-title{
+        font-size: 12px;
+        color: #4A4A4A;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+    p{
+      font-size: 11px;
+      color: #6B6B6B;
+      margin-top: calcSize(4);
+      text-align: center;
+    }
+  }
+}

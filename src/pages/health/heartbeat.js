@@ -8,6 +8,7 @@ class Heart extends React.Component {
         return (
             <div>
                 <HealthHeader now="心率"/>
+                123456
                 <DataBall now="心率"/>
                 <div>
                     <Charts />

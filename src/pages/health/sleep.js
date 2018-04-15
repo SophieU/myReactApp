@@ -32,9 +32,6 @@ class Sleep extends React.Component {
         })
     }
     render() {
-        /*
-        *
-        * */
         return (
             <div className="sleep">
                 <HealthHeader now="睡眠"/>

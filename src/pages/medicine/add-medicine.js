@@ -1,6 +1,6 @@
 import React from 'react';
 import {createForm} from 'rc-form';
-import{ List,Switch,DatePickerView,Icon} from 'antd-mobile';
+import{ List,Switch,DatePickerView,Icon,Button,WhiteSpace,WingBlank} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 const Item = List.Item;
@@ -38,6 +38,11 @@ class BasicAddMed extends React.Component {
                     }><span className="form-label">重复设置</span></Item>
                     </Link>
                 </List>
+                <WingBlank>
+                    <WhiteSpace />
+                    <Button type="primary">保存</Button>
+                    <WhiteSpace />
+                </WingBlank>
             </div>)
     }
 

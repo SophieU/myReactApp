@@ -35,7 +35,7 @@ class Sleep extends React.Component {
         return (
             <div className="sleep">
                 <HealthHeader now="睡眠"/>
-                <DataBall />
+                <DataBall now="睡眠"/>
                 <List className="sleep-date">
                     <List.Item arrow="horizontal" extra={this.state.timeRange==''?'请选择':this.state.timeRange} onClick={this.showModal('modal')}>记录时间段</List.Item>
                     <Modal

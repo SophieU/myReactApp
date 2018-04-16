@@ -81,22 +81,66 @@
     margin-top: calcSize(15);
   }
 }
+@mixin marginBord(){
+  margin:calcSize(6) 0;
+  background: #fff;
+  .am-list-body{
+    &:before,&:after{
+      content:'';
+      display: none;
+      height:0;
+    }
+  }
+}
 .sleep{
   .sleep-date{
-    margin:calcSize(6) 0;
-    .am-list-body{
-      &:before,&:after{
-        content:'';
-        display: none;
-        height:0;
-      }
-    }
+    @include marginBord;
   }
   .sleep-charts{
     background: #fff;
     padding: calcSize(20) 0;
   }
 }
+// 计步
+.walk{
+  .recode-time{
+    @include marginBord;
+  }
+  .am-list-content{
+    font-size: 15px!important;
+    color: #333333;
+  }
+  .am-list-extra{
+    font-size: 15px!important;
+    color: #9B9B9B;
+  }
+}
+@mixin heartBlood{
+  @include marginBord;
+  padding:calcSize(15) calcSize(20);
+  text-align: center;
+  line-height: 1.5em;
+  h4{
+    font-size: 15px;
+    color: #6C6C6C;
+  }
+  p{
+    font-size: 14px;
+    color: #6C6C6C;
+    text-align-last: left;
+  }
+}
+.heart-beat{
+  .heart-intro{
+    @include heartBlood;
+  }
+}
+.blood{
+  .blood-intro{
+    @include heartBlood;
+  }
+}
+
 #chart-container{
   width:100%;
   height:calcSize(220);

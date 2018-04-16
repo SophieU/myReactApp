@@ -1,9 +1,63 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {NavBar,Icon,Popover} from 'antd-mobile';
+import PropTypes from 'prop-types';
 import './header.scss';
 
+const refresh=()=>{
+    window.location.reload()
+}
+const routes={
+    ['/']:{
+        title:'选择设备'
+    },
+    ['/index']:{
+        title:'首页'
+    },
+    ['/location']:{
+        title:'定位'
+    },
+    ['/medicine']:{
+        title:'吃药提醒'
+    },
+    ['/add-medicine']:{
+        title:'添加提醒'
+    },
+    ['/edit-medicine']:{
+        title:'重复提醒'
+    },
+    ['/repeat-alarm']:{
+        title:'重复设置'
+    },
+    ['/device-admin']:{
+        title:'设备管理'
+    },
+    ['/register-dev']:{
+        title:'注册设备'
+    },
+    ['/location']:{
+        title:'定位'
+    },
+    ['/add-mail']:{
+        title:'添加号码'
+    },
+    ['/mail-book']:{
+        title:'亲情号码薄'
+    },
+    ['/sleep']:{
+        title:'睡眠'
+    },
+    ['/walk']:{
+        title:'计步'
+    },
+    ['/heartbeat']:{
+        title:'心率'
+    },
+    ['/blood']:{
+        title:'血压'
+    },
 
+}
 const LeftIcon = ()=>{
     switch(window.location.pathname){
         case '/':
@@ -19,19 +73,11 @@ const RightIcon = ()=>{
         case '/index':
             return <Link key="1" to='/device-admin'>设备管理</Link>;
         case '/location':
-            return <span key="2">刷新</span>;
+            return <span onClick={()=>refresh()} key="2">刷新</span>;
         case '/medicine':
             return <Link key="3" to='/add-medicine'>添加</Link>;
-        case '/add-medicine':
-            return <span key="4">保存</span>;
-        case '/edit-medicine':
-            return <span key="4">保存</span>;
-        case '/repeat-alarm':
-            return <span key="5">保存</span>;
         case '/mail-book':
             return <Link key="6" to='/add-mail'>添加</Link>;
-        case '/add-mail':
-            return <span key="7">保存</span>;
         default:
             return null;
     }
@@ -39,14 +85,25 @@ const RightIcon = ()=>{
 
 
 class Header extends React.Component {
+    //利用PropTypes记住所跳转每个页面的位置
+    static contextTypes = {
+        router: PropTypes.object
+    }
     constructor(){
         super();
         this.state={
-            nowRoute:'choose-dev',
+            nowRoute:'设备选择',
             popVisible:false,
             selectedFamily:'碗豆'
         }
         this.changeFamily=this.changeFamily.bind(this);
+    }
+    componentWillReceiveProps(){
+        var nowPath = this.context.router.history.location.pathname;
+        let title = routes[nowPath].title;
+       this.setState({
+           nowRoute:title
+       })
     }
     changeFamily(opt){
         this.setState({
@@ -69,7 +126,7 @@ class Header extends React.Component {
                         RightIcon(),
                     ]}
                 >
-                    <span>标题</span>
+                    <span>{this.state.nowRoute}</span>
                 </NavBar>
             </div>)
     }

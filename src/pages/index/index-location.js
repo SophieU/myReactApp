@@ -37,7 +37,6 @@ class LocationIndex extends React.Component {
                     // }
                     let addressCom = result.regeocode.addressComponent;
                     let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
-                    console.log(result)
                     _this.setState({
                         nowAddress:address
                     })

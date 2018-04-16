@@ -10,18 +10,18 @@ const FamilySel=(props)=>{
     const Item = Popover.Item;
     return (
         <Popover mask
-                 className="popover"
-                 visible={props.visible}
-                 overlay={[
-                     (<Item  key="4" value="奶奶" icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>奶奶</Item>),
-                     (<Item key="5" value="爷爷"  icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>爷爷</Item>),
-                 ]}
-                 align={{
-                     overflow: { adjustY: 0, adjustX: 0 },
-                     offset: [0, 0],
-                 }}
+             className="popover"
+             visible={props.visible}
+             overlay={[
+                 (<Item  key="4" value="奶奶" icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>奶奶</Item>),
+                 (<Item key="5" value="爷爷"  icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>爷爷</Item>),
+             ]}
+             align={{
+                 overflow: { adjustY: 0, adjustX: 0 },
+                 offset: [0, 0],
+             }}
 
-                 onSelect={(opt)=>props.onSelect(opt)}
+             onSelect={(opt)=>props.onSelect(opt)}
         >
             <div style={{
                 height: '100%',
@@ -30,7 +30,7 @@ const FamilySel=(props)=>{
                 alignItems: 'center',
                 color: '#4A4A4A',
                 marginBottom:'12px',
-                fontSize:'14px'
+                fontSize:'16px'
             }}
             >
                 {props.value}<Icon className="icon-color" size="xs" type="down"/>

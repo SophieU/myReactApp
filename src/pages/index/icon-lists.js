@@ -1,8 +1,20 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {Modal} from 'antd-mobile';
+
+const alert = Modal.alert;
 
 class IconList extends React.Component {
-    
+    callPhone=(tel)=>{
+        alert('提醒', '确认拔打电话'+tel+'???', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '确认', onPress: () => console.log('ok') },
+        ])
+
+    }
+    goMine=()=>{
+        alert('跳转到我的')
+    }
     render() {
         const iconsData = [
             {
@@ -16,11 +28,13 @@ class IconList extends React.Component {
             },{
                 iconUrl:require('../../images/icon-call.png'),
                 title:'电话',
-                url:'/call',
+                type:'alert',
+                handle:this.callPhone
             },{
                 iconUrl:require('../../images/icon-120.png'),
                 title:'急救',
-                url:'/120'
+                type:'alert',
+                handle:this.callPhone
             },{
                 iconUrl:require('../../images/icon-medicine.png'),
                 title:'提醒',
@@ -28,7 +42,8 @@ class IconList extends React.Component {
             },{
                 iconUrl:require('../../images/icon-mine.png'),
                 title:'我的',
-                url:'/medicine',
+                type:'alert',
+                handle:this.goMine
             }
         ]
 
@@ -39,10 +54,18 @@ class IconList extends React.Component {
                         iconsData.map((icon,index)=>{
                             return(
                                 <li key={index} className="icon-item">
-                                    <Link to={icon.url}>
-                                        <img src={icon.iconUrl}/>
-                                        <span className="icon-title">{icon.title}</span>
-                                    </Link>
+                                    {
+                                     icon.type==='alert'?
+                                         (<div onClick={()=>icon.handle(120)}>
+                                             <img src={icon.iconUrl}/>
+                                             <span className="icon-title">{icon.title}</span>
+                                         </div>):
+                                         (<Link to={icon.url}>
+                                             <img src={icon.iconUrl}/>
+                                             <span className="icon-title">{icon.title}</span>
+                                         </Link>)
+                                    }
+
                                 </li>
                             )
                         })

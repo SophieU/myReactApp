@@ -2,6 +2,13 @@ import React from 'react';
 import {DatePickerView,Button,Toast} from 'antd-mobile';
 import '../../style/base.scss';
 import moment from 'moment';
+/*
+* date-range组件：
+* Params：
+*   sureTime:function类型，必须，表示确定后的回调
+*
+*
+* */
 
 class DateRange extends React.Component {
     constructor(){
@@ -40,11 +47,14 @@ class DateRange extends React.Component {
            this.props.sureTime(dateRange)
         }
     }
+    close(){
+        this.props.onClose('')
+    }
     render() {
         return (
             <div className="date-range-wrapper">
                 <div className="date-range-header">
-                    <Button inline size="small">取消</Button>
+                    <Button inline size="small" onClick={this.close}>取消</Button>
                     <span className="title">请选择时间段</span>
                     <Button onClick={this.handleSubmit} type="ghost" inline size="small" >确定</Button>
                 </div>

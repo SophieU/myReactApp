@@ -1,5 +1,5 @@
 import React from 'react';
-import {List,Checkbox } from 'antd-mobile';
+import {List,Checkbox,Button,WhiteSpace,WingBlank } from 'antd-mobile';
 
 const CheckboxItem = Checkbox.CheckboxItem;
 
@@ -29,7 +29,13 @@ class Test extends React.Component {
                             <span className="form-label">{item.label}</span>
                         </CheckboxItem>
                     ))}
+
                 </List>
+                <WingBlank>
+                    <WhiteSpace/>
+                    <Button type="primary">保存</Button>
+                    <WhiteSpace/>
+                </WingBlank>
             </div>)
     }
 }

@@ -1,32 +1,47 @@
 @import "../../style/base";
 .add-mail{
-  padding:0 calcSize(8) ;
   .upload-block{
     height:calcSize(124);
+    position: relative;
+    img{
+      position: absolute;
+      z-index:1;
+      width:calcSize(64);
+      height:calcSize(64);
+      top: calcSize(30);
+      left:50%;
+      margin-left: calcSize(-32);
+      border-radius: 100%;
+      overflow: hidden;
+    }
     .upload-input{
       -webkit-appearance: none;
-      margin-top: calcSize(30);
+      top: calcSize(30);
+      left:50%;
+      margin-left: calcSize(-32);
       //opacity: 0;
       background: transparent;
-      position: relative;
+      position: absolute;
       width:calcSize(64);
       height:calcSize(64);
       border-radius: 100%;
       overflow: hidden;
-      &::before{
-        content: "添加头像";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #E5E5E5;
-        position: absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        font-size: 12px;
-        text-align: center;
-      }
+      z-index:2;
+      opacity: 0;
+      //&::before{
+      //  content: "添加头像";
+      //  display: flex;
+      //  justify-content: center;
+      //  align-items: center;
+      //  background: #E5E5E5;
+      //  position: absolute;
+      //  top:0;
+      //  left:0;
+      //  right:0;
+      //  bottom:0;
+      //  font-size: 12px;
+      //  text-align: center;
+      //}
     }
   }
   .form-label{

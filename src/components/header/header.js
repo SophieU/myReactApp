@@ -8,10 +8,10 @@ const refresh=()=>{
     window.location.reload()
 }
 const routes={
-    '/':{
+    '/choose-dev':{
         title:'选择设备'
     },
-    '/index':{
+    '/':{
         title:'首页'
     },
     '/register':{
@@ -70,7 +70,7 @@ const RightIcon = ()=>{
     switch(window.location.pathname){
         case '/device-admin':
             return <Link key="0" to='/register-dev'>添加设备</Link>;
-        case '/index':
+        case '/':
             return <Link key="1" to='/device-admin'>设备管理</Link>;
         case '/location':
             return <span onClick={()=>refresh()} key="2">刷新</span>;

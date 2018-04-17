@@ -1,12 +1,15 @@
 import React from 'react';
-import {List,InputItem,Button,WhiteSpace,WingBlank} from 'antd-mobile';
+import {List,InputItem,Button,WhiteSpace,WingBlank,Toast} from 'antd-mobile';
 import {createForm} from 'rc-form';
 import store from '../../state/store';
 import axios from '../../api';
 import './mailbook.scss';
-import qs from 'qs';
+import PropTypes from 'prop-types';
 
 class AddMail extends React.Component {
+    static contextTypes ={
+        router:PropTypes.object
+    }
     constructor(){
         super();
         this.state={
@@ -16,9 +19,10 @@ class AddMail extends React.Component {
         }
     }
     submit=()=>{
+        const router = this.context.router.history;
+
         const file = this.refs.uploadInput.files;
 
-        console.log(file[0])
         const name = this.state.nickName;
         const tel = this.state.tel;
         const openId = store.device.openId;
@@ -36,25 +40,27 @@ class AddMail extends React.Component {
         formData.append('number',tel);
         formData.append('openId',openId);
         formData.append('equipmentId',equipmentId);
-        console.log(formData.get('openId'));
         let config = {
             headers:{
                 'Content-Type':'multipart/form-data'
             }
         }
         axios.post('/api/tel/saveOrUpdate',formData,config).then(res=>{
-            console.log(res)
+           if(res.data.success){
+               router.push('/mail-book')
+           }else{
+               Toast.info(res.data.msg)
+           }
         })
 
     };
+    // img review
     fileChanged=(e)=>{
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload= (e)=>{
             this.refs.uploadImg.src=e.target.result;
         };
-
-
         reader.readAsDataURL(file);
     };
     telInput=(value)=>{

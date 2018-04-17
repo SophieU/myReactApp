@@ -111,8 +111,19 @@ class Header extends React.Component {
             selectedFamily:opt.props.value,
         })
     }
-    onLeftClick(e){
-        window.history.back()
+    onLeftClick=(e)=>{
+        const pathArr = [
+            '/sleep',
+            '/walk',
+            '/blood',
+            '/heartbeat'
+        ]
+        if(pathArr.indexOf(window.location.pathname)!==-1){
+            this.context.router.history.push('/')
+        }else{
+            window.history.back()
+        }
+
     }
     render() {
         return (

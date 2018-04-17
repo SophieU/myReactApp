@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Icon} from 'antd-mobile'
+import {Toast} from 'antd-mobile'
 const AMap = window.AMap;
 
 
@@ -11,8 +11,7 @@ class LocationIndex extends React.Component {
             nowAddress:''
         }
     }
-    componentDidMount(){
-        const lnglatXY=[104.076395,30.623233];
+    geolocation(lnglatXY){
         const _this = this;
         var map = new AMap.Map('index-local',{
             zoom:12,
@@ -41,17 +40,26 @@ class LocationIndex extends React.Component {
                         nowAddress:address
                     })
                 }else{
-                    console.log('定位失败')
+                    Toast.info('定位失败')
                 }
             })
         })
-
     }
+    componentWillUpdate(prop){
+        const lnglat=[prop.longitude,prop.latitude];
+        if(lnglat[0]!==0&&lnglat[1]!==0&&this.state.nowAddress==''){
+            this.geolocation(lnglat);
+            return;
+        }else{
+            return;
+        }
+    }
+
     render() {
         return (
             <Link className="index-local" to='/location'>
                 <div id="index-local"></div>
-                <div className="local-text"><img className="am-icon am-icon-xs" src={require('../../images/location.svg')}/>{this.state.nowAddress}</div>
+                <div className="local-text"><img alt="" className="am-icon am-icon-xs" src={require('../../images/location.svg')}/>{this.state.nowAddress}</div>
             </Link>)
 
     }

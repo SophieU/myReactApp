@@ -13,14 +13,16 @@ import AddMail from '../mailbook/add-mail';
 import Sleep from '../health/sleep';
 import Walk from '../health/walk';
 import HeartBeat from '../health/heartbeat';
-import Blood from '../health/blood'
+import Blood from '../health/blood';
+import Register from '../device/register-device'
 
 class Container extends  React.Component{
     render(){
         return(
             <div id="container">
-                <Route exact path='/' component={ChooseDev}></Route>
-                <Route path='/index' component={Index}></Route>
+                <Route exact path='/' component={Index}></Route>
+                <Route path='/choose-dev' component={ChooseDev}></Route>
+                <Route path='/register' component={Register}></Route>
                 <Route path='/location' component={GeoLocation}></Route>
                 <Route path='/medicine' component={MedicineAlarm}></Route>
                 <Route path='/add-medicine' component={AddMedicine}></Route>

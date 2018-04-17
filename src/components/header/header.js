@@ -8,52 +8,52 @@ const refresh=()=>{
     window.location.reload()
 }
 const routes={
-    ['/']:{
+    '/':{
         title:'选择设备'
     },
-    ['/index']:{
+    '/index':{
         title:'首页'
     },
-    ['/location']:{
-        title:'定位'
+    '/register':{
+        title:'注册'
     },
-    ['/medicine']:{
+    '/medicine':{
         title:'吃药提醒'
     },
-    ['/add-medicine']:{
+    '/add-medicine':{
         title:'添加提醒'
     },
-    ['/edit-medicine']:{
+    '/edit-medicine':{
         title:'重复提醒'
     },
-    ['/repeat-alarm']:{
+    '/repeat-alarm':{
         title:'重复设置'
     },
-    ['/device-admin']:{
+    '/device-admin':{
         title:'设备管理'
     },
-    ['/register-dev']:{
+    '/register-dev':{
         title:'注册设备'
     },
-    ['/location']:{
+    '/location':{
         title:'定位'
     },
-    ['/add-mail']:{
+    '/add-mail':{
         title:'添加号码'
     },
-    ['/mail-book']:{
+    '/mail-book':{
         title:'亲情号码薄'
     },
-    ['/sleep']:{
+    '/sleep':{
         title:'睡眠'
     },
-    ['/walk']:{
+    '/walk':{
         title:'计步'
     },
-    ['/heartbeat']:{
+    '/heartbeat':{
         title:'心率'
     },
-    ['/blood']:{
+    '/blood':{
         title:'血压'
     },
 

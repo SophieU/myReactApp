@@ -129,9 +129,9 @@ class GeoLocation extends React.Component {
             <div ref="location" className="geo-location-wrapper">
                 <div id="geo-location"></div>
                 <div className="controller">
-                    <div onClick={this.locWatch}><img src={require('../../images/icon-watch.png')}/></div>
-                    <div onClick={this.drawLine}><img src={require('../../images/icon-track.png')}/></div>
-                    <div onClick={this.getNowGeo}><img src={require('../../images/icon-location.png')}/></div>
+                    <div onClick={this.locWatch}><img alt="" src={require('../../images/icon-watch.png')}/></div>
+                    <div onClick={this.drawLine}><img alt="" src={require('../../images/icon-track.png')}/></div>
+                    <div onClick={this.getNowGeo}><img alt="" src={require('../../images/icon-location.png')}/></div>
                 </div>
             </div>)
     }

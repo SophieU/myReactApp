@@ -41,19 +41,18 @@ const FamilySel=(props)=>{
 const Energy = (props)=>{
     return (<div className="energy-box">
         <div className="energy-bar">
-            <div style={{width:props.energy}} className="energy-bar-line"></div>
+            <div style={{width:props.energy+'%'}} className="energy-bar-line"></div>
         </div>
-        <span className="energy-title">75%</span>
+        <span className="energy-title">{props.energy}%</span>
     </div>)
 }
 
 class DevStatu extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.onSelect=this.onSelect.bind(this);
         this.state={
             showPop:false,
-            popValue:'碗豆'
         }
     }
     onSelect(opt){
@@ -61,16 +60,16 @@ class DevStatu extends React.Component {
         console.log(value)
         this.setState({
             showPop:false,
-            popValue:value
-        })
+        });
+        this.props.changeRole(value)
     }
     render() {
         return (
             <div className="device-status insetShadow">
-                <FamilySel value={this.state.popValue} visible={this.state.showPop} onSelect={(opt)=>this.onSelect(opt)}/>
+                <FamilySel value={this.props.role} visible={this.state.showPop} onSelect={(opt)=>this.onSelect(opt)}/>
                 <img className="avatar" src="http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png"/>
-                <Energy energy='30%'/>
-                <p className="status-text">状态/数据链接</p>
+                <Energy energy={this.props.electricity}/>
+                <p className="status-text">状态/{this.props.status}</p>
             </div>)
     }
 }

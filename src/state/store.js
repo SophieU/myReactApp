@@ -1,5 +1,6 @@
-import {createStore} from 'redux';
-import {counter} from './reducer1';
+import {device} from './device-state';
 
-let store = createStore(counter);
+const store = {
+    device
+}
 export default store;

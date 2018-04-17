@@ -12,12 +12,12 @@
   .energy-bar{
     width:calcSize(30);
     height:calcSize(10);
-    background: #94E344;
+    background: #fff;
     border:1px solid #94E344;
     border-radius: 4px;
     overflow: hidden;
     .energy-bar-line{
-      background: #fff;
+      background: #94E344;
       height:100%;
     }
   }

@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa34e863-b4fc-4c38-995d-1430279cac65" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/date-range/date-range-picker.js" afterPath="$PROJECT_DIR$/src/components/date-range/date-range-picker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/header/header.js" afterPath="$PROJECT_DIR$/src/components/header/header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/blood.js" afterPath="$PROJECT_DIR$/src/pages/health/blood.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/charts.js" afterPath="$PROJECT_DIR$/src/pages/health/charts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/data-ball.js" afterPath="$PROJECT_DIR$/src/pages/health/data-ball.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/heartbeat.js" afterPath="$PROJECT_DIR$/src/pages/health/heartbeat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/sleep.js" afterPath="$PROJECT_DIR$/src/pages/health/sleep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/health/walk.js" afterPath="$PROJECT_DIR$/src/pages/health/walk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/style/base.scss" afterPath="$PROJECT_DIR$/src/style/base.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/device/register-device.js" afterPath="$PROJECT_DIR$/src/pages/device/register-device.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/index/icon-lists.js" afterPath="$PROJECT_DIR$/src/pages/index/icon-lists.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -42,15 +35,35 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="page-index.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="page-index.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/pages/index/page-index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1944">
-                  <caret line="141" column="13" lean-forward="false" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="13" />
+                <state relative-caret-position="288">
+                  <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                     <element signature="e#388#1700#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="icon-lists.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/pages/index/icon-lists.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="162">
+                  <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="register-device.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/pages/device/register-device.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="288">
+                  <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -84,8 +97,8 @@
           <file leaf-file-name="base.scss" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/style/base.scss">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="107">
-                  <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+                <state relative-caret-position="341">
+                  <caret line="87" column="13" lean-forward="true" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="13" />
                   <folding>
                     <element signature="e#306#349#0" expanded="false" />
                   </folding>
@@ -173,7 +186,6 @@
         <option value="$PROJECT_DIR$/src/pages/health/health-header.js" />
         <option value="$PROJECT_DIR$/src/App.scss" />
         <option value="$PROJECT_DIR$/src/pages/health/health.scss" />
-        <option value="$PROJECT_DIR$/src/pages/index/icon-lists.js" />
         <option value="$PROJECT_DIR$/src/pages/medicine/add-medicine.js" />
         <option value="$PROJECT_DIR$/src/pages/medicine/repeat-alarm.js" />
         <option value="$PROJECT_DIR$/src/api/index.js" />
@@ -184,7 +196,6 @@
         <option value="$PROJECT_DIR$/src/pages/container/container.js" />
         <option value="$PROJECT_DIR$/public/init.js" />
         <option value="$PROJECT_DIR$/src/redux/reducer1.js" />
-        <option value="$PROJECT_DIR$/src/pages/device/register-device.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/redux/store.js" />
         <option value="$PROJECT_DIR$/src/state/store.js" />
@@ -206,6 +217,8 @@
         <option value="$PROJECT_DIR$/src/pages/health/blood.js" />
         <option value="$PROJECT_DIR$/src/pages/health/charts.js" />
         <option value="$PROJECT_DIR$/src/components/header/header.js" />
+        <option value="$PROJECT_DIR$/src/pages/index/icon-lists.js" />
+        <option value="$PROJECT_DIR$/src/pages/device/register-device.js" />
       </list>
     </option>
   </component>
@@ -220,7 +233,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="532" />
     <option name="y" value="29" />
     <option name="width" value="1877" />
@@ -294,6 +307,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="safe-bridge" type="b2602c69:ProjectViewProjectNode" />
+              <item name="safe-bridge" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="device" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="safe-bridge" type="b2602c69:ProjectViewProjectNode" />
@@ -388,17 +408,18 @@
       <workItem from="1523582273418" duration="22667000" />
       <workItem from="1523840854842" duration="18572000" />
       <workItem from="1523926860803" duration="23465000" />
-      <workItem from="1524013034155" duration="6082000" />
+      <workItem from="1524013034155" duration="6487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148719000" />
+    <option name="totallyTimeSpent" value="149124000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="532" y="29" width="1877" height="1073" extended-state="1" />
+    <frame x="532" y="29" width="1877" height="1073" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1257485" sideWeight="0.49608064" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1257485" sideWeight="0.49608064" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -497,6 +518,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="45" column="6" lean-forward="false" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -512,16 +534,6 @@
         <state relative-caret-position="144">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/index/icon-lists.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -615,16 +627,6 @@
           <folding>
             <element signature="e#0#26#0" expanded="false" />
             <element signature="e#107#133#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/device/register-device.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="8" lean-forward="true" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -762,16 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/style/base.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
-          <folding>
-            <element signature="e#306#349#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/header/header.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -800,11 +792,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/index/page-index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1944">
-          <caret line="141" column="13" lean-forward="false" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="13" />
+        <state relative-caret-position="288">
+          <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#388#1700#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/index/icon-lists.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/device/register-device.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/style/base.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="87" column="13" lean-forward="true" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="13" />
+          <folding>
+            <element signature="e#306#349#0" expanded="false" />
           </folding>
         </state>
       </provider>

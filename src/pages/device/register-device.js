@@ -19,13 +19,15 @@ class BasicRegister extends React.Component{
         this.checkReg()
     }
     checkReg=()=>{
+        const fromPath = this.context.router;
+        console.log(fromPath)
         //检测设备是否注册
         axios.get('/api/checkRegCode?code=439019875297094')
             .then(res=>{
                 const result = res.data.success;
                 if(!result){
                     Toast.info(res.data.msg)
-                    this.context.router.history.push('/')
+                    // this.context.router.history.push('/')
                 }
                 console.log(res)
             })

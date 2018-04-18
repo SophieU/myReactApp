@@ -11,10 +11,13 @@ class IconList extends React.Component {
             { text: '确认', onPress: () => console.log('ok') },
         ])
 
-    }
+    };
     goMine=()=>{
         alert('跳转到我的')
-    }
+    };
+    goChat=()=>{
+       alert('跳转到微聊')
+    };
     render() {
         const iconsData = [
             {
@@ -24,7 +27,8 @@ class IconList extends React.Component {
             },{
                 iconUrl:require('../../images/icon-chat.png'),
                 title:'微聊',
-                url:'/chat',
+                type:'alert',
+                handle:this.goChat
             },{
                 iconUrl:require('../../images/icon-call.png'),
                 title:'电话',

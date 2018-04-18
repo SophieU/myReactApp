@@ -8,7 +8,7 @@ class IconList extends React.Component {
     callPhone=(tel)=>{
         alert('提醒', '确认拔打电话'+tel+'???', [
             { text: '取消', onPress: () => console.log('cancel') },
-            { text: '确认', onPress: () => console.log('ok') },
+            { text: '确认', onPress: () => window.location.href="tel:"+tel},
         ])
 
     };

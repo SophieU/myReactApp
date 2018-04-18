@@ -100,7 +100,10 @@ class Header extends React.Component {
     }
     componentWillReceiveProps(){
         var nowPath = this.context.router.history.location.pathname;
-        let title = routes[nowPath].title;
+        let title = ''
+        if(routes[nowPath]!==undefined){
+            title = routes[nowPath].title;
+        }
        this.setState({
            nowRoute:title
        })

@@ -28,27 +28,30 @@ class DateRange extends React.Component {
         this.setState({
             timeEnd:time
         })
+
     }
     handleSubmit = ()=>{
         let {timeStart,timeEnd} = this.state;
        if(timeStart===null){
-           Toast.info('请选择开始时间');
+           Toast.info('请选择开始时间',1);
            return;
        }
         timeStart = moment(timeStart);
         timeEnd = moment(timeEnd);
         if(moment.max(timeStart,timeEnd)!=timeEnd){
-            Toast.info('请选择正确的结束时间')
+            Toast.info('请选择正确的结束时间',1)
         }else{
            const dateRange = {
                startTime:timeStart.format("HH:mm"),
                endTime:timeEnd.format("HH:mm")
            }
-           this.props.sureTime(dateRange)
+           this.props.sureTime(dateRange);
+           // this.props.cancle();
         }
     }
-    close(){
-        this.props.onClose('')
+    close=()=>{
+        console.log('cancle daterange')
+        this.props.cancle()
     }
     render() {
         return (

@@ -14,7 +14,7 @@ class Heart extends React.Component {
                     <p>对于成年人，60-100次/每分钟的测量值通常被视为正常范围，低于60次/每分钟则偏低，高于100次/每分钟则偏高。</p>
                 </div>
                 <div>
-                    <Charts />
+                    <Charts  type="bar"/>
                 </div>
             </div>)
     }

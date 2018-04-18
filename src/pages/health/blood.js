@@ -14,7 +14,7 @@ class Blood extends React.Component {
                     <p>对于成年人，高于90/60mmHg且低于140/90mmHg的测量值通常被视为正常范围。</p>
                 </div>
                 <div>
-                    <Charts />
+                    <Charts  type="line"/>
                 </div>
             </div>)
     }

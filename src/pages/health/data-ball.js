@@ -12,11 +12,11 @@ const DataBall = (props)=>(
                     <h3 className="walk-data">3200步</h3>
                 </div>
                 <div className={props.now=="血压"?'center-data':'hide'}>
-                    <h3 className="walk-data">120/80</h3>
+                    <h3 >120/80</h3>
                     <p>开始测量</p>
                 </div>
                 <div className={props.now=="心率"?'center-data':'hide'}>
-                    <h3 className="walk-data">80</h3>
+                    <h3 >80</h3>
                     <p>开始测量</p>
                 </div>
 

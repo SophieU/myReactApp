@@ -48,7 +48,7 @@ class Sleep extends React.Component {
                     </Modal>
                 </List>
                 <div className="sleep-charts">
-                    <Charts />
+                    <Charts  type="bar"/>
                 </div>
             </div>)
     }

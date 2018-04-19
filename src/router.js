@@ -1,18 +1,18 @@
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import {HashRouter as Router,Route} from 'react-router-dom';
 import Header from './components/header/header';
 import Container from './pages/container/container'
 
-class Router extends React.Component{
+class RouterCom extends React.Component{
     render(){
         return(
-            <BrowserRouter>
+            <Router >
                 <div>
                     <Header />
-                    <Container></Container>
+                    <Route path="/" component={Container}></Route>
                 </div>
-            </BrowserRouter>
+            </Router>
         )
     }
 }
-export default Router;
+export default RouterCom;

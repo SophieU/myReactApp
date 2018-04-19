@@ -2,6 +2,7 @@
   "name": "simple-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "antd-mobile": "^2.1.8",
     "axios": "^0.18.0",
@@ -24,8 +25,6 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.6.7",
-    "less": "^3.0.1",
-    "less-loader": "^4.1.0",
     "node-sass": "^4.8.3",
     "react-app-rewired": "^1.5.0",
     "sass-loader": "^6.0.7"

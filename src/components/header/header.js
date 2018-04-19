@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {NavBar,Icon,Popover} from 'antd-mobile';
+import {NavBar,Icon} from 'antd-mobile';
 import PropTypes from 'prop-types';
 import './header.scss';
 
@@ -58,16 +58,16 @@ const routes={
     },
 
 }
-const LeftIcon = ()=>{
-    switch(window.location.pathname){
+const LeftIcon = (nowPath)=>{
+    switch(nowPath){
         case '/':
             return <div  key="0" className="flexbox"><Icon size="lg" type="left"/><span className="text-black">返回</span></div>;
         default:
             return <div  key="0" className='flexbox'><Icon type="left"/><span className="text-black">返回</span></div>;
     }
 }
-const RightIcon = ()=>{
-    switch(window.location.pathname){
+const RightIcon = (nowPath)=>{
+    switch(nowPath){
         case '/device-admin':
             return <Link key="0" to='/register-dev'>添加设备</Link>;
         case '/':
@@ -97,15 +97,18 @@ class Header extends React.Component {
             selectedFamily:'碗豆'
         }
         this.changeFamily=this.changeFamily.bind(this);
+        this.onLeftClick=this.onLeftClick.bind(this);
     }
     componentWillReceiveProps(){
+
         var nowPath = this.context.router.history.location.pathname;
-        let title = ''
+        let title = '';
         if(routes[nowPath]!==undefined){
             title = routes[nowPath].title;
         }
        this.setState({
-           nowRoute:title
+           nowRoute:title,
+           nowPath:nowPath
        })
     }
     changeFamily(opt){
@@ -114,14 +117,14 @@ class Header extends React.Component {
             selectedFamily:opt.props.value,
         })
     }
-    onLeftClick=(e)=>{
+    onLeftClick(nowPath){
         const pathArr = [
             '/sleep',
             '/walk',
             '/blood',
             '/heartbeat'
         ]
-        if(pathArr.indexOf(window.location.pathname)!==-1){
+        if(pathArr.indexOf(nowPath)!==-1){
             this.context.router.history.push('/')
         }else{
             window.history.back()
@@ -129,15 +132,16 @@ class Header extends React.Component {
 
     }
     render() {
+        const nowPath = this.state.nowPath;
         return (
 
             <div className="header-bar">
                 <NavBar
                     mode="light"
-                    onLeftClick={this.onLeftClick}
-                    leftContent={[LeftIcon()]}
+                    onLeftClick={()=>this.onLeftClick(nowPath)}
+                    leftContent={[LeftIcon(nowPath)]}
                     rightContent={[
-                        RightIcon(),
+                        RightIcon(nowPath),
                     ]}
                 >
                     <span>{this.state.nowRoute}</span>

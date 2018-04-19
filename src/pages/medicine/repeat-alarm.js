@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 const CheckboxItem = Checkbox.CheckboxItem;
 
 
-class Test extends React.Component {
+class Repeat extends React.Component {
     constructor(){
         super();
         this.state={
@@ -62,4 +62,4 @@ class Test extends React.Component {
     }
 }
 
-export default Test;
+export default Repeat;

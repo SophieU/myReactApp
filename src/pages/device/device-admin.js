@@ -1,9 +1,17 @@
 import React from 'react';
 import './device.scss';
-import {List,Icon} from 'antd-mobile';
+import {List,Modal} from 'antd-mobile';
 
 const Item = List.Item;
+const alert = Modal.alert;
 class Test extends React.Component {
+    deleteAlert(id,name){
+        let tips = '确认要删除'+name+'吗？';
+        alert('提示',tips,[
+            {text:'取消',onPress:()=>console.log('取消删除')},
+            {text:'确定',onPress:()=>this.deleteDevice(id)}
+        ])
+    }
     deleteDevice(id){
         console.log(id)
     }
@@ -29,7 +37,7 @@ class Test extends React.Component {
                         mockDevices.map(item=>(
                             <Item
                                 key={item.id}
-                                extra={<button onClick={(e)=>{this.deleteDevice(item.id)}} className="delete-btn">删除</button>}
+                                extra={<button onClick={(e)=>{this.deleteAlert(item.id,item.name)}} className="delete-btn">删除</button>}
                             >
                             <div className="device-info flexbox">
                                 <img src={require('../../images/defaultAvatar.png')} alt=""/>

@@ -34,6 +34,7 @@ class Charts extends React.Component {
                 z: 10
             },
             yAxis: {
+                splitNumber:3,
                 axisLine: {
                     lineStyle:{
                         color:'#F0F0F0'

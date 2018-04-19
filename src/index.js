@@ -14,7 +14,15 @@ const render = ()=>ReactDOM.render(<App />, document.getElementById('root'));
  * 一生约app初始化 并挂载实例
  */
 const appinit = window.appinit;
+
 appinit(function (ysyapp) {
+    /*
+    * ysyapp: function
+    * @params:
+    *   data{*}:传入原生方法的参数
+    *   funName{string}:原生方法名
+    *   callback{function(res)}:调用成功后的回调，
+    * */
     window.ysyapp =  ysyapp;
     /**
      * 获取登录信息

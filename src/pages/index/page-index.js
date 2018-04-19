@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import store from '../../state/store';
 import {Toast} from 'antd-mobile'
 
-
 //健康模块
 const WatchLink=(props)=>{
     return(

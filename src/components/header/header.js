@@ -83,7 +83,6 @@ const RightIcon = (nowPath)=>{
     }
 }
 
-
 class Header extends React.Component {
     //利用PropTypes记住所跳转每个页面的位置
     static contextTypes = {
@@ -99,8 +98,8 @@ class Header extends React.Component {
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
-    componentWillReceiveProps(){
 
+    componentWillReceiveProps(){
         var nowPath = this.context.router.history.location.pathname;
         let title = '';
         if(routes[nowPath]!==undefined){
@@ -109,7 +108,8 @@ class Header extends React.Component {
        this.setState({
            nowRoute:title,
            nowPath:nowPath
-       })
+       });
+
     }
     changeFamily(opt){
         this.setState({

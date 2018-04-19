@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.scss';
-import Router from './router.js'
+import RouterCom from './router.js'
 
 class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Router />
+        <RouterCom />
       </div>
     );
   }

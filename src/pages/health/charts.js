@@ -162,7 +162,7 @@ class Charts extends React.Component {
     }
     componentDidMount(){
         const echartType = this.props.type;
-        if(echartType=='line'){
+        if(echartType==='line'){
             this.drawLine();
         }else{
             this.drawBar();

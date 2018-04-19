@@ -1,6 +1,5 @@
 import React from 'react';
 import {List,InputItem,Button,WhiteSpace,WingBlank,Toast} from 'antd-mobile';
-import {createForm} from 'rc-form';
 import store from '../../state/store';
 import axios from '../../api';
 import './mailbook.scss';
@@ -27,13 +26,6 @@ class AddMail extends React.Component {
         const tel = this.state.tel;
         const openId = store.device.openId;
         const equipmentId = store.device.equipmentId;
-        const param = {
-            file:formData,
-            name:name,
-            number:tel,
-            openId:openId,
-            equipmentId:equipmentId
-        }
         var formData = new FormData();
         formData.append('file',file[0]);
         formData.append('name',name);
@@ -79,7 +71,7 @@ class AddMail extends React.Component {
         })
     };
     nickNameInput=(value)=>{
-        if(value.length==0||value.length>10){
+        if(value.length===0||value.length>10){
             this.setState({
                 hasErrorName:true
             })

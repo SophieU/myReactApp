@@ -18,7 +18,7 @@ class BasicAlarm extends React.Component {
             {time:"08:00",repeat:'每天',isOpen:true},
             {time:"08:00",repeat:'自定义',isOpen:false},
         ]
-        const {getFieldProps,getFieldError} = this.props.form;
+        const {getFieldProps} = this.props.form;
         return (
             <div>
                 {

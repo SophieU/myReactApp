@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link,Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './index.scss';
 import IconLists from './icon-lists';
 import LocationIndex from './index-location'
@@ -66,7 +66,6 @@ class Index extends React.Component{
         }
     }
     componentDidMount(){
-        const _this = this;
         // 检测当前openId是否已注册设备
         axios.get('/api/userLogin?openId=83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
             .then(res=>{

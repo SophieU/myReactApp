@@ -98,18 +98,25 @@ class Header extends React.Component {
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
-
+    componentDidMount(){
+        // fix 页面刷新时 ，nav title恢复默认的问题
+        this.changeNavTitle();
+    }
     componentWillReceiveProps(){
-        var nowPath = this.context.router.history.location.pathname;
+        // 路由改变时，切换title
+        this.changeNavTitle()
+    }
+    changeNavTitle=()=>{
+        // 切换title
+        const nowPath = window.location.hash.substring(1);
         let title = '';
         if(routes[nowPath]!==undefined){
             title = routes[nowPath].title;
         }
-       this.setState({
-           nowRoute:title,
-           nowPath:nowPath
-       });
-
+        this.setState({
+            nowRoute:title,
+            nowPath:nowPath
+        });
     }
     changeFamily(opt){
         this.setState({

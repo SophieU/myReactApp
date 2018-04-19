@@ -15,7 +15,7 @@ class BasicAddMed extends React.Component {
         console.log(obj)
     }
     render() {
-        const {getFieldProps,getFieldError} =  this.props.form;
+        const {getFieldProps} =  this.props.form;
         return (
             <div className="medicine-inner">
                 <div className="datetime-wrapper">

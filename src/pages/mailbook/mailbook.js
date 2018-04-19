@@ -1,5 +1,5 @@
 import React from 'react';
-import {List,Toast} from 'antd-mobile';
+import {List} from 'antd-mobile';
 import axios from '../../api';
 import store from '../../state/store';
 
@@ -44,7 +44,7 @@ class MailBook extends React.Component {
     }
     render() {
         const datas = this.state.mail
-        if(datas.length==0){
+        if(datas.length===0){
             return (<div className="insertShadow">加载中...</div>)
         }else{
             return (

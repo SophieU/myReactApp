@@ -17,12 +17,9 @@ import Blood from '../health/blood';
 import Register from '../device/register-device'
 
 class Container extends  React.Component{
-    routerChange(){
-        console.log('changed')
-    }
     render(){
         return(
-            <Route  onChange={this.routerChange}  id="container">
+            <div id="container">
                 <Route exact path='/' component={Index}></Route>
                 <Route path='/choose-dev' component={ChooseDev}></Route>
                 <Route path='/register' component={Register}></Route>
@@ -39,7 +36,7 @@ class Container extends  React.Component{
                 <Route path='/walk' component={Walk}></Route>
                 <Route path='/heartbeat' component={HeartBeat}></Route>
                 <Route path='/blood' component={Blood}></Route>
-            </Route>
+            </div>
         )
     }
 }

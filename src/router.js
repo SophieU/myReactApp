@@ -4,14 +4,13 @@ import Header from './components/header/header';
 import Container from './pages/container/container'
 
 class RouterCom extends React.Component{
-
     render(){
         return(
             <Router >
-                <Route>
+                <div>
                     <Header />
-                    <Route path="/" component={Container}></Route>
-                </Route>
+                    <Route component={Container}></Route>
+                </div>
             </Router>
         )
     }

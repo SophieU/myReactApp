@@ -6,9 +6,10 @@ import LocationIndex from './index-location'
 import DevStatu from './dev-status';
 import axios from '../../api';
 import PropTypes from 'prop-types';
-import store from '../../state/store';
 import {Toast} from 'antd-mobile'
 
+// 原生方法
+const ysyapp = window.ysyapp;
 //健康模块
 const WatchLink=(props)=>{
     return(
@@ -73,9 +74,13 @@ class Index extends React.Component{
                 const isRegister = res.data.success;
                 if(!isRegister){
                     // 未注册的跳转
-                    this.context.router.history.push('/register')
-                    // console.log(_this.context.router)
-                    // console.log(Route)
+                    if(ysyapp){
+                        ysyapp({
+                            funName:"bindDevice"
+                        })
+                    }else{
+                        this.context.router.history.push('/register')
+                    }
                 }else{
                     const deviceData = res.data.data;
                     localStorage.setItem('equipmentId',deviceData.equipmentId);

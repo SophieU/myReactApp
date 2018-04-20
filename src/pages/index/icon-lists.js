@@ -16,7 +16,16 @@ class IconList extends React.Component {
         alert('跳转到我的')
     };
     goChat=()=>{
-       alert('跳转到微聊')
+        const ysyapp = window.ysyapp;
+       if(ysyapp){
+           ysyapp({
+               funName:"chatRoom",
+               data:"",
+           })
+       }else{
+           alert('跳转到微聊')
+       }
+
     };
     render() {
         const iconsData = [

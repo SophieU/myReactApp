@@ -26,7 +26,7 @@ class BasicRegister extends React.Component{
             .then(res=>{
                 const result = res.data.success;
                 if(!result){
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                     // this.context.router.history.push('/')
                 }
                 console.log(res)
@@ -47,14 +47,14 @@ class BasicRegister extends React.Component{
         axios.get('/api/userReg?'+query,).then(res=>{
                 const result = res.data.success;
                 if(result){
-                    Toast.info(res.data.msg);
+                    Toast.info(res.data.msg,1);
                     const _this = this;
                     setTimeout(()=>{
                         _this.context.router.history.push('/')
                     },1000)
 
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
         })
     }

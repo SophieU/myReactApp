@@ -31,9 +31,7 @@ appinit(function (ysyapp) {
             funName:'getUserId',
             data:"",
             callback:function (res) {
-                axios.defaults.headers.common['accessToken'] = res.accessToken;
                 localStorage.setItem('openId', res.userId);
-                // localStorage.setItem('accessToken',res.accessToken);
                 render();
             }
         });

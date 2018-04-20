@@ -1,3 +1,5 @@
+## 参考访问 https://sophieu.github.io/smart-device-webapp/build/index.html
+
 ## 功能模块
 - 设备管理
     1. 注册设备（涉及原生扫描） OK

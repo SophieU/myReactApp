@@ -66,8 +66,9 @@ class Index extends React.Component{
         }
     }
     componentDidMount(){
+        const openId = localStorage.openId;
         // 检测当前openId是否已注册设备
-        axios.get('/api/userLogin?openId=83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
+        axios.get('/api/userLogin?openId='+openId)
             .then(res=>{
                 const isRegister = res.data.success;
                 if(!isRegister){
@@ -77,9 +78,7 @@ class Index extends React.Component{
                     // console.log(Route)
                 }else{
                     const deviceData = res.data.data;
-                    store.device.openId=deviceData.openId;
-                    store.device.equipmentId=deviceData.equipmentId;
-                    store.device.role=deviceData.role;
+                    localStorage.setItem('equipmentId',deviceData.equipmentId);
                     this.setState({
                         role:deviceData.role
                     });
@@ -88,8 +87,11 @@ class Index extends React.Component{
                 }
             })
     }
+    // 获取设备信息
     getDeviceDatas=()=>{
-        const query = 'openId='+store.device.openId+'&equipmentId='+store.device.equipmentId;
+        const openId = localStorage.openId;
+        const equipmentId = localStorage.equipmentId;
+        const query = 'openId='+openId+'&equipmentId='+equipmentId;
         axios.get('/api/home/deviceData?'+query)
             .then(res=>{
                 const fakeData = {
@@ -117,8 +119,11 @@ class Index extends React.Component{
                 })
             })
     }
+    // 查询设备网络状态
     getInternetStatus=()=>{
-        const query = 'openId='+store.device.openId+'&equipmentId='+store.device.equipmentId;
+        const openId = localStorage.openId;
+        const equipmentId = localStorage.equipmentId;
+        const query = 'openId='+openId+'&equipmentId='+equipmentId;
         axios.get('/api/home/deviceStatus?'+query)
             .then(res=>{
                 if(!res.data.success){
@@ -128,8 +133,8 @@ class Index extends React.Component{
                     online:res.data.success
                 })
 
-            }).then(()=>{
-        })
+            })
+
     }
     //切换角色
     changeRole=(val)=>{

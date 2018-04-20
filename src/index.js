@@ -32,12 +32,14 @@ appinit(function (ysyapp) {
             data:"",
             callback:function (res) {
                 axios.defaults.headers.common['accessToken'] = res.accessToken;
-                localStorage.setItem('userId', res.userId);
-                localStorage.setItem('accessToken',res.accessToken);
+                localStorage.setItem('openId', res.userId);
+                // localStorage.setItem('accessToken',res.accessToken);
                 render();
             }
         });
     }else{
+        // 在非app环境中
+        localStorage.setItem('openId','83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
         render();
     }
 });

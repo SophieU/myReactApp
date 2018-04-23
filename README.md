@@ -26,3 +26,27 @@
     4. 睡眠
 - 微聊
     1. 目前用原生语音聊天功能
+
+## 原生方法调用
+/*
+    * ysyapp: function
+    * @params:
+    *   data{*}:传入原生方法的参数
+    *   funName{string}:原生方法名
+    *   callback{function(res)}:调用成功后的回调，
+    * */
+
+## 原生方法名约定
+1. 进入首页获取 userId
+    getUserId
+2. 跳转原生聊天室
+    chatRoom
+3. 跳转原生注册/绑定页
+    bindDevice
+4. 从首页点返回，退出安心桥H5
+    backToNative
+
+## H5对应页地址
+1. 首页(目前在生产环境)
+    http://192.168.0.24:3000/#/
+

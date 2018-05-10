@@ -98,7 +98,7 @@ class Header extends React.Component {
             nowRoute:'设备选择',
             popVisible:false,
             selectedFamily:'碗豆'
-        }
+        };
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
@@ -143,9 +143,11 @@ class Header extends React.Component {
                     funName:"backToNative"
                 });
             }else{
-                alert("跳转到原生入口页")
+                alert("跳转到原生入口页");
+                this.context.router.history.push('/register')
             }
         }else if(pathArr.indexOf(nowPath)!==-1){
+
             this.context.router.history.push('/')
         }else{
             window.history.back()

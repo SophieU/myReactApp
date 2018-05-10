@@ -24,6 +24,10 @@ class Index extends React.Component{
             role:'',
             online:false,
             heart:0,
+            lnglat:{},
+            electricity:0,
+            rollCount:0,
+            stepsNum:0,
             deviceData:{
                 electricity:0,
                 latitude:0,
@@ -37,7 +41,6 @@ class Index extends React.Component{
     componentDidMount(){
         this.openId = localStorage.getOpenId(); // app初始化时已获取
         this.checkLogin(this.openId);
-
     }
     checkLogin(openId){
         // 检测当前openId是否已注册设备(登录)
@@ -60,7 +63,9 @@ class Index extends React.Component{
                     this.setState({
                         role:deviceData.role
                     });
+                    // 查询网络状态
                     this.getInternetStatus();
+                    // 获取设备数据
                     this.getDeviceDatas();
                 }
             })
@@ -88,6 +93,18 @@ class Index extends React.Component{
                             "bloodPressure":"90/80"
                     }
             }
+                const devData = res.data.data;
+                const heartData = res.data.heart;
+                this.setState({
+                    electricity:devData.electricity,
+                    lnglat:{
+                        latitude:devData.latitude,
+                        longitude:devData.longitude
+                    },
+                    stepsNum:devData.stepsNum,
+                    rollCount:devData.rollCount,
+                    heartbeat:heartData.heartbeat
+                })
             // const data = res.data.data;
                 const heart = fakeData.heart;
                 const deviceData = fakeData.data;
@@ -122,24 +139,18 @@ class Index extends React.Component{
     }
     render(){
         let devStatu = {
-            electricity:this.state.deviceData.electricity,
+            electricity:this.state.electricity,
             role:this.state.role,
             status:this.state.online?'数据连接':'设备不在线'
         };
         const lnglat = {
-            latitude:this.state.deviceData.latitude,
-            longitude:this.state.deviceData.longitude
+            latitude:this.state.lnglat.latitude,
+            longitude:this.state.lnglat.longitude
         };
 
-        const healthData = {
-            heart:this.state.heart,
-            rollCount:this.state.deviceData.rollCount,
-            stepsNum:this.state.deviceData.stepsNum,
-            bloodPressure:this.state.deviceData.bloodPressure
-        };
         return(
             <div>
-                <DevStatu {...devStatu}changeRole={this.changeRole}/>
+                <DevStatu {...devStatu} changeRole={this.changeRole}/>
                 <div className="control-panel">
                     <IconLists />
                     <LocationIndex {...lnglat}/>
@@ -147,28 +158,28 @@ class Index extends React.Component{
                         <Link to="/walk" className="link-item">
                             <img alt="" src={require('../../images/pic-walk.png')}/>
                             <div className="link-data">
-                                <p><strong>{healthData.stepsNum}</strong>步</p>
+                                <p><strong>{this.state.stepsNum}</strong>步</p>
                                 <p>计步</p>
                             </div>
                         </Link>
                         <Link to="/heartbeat" className="link-item">
                             <img alt="" src={require('../../images/pic-heartbeat.png')}/>
                             <div className="link-data">
-                                <p><strong>{healthData.heart}</strong></p>
+                                <p><strong>{this.state.heart}</strong></p>
                                 <p>心率</p>
                             </div>
                         </Link>
                         <Link to="/blood" className="link-item">
                             <img alt="" src={require('../../images/pic-blood.png')}/>
                             <div className="link-data">
-                                <p><strong>{healthData.bloodPressure}</strong>mmHg</p>
+                                <p><strong>{this.state.bloodPressure}</strong>mmHg</p>
                                 <p>血压</p>
                             </div>
                         </Link>
                         <Link to="/sleep" className="link-item">
                             <img alt="" src={require('../../images/pic-sleep.png')}/>
                             <div className="link-data">
-                                <p><strong>{healthData.rollCount}</strong>次</p>
+                                <p><strong>{this.state.rollCount}</strong>次</p>
                                 <p>睡眠翻身次数</p>
                             </div>
                         </Link>

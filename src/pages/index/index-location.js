@@ -47,7 +47,7 @@ class LocationIndex extends React.Component {
     }
     componentWillUpdate(prop){
         const lnglat=[prop.longitude,prop.latitude];
-        if(lnglat[0]!==0&&lnglat[1]!==0&&this.state.nowAddress===''){
+        if(lnglat[0]!==undefined&&lnglat[1]!==undefined&&this.state.nowAddress===''){
             this.geolocation(lnglat);
             return;
         }else{

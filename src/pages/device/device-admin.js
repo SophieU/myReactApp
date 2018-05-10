@@ -5,6 +5,9 @@ import {List,Modal} from 'antd-mobile';
 const Item = List.Item;
 const alert = Modal.alert;
 class Test extends React.Component {
+    componentDidMount(){
+        
+    }
     deleteAlert(id,name){
         let tips = '确认要删除'+name+'吗？';
         alert('提示',tips,[

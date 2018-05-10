@@ -1,12 +1,31 @@
 import React from 'react';
-import './device.scss';
+import localStorage from '../../util/storage';
+import axios from '../../api';
 import {List,Modal} from 'antd-mobile';
+
+import './device.scss';
 
 const Item = List.Item;
 const alert = Modal.alert;
-class Test extends React.Component {
+class DeviceAdmin extends React.Component {
+    constructor(){
+        super();
+        this.state={
+            deviceLists:[]
+        }
+    }
     componentDidMount(){
-        
+        let openId = localStorage.getOpenId();
+        axios.get('/api/home/deviceList?openId='+openId)
+            .then(res=>{
+               let result = res.data;
+               if(result.success){
+                   this.setState({
+                       deviceLists:result.data
+                   })
+               }
+            });
+        console.log(openId)
     }
     deleteAlert(id,name){
         let tips = '确认要删除'+name+'吗？';
@@ -16,37 +35,24 @@ class Test extends React.Component {
         ])
     }
     deleteDevice(id){
-        console.log(id)
+        console.log('无删除设备接口')
     }
     render() {
-        const mockDevices=[
-            {
-                avatar:'../../images/defaultAvatar.png',
-                name:'大伯',
-                code:'234556678564',
-                id:'a15846523asdf'
-            },{
-                avatar:'../../images/defaultAvatar.png',
-                name:'二姑父',
-                code:'234556678564',
-                id:'4a2w4sdf'
-            }
-        ]
 
         return (
             <div>
                 <List>
                     {
-                        mockDevices.map(item=>(
+                        this.state.deviceLists.map(device=>(
                             <Item
-                                key={item.id}
-                                extra={<button onClick={(e)=>{this.deleteAlert(item.id,item.name)}} className="delete-btn">删除</button>}
+                                key={device.id}
+                                extra={<button onClick={(e)=>{this.deleteAlert(device.id,device.role)}} className="delete-btn">删除</button>}
                             >
                             <div className="device-info flexbox">
                                 <img src={require('../../images/defaultAvatar.png')} alt=""/>
                                 <div>
-                                    <h4>{item.name}</h4>
-                                    <p>{item.code}</p>
+                                    <h4>{device.role}</h4>
+                                    <p>{device.equipmentId}</p>
                                 </div>
                             </div>
                         </Item>))
@@ -57,4 +63,4 @@ class Test extends React.Component {
     }
 }
 
-export default Test;
+export default DeviceAdmin;

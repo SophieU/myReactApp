@@ -1,31 +1,32 @@
 import React from 'react';
 import {List,InputItem,Button,WhiteSpace,WingBlank,Toast} from 'antd-mobile';
-import store from '../../state/store';
 import axios from '../../api';
+import localStorage from '../../util/storage';
+import {CSSTransition} from 'react-transition-group';
+import Header from '../../components/header/header';
+
 import './mailbook.scss';
-import PropTypes from 'prop-types';
 
 class AddMail extends React.Component {
-    static contextTypes ={
-        router:PropTypes.object
-    }
+
     constructor(){
         super();
         this.state={
             imgFile:'',
             nickName:'',
-            tel:''
+            tel:'',
+            show:false,
         }
     }
     submit=()=>{
-        const router = this.context.router.history;
+        const router = this.props.history;
 
         const file = this.refs.uploadInput.files;
 
         const name = this.state.nickName;
         const tel = this.state.tel;
-        const openId = store.device.openId;
-        const equipmentId = store.device.equipmentId;
+        const openId = localStorage.getOpenId();
+        const equipmentId = localStorage.getEquipmentId();
         var formData = new FormData();
         formData.append('file',file[0]);
         formData.append('name',name);
@@ -36,9 +37,10 @@ class AddMail extends React.Component {
             headers:{
                 'Content-Type':'multipart/form-data'
             }
-        }
+        };
         axios.post('/api/tel/saveOrUpdate',formData,config).then(res=>{
            if(res.data.success){
+               Toast.info(res.data.msg);
                router.push('/mail-book')
            }else{
                Toast.info(res.data.msg)
@@ -46,7 +48,7 @@ class AddMail extends React.Component {
         })
 
     };
-    // img review
+    // 图片回显
     fileChanged=(e)=>{
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -86,21 +88,24 @@ class AddMail extends React.Component {
     }
     render() {
         return (
-            <div className="add-mail">
-                <div className="upload-block">
-                    <img src={require('../../images/defaultAvatar.png')} ref="uploadImg" alt=""/>
-                    <input ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
-                </div>
-                <List>
-                    <InputItem error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>
-                    <InputItem error={this.state.hasErrorTel} onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
-                </List>
-                <WingBlank>
-                    <WhiteSpace />
-                    <Button onClick={this.submit} type="primary">保存</Button>
-                </WingBlank>
+            <CSSTransition in={this.state.show} timeout={300} classNames="transition">
+                <div className="add-mail">
+                    <div className="upload-block">
+                        <img src={require('../../images/defaultAvatar.png')} ref="uploadImg" alt=""/>
+                        <input ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
+                    </div>
+                    <List>
+                        <InputItem error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>
+                        <InputItem error={this.state.hasErrorTel} onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
+                    </List>
+                    <WingBlank>
+                        <WhiteSpace />
+                        <Button onClick={this.submit} type="primary">保存</Button>
+                    </WingBlank>
 
-            </div>)
+                </div>
+            </CSSTransition>
+            )
     }
 }
 

@@ -5,6 +5,8 @@
 
 #container{
   font-size: 12px;
+  height:100%;
+  width:100%;
 }
 
 @keyframes App-logo-spin {
@@ -45,10 +47,14 @@
 /*app 主内容*/
 .app-content{
   position: fixed;
-  top:calcSize(45);
+  top:calcSize(46);
   left:0;
   right:0;
   bottom:0;
   z-index:10;
 
+}
+/* 子页面进入过渡动画*/
+.transition-enter{
+  transform:translate3d(0,100%,0);
 }

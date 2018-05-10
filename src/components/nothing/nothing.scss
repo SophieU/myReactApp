@@ -1,0 +1,23 @@
+@import "../../App";
+.nothing{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:99;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .nothing-box{
+    margin-top:calcSize(-50);
+    font-size: 13px;
+    color: #666;
+
+  }
+  img{
+    width:60%;
+    margin-bottom: calcSize(20);
+  }
+}

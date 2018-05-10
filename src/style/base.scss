@@ -29,19 +29,6 @@ a:visited,a:active,a:link{
   align-items: center;
 }
 
-.insetShadow{
-  position: relative;
-  &:before{
-    content: '';
-    display: block;
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:2px;
-    background: rgba(216,216,216,0.3);
-  }
-}
 @mixin list-style{
   img{
     width:calcSize(42);

@@ -28,20 +28,7 @@
       overflow: hidden;
       z-index:2;
       opacity: 0;
-      //&::before{
-      //  content: "添加头像";
-      //  display: flex;
-      //  justify-content: center;
-      //  align-items: center;
-      //  background: #E5E5E5;
-      //  position: absolute;
-      //  top:0;
-      //  left:0;
-      //  right:0;
-      //  bottom:0;
-      //  font-size: 12px;
-      //  text-align: center;
-      //}
+
     }
   }
   .form-label{
@@ -54,6 +41,40 @@
     font-size: 14px;
     &::placeholder{
       font-size: 14px;
+    }
+  }
+}
+.mail-book{
+  .tel-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left{
+      display: flex;
+      img{
+        width:calcSize(42);
+        height:calcSize(42);
+        border-radius: 50%;
+        margin-right: calcSize(17);
+      }
+      h4{
+        font-size: 16px;
+        color: #2B2B2B;
+      }
+      p{
+        font-size: 14px;
+        color: #4A4A4A;
+      }
+    }
+    .right{
+      font-size: 12px;
+      color: #FF4040;
+      text-align: center;
+      img{
+        width:calcSize(16);
+        height:auto;
+      }
+
     }
   }
 }

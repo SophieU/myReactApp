@@ -3,7 +3,6 @@ import {List,InputItem,Button,WhiteSpace,WingBlank,Toast} from 'antd-mobile';
 import axios from '../../api';
 import localStorage from '../../util/storage';
 import {CSSTransition} from 'react-transition-group';
-import Header from '../../components/header/header';
 
 import './mailbook.scss';
 
@@ -18,6 +17,20 @@ class AddMail extends React.Component {
             show:false,
         }
     }
+    componentDidMount(){
+        this.setState({
+            show:true
+        });
+        let mailType = this.props.match.params.id;
+
+        if(mailType==="add"){
+            // 添加
+        }else{
+            // 修改或查看详情
+
+        }
+
+    }
     submit=()=>{
         const router = this.props.history;
 
@@ -27,7 +40,7 @@ class AddMail extends React.Component {
         const tel = this.state.tel;
         const openId = localStorage.getOpenId();
         const equipmentId = localStorage.getEquipmentId();
-        var formData = new FormData();
+        let formData = new FormData();
         formData.append('file',file[0]);
         formData.append('name',name);
         formData.append('number',tel);
@@ -85,7 +98,7 @@ class AddMail extends React.Component {
         this.setState({
             nickName:value
         })
-    }
+    };
     render() {
         return (
             <CSSTransition in={this.state.show} timeout={300} classNames="transition">

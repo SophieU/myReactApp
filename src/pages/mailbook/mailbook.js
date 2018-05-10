@@ -4,6 +4,8 @@ import delIcon from '../../images/del.png';
 import axios from '../../api';
 import localStorage from '../../util/storage';
 import Nothing from '../../components/nothing/Nothing';
+import {Route} from 'react-router-dom';
+import AddMail from './add-mail';
 
 import './mailbook.scss';
 
@@ -34,8 +36,13 @@ class MailBook extends React.Component {
     delTel=(id)=>{
       console.log(id)
     };
+    toMailDetail=(id)=>{
+        this.props.history.push('/mail-book/'+id);
+
+    };
     render() {
         const mails = this.state.mail;
+        let match=this.props.match;
         return (
             <div className="mail-book">
                 <Nothing show={this.state.nothing} title={"您还没有亲情号码哦"}/>
@@ -43,7 +50,7 @@ class MailBook extends React.Component {
                     {
                         mails.map(tel=>(
                             <Item  key={tel.id}>
-                                <div className="tel-item">
+                                <div className="tel-item" onClick={()=>this.toMailDetail(tel.id)}>
                                     <div className="left">
                                         <img src={"data:image/jpg;base64,"+tel.pic} alt="avatar"/>
                                         <div>
@@ -60,6 +67,7 @@ class MailBook extends React.Component {
                         ))
                     }
                 </List>
+                <Route path={`${match.url+'/:id'}`} component={AddMail}/>
             </div>)
 
     }

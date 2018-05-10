@@ -49,7 +49,7 @@ class RouterCom extends React.Component{
                                 <Route path='/repeat-alarm' component={RepeatAlarm}></Route>
                                 <Route path='/device-admin' component={DeviceAdmin}></Route>
                                 <Route path='/register-dev' component={RegisterDev}></Route>
-                                <Route path='/add-mail' component={AddMail}></Route>
+                                <Route path='/mail-book/:id' component={AddMail}></Route>
                                 <Route path='/mail-book' component={MailBook}></Route>
                                 <Route path='/sleep' component={Sleep}></Route>
                                 <Route path='/walk' component={Walk}></Route>

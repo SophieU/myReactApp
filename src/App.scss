@@ -54,7 +54,11 @@
   z-index:10;
 
 }
-/* 子页面进入过渡动画*/
+/* 子路由进场动画*/
 .transition-enter{
-  transform:translate3d(0,100%,0);
+  transform:translate3d(100%,0,0);
+  &.transition-enter-active{
+    transition:transform .3s;
+    transform:translate3d(0,0,0);
+  }
 }

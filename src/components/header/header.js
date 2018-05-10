@@ -81,7 +81,7 @@ const RightIcon = (props)=>{
         case '/medicine':
             return <Link key="3" to='/add-medicine'>添加</Link>;
         case '/mail-book':
-            return <Link key="4" to='/add-mail'>添加</Link>;
+            return <Link key="4" to='/mail-book/add'>添加</Link>;
         default:
             return null;
     }

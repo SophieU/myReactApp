@@ -6,45 +6,13 @@ import LocationIndex from './index-location'
 import DevStatu from './dev-status';
 import axios from '../../api';
 import PropTypes from 'prop-types';
-import {Toast} from 'antd-mobile'
+import {Toast} from 'antd-mobile';
+import localStorage from '../../util/storage';
+import Scroll from '../../components/scroll/Scroll';
 
 // 原生方法
 const ysyapp = window.ysyapp;
-//健康模块
-const WatchLink=(props)=>{
-    return(
-        <div className="watch-link">
-            <Link to="/walk" className="link-item">
-                <img alt="" src={require('../../images/pic-walk.png')}/>
-                <div className="link-data">
-                    <p><strong>{props.stepsNum}</strong>步</p>
-                    <p>计步</p>
-                </div>
-            </Link>
-            <Link to="/heartbeat" className="link-item">
-                <img alt="" src={require('../../images/pic-heartbeat.png')}/>
-                <div className="link-data">
-                    <p><strong>{props.heart}</strong></p>
-                    <p>心率</p>
-                </div>
-            </Link>
-            <Link to="/blood" className="link-item">
-                <img alt="" src={require('../../images/pic-blood.png')}/>
-                <div className="link-data">
-                    <p><strong>{props.bloodPressure}</strong>mmHg</p>
-                    <p>血压</p>
-                </div>
-            </Link>
-            <Link to="/sleep" className="link-item">
-                <img alt="" src={require('../../images/pic-sleep.png')}/>
-                <div className="link-data">
-                    <p><strong>{props.rollCount}</strong>次</p>
-                    <p>睡眠翻身次数</p>
-                </div>
-            </Link>
-        </div>
-    )
-};
+
 
 class Index extends React.Component{
     static contextTypes ={
@@ -67,8 +35,12 @@ class Index extends React.Component{
         }
     }
     componentDidMount(){
-        const openId = localStorage.openId;
-        // 检测当前openId是否已注册设备
+        this.openId = localStorage.getOpenId(); // app初始化时已获取
+        this.checkLogin(this.openId);
+
+    }
+    checkLogin(openId){
+        // 检测当前openId是否已注册设备(登录)
         axios.get('/api/userLogin?openId='+openId)
             .then(res=>{
                 const isRegister = res.data.success;
@@ -83,7 +55,8 @@ class Index extends React.Component{
                     }
                 }else{
                     const deviceData = res.data.data;
-                    localStorage.setItem('equipmentId',deviceData.equipmentId);
+                    localStorage.setEquipmentId(deviceData.equipmentId);
+                    // localStorage.setItem('equipmentId',deviceData.equipmentId);
                     this.setState({
                         role:deviceData.role
                     });
@@ -94,8 +67,8 @@ class Index extends React.Component{
     }
     // 获取设备信息
     getDeviceDatas=()=>{
-        const openId = localStorage.openId;
-        const equipmentId = localStorage.equipmentId;
+        const openId = this.openId;
+        const equipmentId = localStorage.getEquipmentId();
         const query = 'openId='+openId+'&equipmentId='+equipmentId;
         axios.get('/api/home/deviceData?'+query)
             .then(res=>{
@@ -126,8 +99,8 @@ class Index extends React.Component{
     }
     // 查询设备网络状态
     getInternetStatus=()=>{
-        const openId = localStorage.openId;
-        const equipmentId = localStorage.equipmentId;
+        const openId = this.openId;
+        const equipmentId = localStorage.getEquipmentId();
         const query = 'openId='+openId+'&equipmentId='+equipmentId;
         axios.get('/api/home/deviceStatus?'+query)
             .then(res=>{
@@ -170,7 +143,36 @@ class Index extends React.Component{
                 <div className="control-panel">
                     <IconLists />
                     <LocationIndex {...lnglat}/>
-                    <WatchLink {...healthData}/>
+                    <div className="watch-link">
+                        <Link to="/walk" className="link-item">
+                            <img alt="" src={require('../../images/pic-walk.png')}/>
+                            <div className="link-data">
+                                <p><strong>{healthData.stepsNum}</strong>步</p>
+                                <p>计步</p>
+                            </div>
+                        </Link>
+                        <Link to="/heartbeat" className="link-item">
+                            <img alt="" src={require('../../images/pic-heartbeat.png')}/>
+                            <div className="link-data">
+                                <p><strong>{healthData.heart}</strong></p>
+                                <p>心率</p>
+                            </div>
+                        </Link>
+                        <Link to="/blood" className="link-item">
+                            <img alt="" src={require('../../images/pic-blood.png')}/>
+                            <div className="link-data">
+                                <p><strong>{healthData.bloodPressure}</strong>mmHg</p>
+                                <p>血压</p>
+                            </div>
+                        </Link>
+                        <Link to="/sleep" className="link-item">
+                            <img alt="" src={require('../../images/pic-sleep.png')}/>
+                            <div className="link-data">
+                                <p><strong>{healthData.rollCount}</strong>次</p>
+                                <p>睡眠翻身次数</p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
         )

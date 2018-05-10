@@ -6,6 +6,7 @@
   "dependencies": {
     "antd-mobile": "^2.1.8",
     "axios": "^0.18.0",
+    "better-scroll": "^1.10.3",
     "echarts": "^4.0.4",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",

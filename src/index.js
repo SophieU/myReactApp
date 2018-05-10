@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from './api';
-import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import localStorage from './util/storage';
 
 const render = ()=>ReactDOM.render(<App />, document.getElementById('root'));
 /**
@@ -31,13 +30,13 @@ appinit(function (ysyapp) {
             funName:'getUserId',
             data:"",
             callback:function (res) {
-                localStorage.setItem('openId', res.userId);
+                localStorage.setOpenId(res.userId);
                 render();
             }
         });
     }else{
         // 在非app环境中
-        localStorage.setItem('openId','83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
+        localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
         render();
     }
 });

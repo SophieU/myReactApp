@@ -4,15 +4,22 @@ $baseSize:37.5;
 }
 html,body{
   max-width:750px;
-  margin:0 auto;
+  margin:0 ;
+  padding: 0;
   min-height:100%;
   background: #f5f5f5;
-  font-family: '微软雅黑';
+  font-family: '微软雅黑', sans-serif;
 }
 div,p,ul,li,h1,h2,h3,h4,h5{
   margin:0;
   padding:0;
   list-style: none;
+}
+a{
+  text-decoration: none;
+}
+a:visited,a:active,a:link{
+  color: #000;
 }
 .hide{
   display: none!important;
@@ -21,6 +28,7 @@ div,p,ul,li,h1,h2,h3,h4,h5{
   display: flex;
   align-items: center;
 }
+
 .insetShadow{
   position: relative;
   &:before{

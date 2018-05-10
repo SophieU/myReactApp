@@ -5,9 +5,6 @@ import './health.scss';
 
 
 class Health extends React.Component {
-    constructor(props){
-        super(props);
-    }
     render() {
         const tabs = [
             {title:"计步",url:'/walk'},
@@ -19,7 +16,7 @@ class Health extends React.Component {
             <div >
                 <ul className="health-tab-bar">
                     {
-                        tabs.map(item=>(<li key={item.url} className={this.props.now==item.title?'tab-item active':'tab-item'}><Link to={item.url}>{item.title}</Link></li>))
+                        tabs.map(item=>(<li key={item.url} className={this.props.now===item.title?'tab-item active':'tab-item'}><Link to={item.url}>{item.title}</Link></li>))
                     }
                 </ul>
             </div>)

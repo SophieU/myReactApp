@@ -1,5 +1,5 @@
 import React from 'react';
-import {List} from 'antd-mobile';
+import {List,Toast} from 'antd-mobile';
 import delIcon from '../../images/del.png';
 import axios from '../../api';
 import localStorage from '../../util/storage';
@@ -33,8 +33,26 @@ class MailBook extends React.Component {
                 }
             })
     }
-    delTel=(id)=>{
-      console.log(id)
+    delTel=(e,equipmentId,sort,index)=>{
+        e.stopPropagation();
+        let openId = localStorage.getOpenId();
+        let paraStr = `?openId=${openId}&equipmentId=${equipmentId}&sort=${sort}`;
+        axios.get('/api/tel/delTel'+paraStr)
+            .then(res=>{
+                if(res.data.success){
+                    Toast.info('删除成功');
+                    let newMail = Object.assign({},this.state.mail);
+                    newMail.splice(index,1);
+                    this.setState({
+                        mail:newMail
+                    })
+                }else{
+                    Toast.info(res.data.msg)
+                }
+                console.log(res.data)
+            })
+
+
     };
     toMailDetail=(id)=>{
         this.props.history.push('/mail-book/'+id);
@@ -48,7 +66,7 @@ class MailBook extends React.Component {
                 <Nothing show={this.state.nothing} title={"您还没有亲情号码哦"}/>
                 <List >
                     {
-                        mails.map(tel=>(
+                        mails.map((tel,index)=>(
                             <Item  key={tel.id}>
                                 <div className="tel-item" onClick={()=>this.toMailDetail(tel.id)}>
                                     <div className="left">
@@ -58,7 +76,7 @@ class MailBook extends React.Component {
                                             <p>{tel.number}</p>
                                         </div>
                                     </div>
-                                    <div className="right" onClick={()=>this.delTel(tel.id)}>
+                                    <div className="right" onClick={(e)=>this.delTel(e,tel.equipmentId,tel.sort,index)}>
                                         <img src={delIcon} alt=""/>
                                         <div>删除</div>
                                     </div>

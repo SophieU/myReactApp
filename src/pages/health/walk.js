@@ -58,6 +58,15 @@ class Walk extends React.Component {
                         <Item arrow="horizontal" extra={
                             <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
                         }>记录时间段3</Item>
+                        <Item arrow="horizontal" extra={
+                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
+                        }>记录时间段3</Item>
+                        <Item arrow="horizontal" extra={
+                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
+                        }>记录时间段3</Item>
+                        <Item arrow="horizontal" extra={
+                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
+                        }>记录时间段3</Item>
                         <Modal
                             popup
                             visible={this.state.modal1}

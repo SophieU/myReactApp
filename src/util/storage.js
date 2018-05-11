@@ -15,6 +15,16 @@ let localStorage = {
     },
     setEquipmentId(id){
         window.localStorage.setItem("equipmentId",id);
+    },
+    getRepeatAlarm(){
+        let repeats = window.localStorage.getItem("repeatAlarm");
+        return repeats?JSON.parse(repeats):{};
+    },
+    setRepeatAlarm(repeat){
+        window.localStorage.setItem("repeatAlarm",JSON.stringify(repeat))
+    },
+    removeRepeatAlarm(){
+        window.localStorage.removeItem("repeatAlarm");
     }
 }
 export default localStorage;

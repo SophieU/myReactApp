@@ -25,7 +25,7 @@ const routes={
         title:'添加提醒'
     },
     '/edit-medicine':{
-        title:'重复提醒'
+        title:'编辑提醒'
     },
     '/repeat-alarm':{
         title:'重复设置'
@@ -142,8 +142,9 @@ class Header extends React.Component {
                 ysyapp({
                     funName:"backToNative"
                 });
-            }else{
                 alert("跳转到原生入口页");
+            }else{
+
                 this.context.router.history.push('/register')
             }
         }else if(pathArr.indexOf(nowPath)!==-1){

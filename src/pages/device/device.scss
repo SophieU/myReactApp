@@ -7,9 +7,15 @@
   .am-icon{
     margin-left: -5px;
   }
+  img{
+    width:calcSize(16);
+    height:calcSize(16);
+    margin-bottom: 4px;
+  }
   //text-align: center;
 }
 .device-info{
+  padding:calcSize(10);
   img{
     width:calcSize(42);
     height:calcSize(42);
@@ -19,10 +25,11 @@
   h4{
     font-size: 16px;
     color: #2B2B2B;
+    font-weight: normal;
   }
   p{
     font-size: 14px;
-    color: #4A4A4A;
+    color: #777;
   }
 }
 

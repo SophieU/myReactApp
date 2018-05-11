@@ -77,41 +77,28 @@ class Index extends React.Component{
         const query = 'openId='+openId+'&equipmentId='+equipmentId;
         axios.get('/api/home/deviceData?'+query)
             .then(res=>{
-                const fakeData = {
-                    success: true, // true成功   false 失败
-                    msg: "成功", // 返回信息消息
-                    heart:89,//心率测试 为null则没有测试
-                    data:{//数据
-                        "createTime": 1499223209000, //创建时间戳
-                            "equipmentId": "3919752600",//设备Id
-                            "latitude": "30.655078",//纬度
-                            "longitude": "104.0667117",//经度
-                            "electricity": 81,//电量
-                            "rollCount": 511,//翻滚次数
-                            "stepsNum": 1369,//记步数
-                            "time": "2017-07-05 10:53:29",//时间
-                            "bloodPressure":"90/80"
-                    }
-            }
-                const devData = res.data.data;
-                const heartData = res.data.heart;
-                this.setState({
-                    electricity:devData.electricity,
-                    lnglat:{
-                        latitude:devData.latitude,
-                        longitude:devData.longitude
-                    },
-                    stepsNum:devData.stepsNum,
-                    rollCount:devData.rollCount,
-                    heartbeat:heartData.heartbeat
-                })
-            // const data = res.data.data;
-                const heart = fakeData.heart;
-                const deviceData = fakeData.data;
-                this.setState({
-                    deviceData:deviceData,
-                    heart:heart
-                })
+             if(res.data.success){
+                 const devData = res.data.data;
+                 const heartData = res.data.heart;
+                 this.setState({
+                     electricity:devData.electricity,
+                     lnglat:{
+                         latitude:devData.latitude,
+                         longitude:devData.longitude
+                     },
+                     stepsNum:devData.stepsNum,
+                     rollCount:devData.rollCount,
+                     heartbeat:heartData
+                 })
+
+                 this.setState({
+                     deviceData:devData,
+                     heart:heartData
+                 })
+             }else{
+                 console.log(res.data.msg)
+             }
+
             })
     }
     // 查询设备网络状态
@@ -165,7 +152,7 @@ class Index extends React.Component{
                         <Link to="/heartbeat" className="link-item">
                             <img alt="" src={require('../../images/pic-heartbeat.png')}/>
                             <div className="link-data">
-                                <p><strong>{this.state.heart}</strong></p>
+                                <p><strong>{this.state.heart===null?'':this.state.heart.heartbeat}</strong></p>
                                 <p>心率</p>
                             </div>
                         </Link>

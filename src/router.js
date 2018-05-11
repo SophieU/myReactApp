@@ -45,7 +45,7 @@ class RouterCom extends React.Component{
                                 <Route path='/location' component={GeoLocation}></Route>
                                 <Route path='/medicine' component={MedicineAlarm}></Route>
                                 <Route path='/add-medicine' component={AddMedicine}></Route>
-                                <Route path='/edit-medicine' component={AddMedicine}></Route>
+                                <Route path='/edit-medicine/:id' component={AddMedicine}></Route>
                                 <Route path='/repeat-alarm' component={RepeatAlarm}></Route>
                                 <Route path='/device-admin' component={DeviceAdmin}></Route>
                                 <Route path='/register-dev' component={RegisterDev}></Route>

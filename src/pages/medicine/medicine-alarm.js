@@ -12,11 +12,14 @@ class BasicAlarm extends React.Component {
             isOpen:false
         }
     }
+    componentDidMount(){
+
+    }
     render() {
         const alarms = [
-            {time:"08:00",repeat:'一天',isOpen:false},
-            {time:"08:00",repeat:'每天',isOpen:true},
-            {time:"08:00",repeat:'自定义',isOpen:false},
+            {time:"08:00",repeat:'一天',isOpen:false,id:0},
+            {time:"08:00",repeat:'每天',isOpen:true,id:1},
+            {time:"08:00",repeat:'自定义',isOpen:false,id:2},
         ]
         const {getFieldProps} = this.props.form;
         return (
@@ -31,7 +34,7 @@ class BasicAlarm extends React.Component {
                                         onClick={(checked)=>console.log(checked)}
                                     />}
                                 >
-                                    <Link  to='/edit-medicine'>
+                                    <Link  to={'/edit-medicine/'+item.id}>
                                         <h3>{item.time}</h3>
                                         <p className="alarm-repeat">{item.repeat}</p>
                                     </Link>

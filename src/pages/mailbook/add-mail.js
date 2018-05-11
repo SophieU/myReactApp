@@ -24,9 +24,7 @@ class AddMail extends React.Component {
         });
         let mailType = this.props.match.params.id;
 
-        if(mailType==="add"){
-
-        }else{
+        if(mailType!=="add"&&mailType!==''){
             // 修改或查看详情
             this.findTel(mailType);
         }
@@ -36,14 +34,13 @@ class AddMail extends React.Component {
         let openId = localStorage.getOpenId();
         let equipmentId = localStorage.getEquipmentId();
         let queryString = `?openId=${openId}&equipmentId=${equipmentId}&id=${id}`;
-        console.log(queryString);
         axios.get('/api/tel/findOne'+queryString)
             .then(res=>{
                 if(res.data.success){
                     let result = res.data.data;
                     this.setState({
-                        name:result.name,
-                        number:result.number,
+                        nickName:result.name,
+                        tel:result.number,
                         pic:"data:image/jpg;base64,"+result.pic
                     })
                 }
@@ -127,8 +124,8 @@ class AddMail extends React.Component {
                         <input ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
                     </div>
                     <List>
-                        <InputItem value={this.state.name} error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>
-                        <InputItem value={this.state.number} error={this.state.hasErrorTel} onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
+                        <InputItem value={this.state.nickName} error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>
+                        <InputItem value={this.state.tel} error={this.state.hasErrorTel} onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
                     </List>
                     <WingBlank>
                         <WhiteSpace />

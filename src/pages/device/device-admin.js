@@ -2,6 +2,7 @@ import React from 'react';
 import localStorage from '../../util/storage';
 import axios from '../../api';
 import {List,Modal} from 'antd-mobile';
+import delImg from '../../images/del.png';
 
 import './device.scss';
 
@@ -25,7 +26,6 @@ class DeviceAdmin extends React.Component {
                    })
                }
             });
-        console.log(openId)
     }
     deleteAlert(id,name){
         let tips = '确认要删除'+name+'吗？';
@@ -46,7 +46,9 @@ class DeviceAdmin extends React.Component {
                         this.state.deviceLists.map(device=>(
                             <Item
                                 key={device.id}
-                                extra={<button onClick={(e)=>{this.deleteAlert(device.id,device.role)}} className="delete-btn">删除</button>}
+                                extra={<button onClick={(e)=>{this.deleteAlert(device.id,device.role)}} className="delete-btn">
+                                    <img src={delImg} alt=""/>
+                                    <p>删除</p></button>}
                             >
                             <div className="device-info flexbox">
                                 <img src={require('../../images/defaultAvatar.png')} alt=""/>

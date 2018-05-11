@@ -67,6 +67,10 @@ class Index extends React.Component{
                     this.getInternetStatus();
                     // 获取设备数据
                     this.getDeviceDatas();
+                    // 获取手表电话
+                    this.getWatchTel();
+                    // 获取用户信息
+                    this.getUserInfo();
                 }
             })
     }
@@ -90,7 +94,7 @@ class Index extends React.Component{
                      rollCount:devData.rollCount,
                      heartbeat:heartData
                  })
-
+                 console.log(res.data)
                  this.setState({
                      deviceData:devData,
                      heart:heartData
@@ -116,7 +120,29 @@ class Index extends React.Component{
                 })
 
             })
-
+    };
+    /*查询手表电话*/
+    getWatchTel=()=>{
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/home/oldmanphone?openId=${openId}&equipmentId=${equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    this.setState({
+                        tel:res.data.data
+                    })
+                }else{
+                    Toast.info(res.data.msg)
+                }
+            })
+    };
+    /*查询当前用户信息*/
+    getUserInfo=()=>{
+        let openId = localStorage.getOpenId();
+        axios.get(`/api/home/userInfo?openId=${openId}`)
+            .then(res=>{
+                console.log(res.data)
+            })
     }
     //切换角色
     changeRole=(val)=>{

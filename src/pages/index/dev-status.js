@@ -1,5 +1,6 @@
 import React from 'react';
 import {Icon,Popover} from 'antd-mobile';
+import defaultAvatar from '../../images/defaultAvatar.png';
 
 
 const loadPopoverImg=(imgSrc)=>{
@@ -38,14 +39,7 @@ const FamilySel=(props)=>{
         </Popover>
     )
 }
-const Energy = (props)=>{
-    return (<div className="energy-box">
-        <div className="energy-bar">
-            <div style={{width:props.energy+'%'}} className="energy-bar-line"></div>
-        </div>
-        <span className="energy-title">{props.energy}%</span>
-    </div>)
-}
+
 
 class DevStatu extends React.Component {
     constructor(props){
@@ -67,8 +61,13 @@ class DevStatu extends React.Component {
         return (
             <div className="device-status insetShadow">
                 <FamilySel value={this.props.role} visible={this.state.showPop} onSelect={(opt)=>this.onSelect(opt)}/>
-                <img className="avatar" src="http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png"/>
-                <Energy energy={this.props.electricity}/>
+                <img className="avatar" src={this.props.headImg?this.props.headImg:defaultAvatar}/>
+                <div className="energy-box">
+                    <div className="energy-bar">
+                        <div style={{width:this.props.electricity+'%'}} className="energy-bar-line"></div>
+                    </div>
+                    <span className="energy-title">{this.props.electricity}%</span>
+                </div>
                 <p className="status-text">状态/{this.props.status}</p>
             </div>)
     }

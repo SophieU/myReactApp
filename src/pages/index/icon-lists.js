@@ -6,10 +6,14 @@ const alert = Modal.alert;
 
 class IconList extends React.Component {
     callPhone=(tel)=>{
-        alert('提醒', '确认拔打电话'+tel+'???', [
-            { text: '取消', onPress: () => console.log('cancel') },
-            { text: '确认', onPress: () => window.location.href="tel:"+tel},
-        ])
+        if(!tel){
+            alert('提醒','当前手表未设置电话')
+        }else{
+            alert('提醒', '确认拔打电话'+tel+'???', [
+                { text: '取消', onPress: () => console.log('cancel') },
+                { text: '确认', onPress: () => window.location.href="tel:"+tel},
+            ])
+        }
 
     };
     goMine=()=>{
@@ -42,12 +46,14 @@ class IconList extends React.Component {
                 iconUrl:require('../../images/icon-call.png'),
                 title:'电话',
                 type:'alert',
-                handle:this.callPhone
+                handle:this.callPhone,
+                tel:this.props.tel
             },{
                 iconUrl:require('../../images/icon-120.png'),
                 title:'急救',
                 type:'alert',
-                handle:this.callPhone
+                handle:this.callPhone,
+                tel:this.props.sos
             },{
                 iconUrl:require('../../images/icon-medicine.png'),
                 title:'提醒',
@@ -69,7 +75,7 @@ class IconList extends React.Component {
                                 <li key={index} className="icon-item">
                                     {
                                      icon.type==='alert'?
-                                         (<div onClick={()=>icon.handle(120)}>
+                                         (<div onClick={()=>icon.handle(icon.tel)}>
                                              <img src={icon.iconUrl}/>
                                              <span className="icon-title">{icon.title}</span>
                                          </div>):

@@ -58,6 +58,7 @@ class BasicAddMed extends React.Component {
       })
     };
     goRepeat=()=>{
+        console.log(this.state.repeat)
         if(this.state.repeat){
             this.props.history.push(`${this.props.match.url+'/repeat'}`);
         }else{
@@ -71,6 +72,7 @@ class BasicAddMed extends React.Component {
         if(this.state.repeat){
             repeats=this.state.repeatDate;
         }
+        this.props.history.push('/medicine')
     };
     render() {
         let match = this.props.match;

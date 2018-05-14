@@ -20,7 +20,6 @@ class BasicRegister extends React.Component{
     }
     checkReg=()=>{
         const fromPath = this.context.router;
-        console.log(fromPath)
         //检测设备是否注册
         axios.get('/api/checkRegCode?code=439019875297094')
             .then(res=>{
@@ -75,7 +74,7 @@ class BasicRegister extends React.Component{
                 <div className="flexbox">
                     <InputItem
                         type="text"
-                        placeholder="请输入设备码"
+                        placeholder="请输入设备注册码"
                          value={this.state.devCode}
                         // error={this.state.hasError}
                         // onErrorClick={this.onErrorClick}
@@ -98,7 +97,7 @@ class BasicRegister extends React.Component{
                 />
                 <InputItem
                     type="text"
-                    placeholder="验证码"
+                    placeholder="管理码"
                     value={this.state.authCode}
                     // error={this.state.hasError}
                     // onErrorClick={this.onErrorClick}

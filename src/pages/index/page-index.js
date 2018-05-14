@@ -28,6 +28,9 @@ class Index extends React.Component{
             electricity:0,
             rollCount:0,
             stepsNum:0,
+            userInfo:{},
+            tel:'',
+            sol:'',
             deviceData:{
                 electricity:0,
                 latitude:0,
@@ -71,6 +74,8 @@ class Index extends React.Component{
                     this.getWatchTel();
                     // 获取用户信息
                     this.getUserInfo();
+                    // 获取sos电话
+                    this.getSOS();
                 }
             })
     }
@@ -94,7 +99,6 @@ class Index extends React.Component{
                      rollCount:devData.rollCount,
                      heartbeat:heartData
                  })
-                 console.log(res.data)
                  this.setState({
                      deviceData:devData,
                      heart:heartData
@@ -128,11 +132,13 @@ class Index extends React.Component{
         axios.get(`/api/home/oldmanphone?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 if(res.data.success){
+                    console.log(res.data.data)
                     this.setState({
                         tel:res.data.data
                     })
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg);
+
                 }
             })
     };
@@ -141,31 +147,59 @@ class Index extends React.Component{
         let openId = localStorage.getOpenId();
         axios.get(`/api/home/userInfo?openId=${openId}`)
             .then(res=>{
-                console.log(res.data)
+                if(res.data.success){
+                    this.setState({
+                        userInfo:res.data.data
+                    })
+                }
             })
-    }
+    };
+    /*查询sos电话*/
+    getSOS=()=>{
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/home/getSos?openId=${openId}&equipmentId=${equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    this.setState({
+                        sos:res.data.sos1
+                    })
+                }else{
+                    Toast.info(res.data.msg)
+                }
+            })
+    };
     //切换角色
     changeRole=(val)=>{
         this.setState({
             role:val
         })
-    }
+        axios.get('/api/home/oldmanInfo')
+            .then(res=>{
+                console.log(res.data)
+            })
+    };
     render(){
         let devStatu = {
             electricity:this.state.electricity,
             role:this.state.role,
-            status:this.state.online?'数据连接':'设备不在线'
+            status:this.state.online?'数据连接':'设备不在线',
+            headImg:this.state.userInfo.headImg
         };
         const lnglat = {
             latitude:this.state.lnglat.latitude,
             longitude:this.state.lnglat.longitude
+        };
+        let iconList = {
+            tel:this.state.tel,
+            sos:this.state.sos
         };
 
         return(
             <div>
                 <DevStatu {...devStatu} changeRole={this.changeRole}/>
                 <div className="control-panel">
-                    <IconLists />
+                    <IconLists {...iconList} />
                     <LocationIndex {...lnglat}/>
                     <div className="watch-link">
                         <Link to="/walk" className="link-item">

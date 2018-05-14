@@ -1,6 +1,5 @@
 import React from 'react';
 import {List,Checkbox,Button,WhiteSpace,WingBlank ,Toast} from 'antd-mobile';
-import * as _ from 'lodash';
 import {CSSTransition} from 'react-transition-group';
 import localStorage from '../../util/storage';
 

@@ -15,9 +15,7 @@ const ysyapp = window.ysyapp;
 
 
 class Index extends React.Component{
-    static contextTypes ={
-        router:PropTypes.object
-    }
+
     constructor(){
         super();
         this.state={
@@ -32,14 +30,7 @@ class Index extends React.Component{
             tel:'',
             sol:'',
             deviceList:[],
-            deviceData:{
-                electricity:0,
-                latitude:0,
-                longitude:0,
-                rollCount:0,
-                stepsNum:0,
-                bloodPressure:'90/80'
-            }
+
         }
     }
     componentDidMount(){

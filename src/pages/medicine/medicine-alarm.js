@@ -1,8 +1,13 @@
 import React from 'react';
-import {List,Switch} from 'antd-mobile';
+import {List,Switch,Toast} from 'antd-mobile';
 import {createForm} from 'rc-form';
 import {Link} from 'react-router-dom';
+import localStorage from "../../util/storage";
+import {decodeAlert} from '../../model/medicine';
+import axios from '../../api';
+
 import './medicine.scss';
+
 
 const Item = List.Item;
 class BasicAlarm extends React.Component {
@@ -13,7 +18,18 @@ class BasicAlarm extends React.Component {
         }
     }
     componentDidMount(){
-
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/medicine/getMedicine?openId=${openId}&equipmentId=${equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    let medicine = res.data.medicine;
+                    decodeAlert(medicine)
+                }
+            },err=>{
+                Toast.info('加载失败',1);
+                console.log(err)
+            })
     }
     render() {
         const alarms = [

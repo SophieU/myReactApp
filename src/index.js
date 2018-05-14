@@ -36,7 +36,7 @@ appinit(function (ysyapp) {
         });
     }else{
         // 在非app环境中
-        localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3')
+        localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3');
         render();
     }
 });

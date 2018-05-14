@@ -56,7 +56,6 @@ class DevStatu extends React.Component {
         this.props.changeRole(value)
     }
     render() {
-        console.log(this.props.roleList[0])
         const Item = Popover.Item;
         let overlay  = [];
        this.props.roleList.forEach((item,index)=>{
@@ -72,7 +71,7 @@ class DevStatu extends React.Component {
            marginBottom:'12px',
            fontSize:'16px'
        };
-       let role = overlay[0].role?overlay[0].role:'sophie';
+       let role = this.props.roleList[0]?this.props.roleList[0].role:'sophie';
         return (
             <div className="device-status insetShadow">
                 <Popover mask

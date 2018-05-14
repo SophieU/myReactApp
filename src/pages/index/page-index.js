@@ -31,6 +31,7 @@ class Index extends React.Component{
             userInfo:{},
             tel:'',
             sol:'',
+            deviceList:[],
             deviceData:{
                 electricity:0,
                 latitude:0,
@@ -66,6 +67,8 @@ class Index extends React.Component{
                     this.setState({
                         role:deviceData.role
                     });
+                    //查询设备列表
+                    this.getDeviceList();
                     // 查询网络状态
                     this.getInternetStatus();
                     // 获取设备数据
@@ -154,6 +157,18 @@ class Index extends React.Component{
                 }
             })
     };
+    /*绑定的设备列表*/
+    getDeviceList(){
+        let openId = localStorage.getOpenId();
+        axios.get( `/api/home/deviceList?openId=${openId}`)
+            .then(res=>{
+                if(res.data.success){
+                    this.setState({
+                        deviceList:res.data.data
+                    })
+                }
+            })
+    }
     /*查询sos电话*/
     getSOS=()=>{
         let openId = localStorage.getOpenId();
@@ -173,8 +188,10 @@ class Index extends React.Component{
     changeRole=(val)=>{
         this.setState({
             role:val
-        })
-        axios.get('/api/home/oldmanInfo')
+        });
+        let openId = localStorage.getOpenId();
+        let equipmentId = '77795474';
+        axios.get(`/api/home/oldmanInfo?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 console.log(res.data)
             })
@@ -182,7 +199,7 @@ class Index extends React.Component{
     render(){
         let devStatu = {
             electricity:this.state.electricity,
-            role:this.state.role,
+            roleList:this.state.deviceList,
             status:this.state.online?'数据连接':'设备不在线',
             headImg:this.state.userInfo.headImg
         };

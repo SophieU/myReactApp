@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Modal} from 'antd-mobile';
+import localStorage from '../../util/storage'
 
 const alert = Modal.alert;
 
@@ -21,10 +22,13 @@ class IconList extends React.Component {
     };
     goChat=()=>{
         const ysyapp = window.ysyapp;
+        let equipmentId = localStorage.getEquipmentId();
        if(ysyapp){
            ysyapp({
                funName:"chatRoom",
-               data:"",
+               data:{
+                   equipmentId:equipmentId
+               },
            })
        }else{
            alert('跳转到微聊')

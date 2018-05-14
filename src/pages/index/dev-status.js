@@ -3,20 +3,18 @@ import {Icon,Popover} from 'antd-mobile';
 import defaultAvatar from '../../images/defaultAvatar.png';
 
 
-const loadPopoverImg=(imgSrc)=>{
-    return <img className="am-icon am-icon-xs" src={imgSrc}/>
-}
-
 const FamilySel=(props)=>{
     const Item = Popover.Item;
+    let overlay  = [];
+    props.list.forEach((item,index)=>{
+        let tpl = (<Item key={index} value={item.equipmentId}>{item.role}</Item>)
+        overlay.push(tpl)
+    });
     return (
         <Popover mask
              className="popover"
              visible={props.visible}
-             overlay={[
-                 (<Item  key="4" value="奶奶" icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>奶奶</Item>),
-                 (<Item key="5" value="爷爷"  icon={loadPopoverImg('http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png')}>爷爷</Item>),
-             ]}
+                 overlay={overlay}
              align={{
                  overflow: { adjustY: 0, adjustX: 0 },
                  offset: [0, 0],
@@ -58,9 +56,39 @@ class DevStatu extends React.Component {
         this.props.changeRole(value)
     }
     render() {
+        console.log(this.props.roleList[0])
+        const Item = Popover.Item;
+        let overlay  = [];
+       this.props.roleList.forEach((item,index)=>{
+            let tpl = (<Item key={index} value={item.equipmentId}>{item.role}</Item>)
+            overlay.push(tpl)
+        });
+       let popStyle={
+           height: '100%',
+           padding: '0 15px',
+           display: 'flex',
+           alignItems: 'center',
+           color: '#4A4A4A',
+           marginBottom:'12px',
+           fontSize:'16px'
+       };
+       let role = overlay[0].role?overlay[0].role:'sophie';
         return (
             <div className="device-status insetShadow">
-                <FamilySel value={this.props.role} visible={this.state.showPop} onSelect={(opt)=>this.onSelect(opt)}/>
+                <Popover mask
+                         className="popover"
+                         visible={this.state.showPop}
+                         overlay={overlay}
+                         align={{
+                             overflow: { adjustY: 0, adjustX: 0 },
+                             offset: [0, 0],
+                         }}
+                         onSelect={(opt)=>this.onSelect(opt)}
+                >
+                    <div style={popStyle}>
+                        {role}<Icon className="icon-color" size="xs" type="down"/>
+                    </div>
+                </Popover>
                 <img className="avatar" src={this.props.headImg?this.props.headImg:defaultAvatar}/>
                 <div className="energy-box">
                     <div className="energy-bar">

@@ -1,12 +1,12 @@
 import React from 'react';
 import {HashRouter as Router,Route} from 'react-router-dom';
-import Header from './components/header/header';
+import Header from './containers/header';
 import Scroll from './components/scroll/Scroll';
 
 import ChooseDev from './pages/choose-device/choose-device';
 import Index from './pages/index/page-index';
 import GeoLocation from './pages/location/geo-location';
-import MedicineAlarm from './pages/medicine/medicine-alarm';
+import MedicineAlarm from './containers/medicine-alarm';
 import AddMedicine from './pages/medicine/add-medicine';
 import RepeatAlarm from './pages/medicine/repeat-alarm';
 import DeviceAdmin from './pages/device/device-admin';

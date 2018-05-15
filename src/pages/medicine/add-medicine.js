@@ -1,11 +1,11 @@
 import React from 'react';
 import {createForm} from 'rc-form';
-import{ List,Switch,DatePickerView,Icon,Button,WhiteSpace,WingBlank} from 'antd-mobile';
-import {Link} from 'react-router-dom';
+import{ Toast,List,Switch,DatePickerView,Icon,Button,WhiteSpace,WingBlank} from 'antd-mobile';
 import Repeat from './repeat-alarm';
 import {Route} from 'react-router-dom';
 import localStorage from '../../util/storage';
-
+import {encodeAlert} from "../../model/medicine";
+import axios from '../../api'
 
 
 const Item = List.Item;
@@ -23,29 +23,40 @@ class BasicAddMed extends React.Component {
         let match=this.props.match;
         if(match.url==="/add-medicine"){
             console.log('添加')
+
         }else{
-            console.log('编辑')
+            let index = parseInt(this.props.match.params.id);
+            let alarmLists = localStorage.getAlarmLists();
+            let alarm = alarmLists[index]; // 00:00
+            let dateTime = new Date().getFullYear() + '/'+(new Date().getMonth()+1)+'/'+new Date().getDate()
+
+            this.setState({
+                time:new Date(dateTime+' '+alarm.time+":00"),
+                repeatDate:alarm.sequence,
+                repeat:alarm.sequence[0]==="一次"?false:true,
+            })
         }
     }
     /*从重复设置跳转回时*/
     componentDidUpdate(prePro){
-
         let from = prePro.location.pathname;
         let index = from.lastIndexOf('/');
         let fromRoute = from.substr(index);
         if(fromRoute==='/repeat'){
-            this.setState({
-                repeatDate:localStorage.getRepeatAlarm(),
-                repeat:true,
-            });
-
+            if(localStorage.getRepeatAlarm().length!==0){
+                this.setState({
+                    repeatDate:localStorage.getRepeatAlarm(),
+                },()=>{
+                    this.setState({
+                        repeat:this.state.repeatDate[0]==="一次"?false:true,
+                    })
+                });
+            }
+        }else{
+            localStorage.removeRepeatAlarm();
         }
-
-
     }
-    onChange(obj){
-        // console.log(obj)
-    }
+
     repeatHandler=(checked)=>{
         if(!checked){
             this.setState({
@@ -57,8 +68,10 @@ class BasicAddMed extends React.Component {
           repeat:checked
       })
     };
+    /*跳转至重复设置*/
     goRepeat=()=>{
         console.log(this.state.repeat)
+
         if(this.state.repeat){
             this.props.history.push(`${this.props.match.url+'/repeat'}`);
         }else{
@@ -66,25 +79,53 @@ class BasicAddMed extends React.Component {
         }
 
     };
+    formateTime=(time)=>{
+        let h = time.getHours()<10? '0'+time.getHours():time.getHours();
+        let mm = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes();
+        return h+":"+mm;
+    }
+    /*保存*/
     saveAlarm=()=>{
         let time = this.state.time;
-        let repeats = [];
-        if(this.state.repeat){
-            repeats=this.state.repeatDate;
+        let  repeats=this.state.repeatDate;
+        if(repeats.length===0){
+            Toast.info('请选择重复时间段');
+            return false;
         }
-        this.props.history.push('/medicine')
+        let index = parseInt(this.props.match.params.id)+1;
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        let timeStr = this.formateTime(time);
+        let dateTime = encodeAlert(timeStr,true,repeats);
+
+        axios.get(`/api/medicine/setup?openId=${openId}&equipmentId=${equipmentId}&udcount=${index}&remind=${dateTime}`)
+            .then(res=>{
+                if(res.data.success){
+                    Toast.info('设置成功',1)
+                    setTimeout(()=>{
+                        this.props.history.push('/medicine')
+                    },1000)
+                }else{
+                    Toast.info(res.data.msg)
+                }
+            })
+        console.log(repeats)
+        console.log(dateTime)
+        // this.props.history.push('/medicine')
     };
+
     render() {
         let match = this.props.match;
         const {getFieldProps} =  this.props.form;
+
         return (
             <div className="medicine-inner">
                 <div className="datetime-wrapper">
                     <DatePickerView
-                        user12Hours
+                        format="HH:mm"
                         mode={'time'}
                         value={this.state.time}
-                        onChange={this.onChange}
+                        onChange={(time)=>this.setState({time})}
                     />
                 </div>
                 <List>
@@ -97,7 +138,6 @@ class BasicAddMed extends React.Component {
                      </Item>
                     <Item onClick={this.goRepeat} extra={
                          <div className="repeat-day">
-                             <span style={this.state.repeat?{display:"none"}:{display:""}}>不重复</span>
                              {
                                  this.state.repeatDate.map((date,index)=>(<span key={index}>{date}</span>))
                              }

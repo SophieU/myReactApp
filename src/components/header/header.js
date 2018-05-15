@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {NavBar,Icon,Modal} from 'antd-mobile';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './header.scss';
 
@@ -79,7 +80,7 @@ const RightIcon = (props)=>{
         case '/location':
             return <span key="2" onClick={props.onClick} >刷新</span>;
         case '/medicine':
-            return <Link key="3" to='/add-medicine'>添加</Link>;
+            return <Link style={props.show?{display:""}:{display:"none"}} key="3" to='/add-medicine'>添加</Link>;
         case '/mail-book':
             return <Link key="4" to='/mail-book/add'>添加</Link>;
         default:
@@ -102,6 +103,7 @@ class Header extends React.Component {
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
+
     componentWillMount(){
         // fix 页面刷新时 ，nav title恢复默认的问题
         this.changeNavTitle();
@@ -171,6 +173,8 @@ class Header extends React.Component {
         }
     }
     render() {
+        let rightNavShow = this.props.navRightShow; //来自redux的state
+
         const nowPath = this.state.nowPath;
         return (
             <div className="header-bar">
@@ -179,7 +183,7 @@ class Header extends React.Component {
                     onLeftClick={()=>this.onLeftClick(nowPath)}
                     leftContent={[LeftIcon(nowPath)]}
                     rightContent={[
-                        <RightIcon key={0} onClick={this.goRegister} nowPath = {nowPath}/>
+                        <RightIcon show={rightNavShow} key={0} onClick={this.goRegister} nowPath = {nowPath}/>
                     ]}
                 >
                     <span>{this.state.nowRoute}</span>

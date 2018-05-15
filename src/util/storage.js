@@ -18,13 +18,20 @@ let localStorage = {
     },
     getRepeatAlarm(){
         let repeats = window.localStorage.getItem("repeatAlarm");
-        return repeats?JSON.parse(repeats):{};
+        return repeats?JSON.parse(repeats):[];
     },
     setRepeatAlarm(repeat){
         window.localStorage.setItem("repeatAlarm",JSON.stringify(repeat))
     },
     removeRepeatAlarm(){
         window.localStorage.removeItem("repeatAlarm");
+    },
+    getAlarmLists(){
+        let alarms = window.localStorage.getItem('alarmLists');
+        return alarms?JSON.parse(alarms):[];
+    },
+    setAlarmLists(alarms){
+        window.localStorage.setItem("alarmLists",JSON.stringify(alarms))
     }
 }
 export default localStorage;

@@ -1,4 +1,8 @@
 import React from 'react';
+import {Toast} from 'antd-mobile';
+import localStorage from '../../util/storage';
+import axios from '../../api';
+
 import './location.scss';
 
 const AMap = window.AMap;
@@ -13,27 +17,51 @@ const watchCover = '<div class="loc-marker">' +
 class GeoLocation extends React.Component {
     constructor(){
         super();
+        this.state={
+            openId:'',
+            equipmentId:''
+        }
         this.getNowGeo=this.getNowGeo.bind(this);
         this.locWatch = this.locWatch.bind(this);
         this.drawLine=this.drawLine.bind(this);
     }
     componentDidMount(){
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        this.setState({
+            openId,
+            equipmentId
+        })
         // 初始手表定位
-        this.locWatch(lgnlat)
+        this.getNowGeo();
     }
     // 手表定位
     locWatch(){
-        const map = new AMap.Map("geo-location",{
-            zoom:14,
-            center: lgnlat,
-        })
-        var marker = new AMap.Marker({ //添加自定义点标记
-            map: map,
-            position: lgnlat, //基点位置
-            offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
-            draggable: false,  //是否可拖动
-            content: watchCover   //自定义点标记覆盖物内容
-        });
+
+        // Toast.info('已发送手表定位指令')
+        axios.get(`/api/home/sendPositionCommand?openId=${this.state.openId}&equipmentId=${this.state.equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    Toast.info('定位指定发送成功')
+                }else{
+                    Toast.info(res.data.msg)
+                }
+            })
+            .then(()=>{
+                // const map = new AMap.Map("geo-location",{
+                //     zoom:14,
+                //     center: lgnlat,
+                // });
+                // var marker = new AMap.Marker({ //添加自定义点标记
+                //     map: map,
+                //     position: lgnlat, //基点位置
+                //     offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
+                //     draggable: false,  //是否可拖动
+                //     content: watchCover   //自定义点标记覆盖物内容
+                // });
+            })
+
+
     }
     // 获取手机定位
     getNowGeo(){
@@ -72,6 +100,10 @@ class GeoLocation extends React.Component {
         //     map.addControl(toolBar)
         // })
     }
+    //获取历史轨迹
+    getHistoryLine=()=>{
+        axios.get(`/api/home/getHistoryPosition`)
+    };
     //绘制轨迹
     drawLine(){
         const start = [104.143948,30.676779]

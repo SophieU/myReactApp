@@ -26,8 +26,13 @@ class BasicAlarm extends React.Component {
                 if(res.data.success){
                     let medicine = res.data.medicine;
                     let alarmLists = decodeAlert(medicine);
+                    localStorage.setAlarmLists(alarmLists);
                     this.setState({
                         alarmLists
+                    },()=>{
+                        if(alarmLists.length===3){
+                            this.props.hideNavRight(false)
+                        }
                     })
                 }
             },err=>{
@@ -36,11 +41,7 @@ class BasicAlarm extends React.Component {
             })
     }
     render() {
-        const alarms = [
-            {time:"08:00",repeat:'一天',isOpen:false,id:0},
-            {time:"08:00",repeat:'每天',isOpen:true,id:1},
-            {time:"08:00",repeat:'自定义',isOpen:false,id:2},
-        ];
+
         const {getFieldProps} = this.props.form;
 
         return (
@@ -55,14 +56,14 @@ class BasicAlarm extends React.Component {
                                         onClick={(checked)=>console.log(checked)}
                                     />}
                                 >
-                                    <Link  to={'/edit-medicine/'+item.id}>
+                                    <Link  to={'/edit-medicine/'+index}>
                                         <h3>{item.time}</h3>
                                         <p className="alarm-repeat">{
                                             item.sequence.map(item=>{
                                                 if(item.length===1){
                                                     return item;
                                                 }else{
-                                                    return item+' '
+                                                    return item+' ';
                                                 }
                                             })
                                         }</p>

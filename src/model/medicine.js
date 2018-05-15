@@ -1,4 +1,31 @@
-export function encodeAlert(){
+export function encodeAlert(time,open,repeat){
+    let formatStr = time+'-';
+   let openCode= open?1:0;
+   formatStr+=openCode;
+   console.log(formatStr);
+   switch (repeat[0]){
+       case '一次':
+           formatStr=formatStr+'-'+1;
+           break;
+       case '每天':
+           formatStr=formatStr+'-'+2;
+           break;
+       default:
+           let weekArr = ['周日','周一','周二','周三','周四','周五','周六'];
+           let arr=[0,0,0,0,0,0,0];
+           weekArr.forEach((item,index)=>{
+               for(let i=0;i<repeat.length;i++){
+                   if(item===repeat[i]){
+                       arr[index]=1;
+
+                   }
+               }
+           });
+           arr=arr.join('');
+           console.log(arr);
+           formatStr=formatStr+'-'+'3'+'-'+arr;
+   }
+   return formatStr;
 
 }
 export function decodeAlert(alertStr){
@@ -33,6 +60,5 @@ export function decodeAlert(alertStr){
         }
         alarms.push(temp)
     })
-    console.log(alarms)
     return alarms;
 }

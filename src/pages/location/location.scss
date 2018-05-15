@@ -5,6 +5,35 @@
   bottom:0;
   left:0;
   right:0;
+  .history-time{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    box-sizing: border-box;
+    height:calcSize(50);
+    padding:calcSize(9) calcSize(16);
+    background:rgba(0,0,0,.15) ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .date-btn{
+      background: #FFFFFF;
+      border-radius: 4px;
+      font-size: 15px;
+      color: #3AA7FF;
+      padding:calcSize(6) calcSize(15);
+      border:none;
+    }
+    .draw-btn{
+      background: #3AA7FF;
+      border-radius: 4px;
+      border:none;
+      font-size: 14px;
+      color: #FFFFFF;
+      padding:calcSize(6) calcSize(15);
+    }
+  }
 }
 .controller{
   position: absolute;
@@ -17,8 +46,12 @@
     margin-bottom: calcSize(6);
   }
 }
+
 #geo-location{
   height:100%;
+  .amap-geolocation-con{
+    display: none;
+  }
   .loc-marker{
     //border-radius: 48px;
     display: flex;

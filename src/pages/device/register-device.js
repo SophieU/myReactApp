@@ -34,7 +34,7 @@ class BasicRegister extends React.Component{
     submitReg=()=>{
         let regCode = this.state.devCode;
         let deviceName = this.state.devName;
-        let authCode = this.state.manCode;
+        let authCode = this.state.authCode;
         if(regCode===""||deviceName===""||authCode===""){
             Toast.info('请完整填写再提交')
         }
@@ -74,7 +74,7 @@ class BasicRegister extends React.Component{
                 <div className="flexbox">
                     <InputItem
                         type="text"
-                        placeholder="请输入设备注册码"
+                        placeholder="请输入设备码"
                          value={this.state.devCode}
                         // error={this.state.hasError}
                         // onErrorClick={this.onErrorClick}

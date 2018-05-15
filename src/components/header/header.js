@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {NavBar,Icon,Modal} from 'antd-mobile';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import './header.scss';
 
 const alert = Modal.alert;
@@ -89,10 +88,7 @@ const RightIcon = (props)=>{
 };
 const ysyapp = window.ysyapp;
 class Header extends React.Component {
-    //利用PropTypes记住所跳转每个页面的位置
-    static contextTypes = {
-        router: PropTypes.object
-    };
+
     constructor(){
         super();
         this.state={
@@ -103,12 +99,16 @@ class Header extends React.Component {
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
-
+    componentDidMount(){
+        console.log(this.props)
+    }
     componentWillMount(){
         // fix 页面刷新时 ，nav title恢复默认的问题
+        console.log(123456)
         this.changeNavTitle();
     }
     componentWillReceiveProps(){
+        console.log(123)
         // 路由改变时，切换title
         this.changeNavTitle();
     }
@@ -147,11 +147,11 @@ class Header extends React.Component {
                 alert("跳转到原生入口页");
             }else{
 
-                this.context.router.history.push('/register')
+                this.props.history.push('/register')
             }
         }else if(pathArr.indexOf(nowPath)!==-1){
 
-            this.context.router.history.push('/')
+            this.props.history.push('/')
         }else{
             window.history.back()
         }
@@ -166,7 +166,7 @@ class Header extends React.Component {
                 });
                 return;
             }else{
-                this.context.router.history.push('/register-dev')
+                this.props.history.push('/register-dev')
             }
         }else if(nowPath === "/location"){
             refresh();
@@ -176,6 +176,7 @@ class Header extends React.Component {
         let rightNavShow = this.props.navRightShow; //来自redux的state
 
         const nowPath = this.state.nowPath;
+        console.log(nowPath)
         return (
             <div className="header-bar">
                 <NavBar

@@ -31,6 +31,10 @@ class RouterCom extends React.Component{
     componentDidMount(){
         this.setState({refreshScroll:true});
     }
+    componentWillReceiveProps(){
+        console.log(123)
+        // 路由改变时，切换title
+    }
     render(){
         return(
             <Router >

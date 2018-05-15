@@ -14,7 +14,8 @@ class BasicAlarm extends React.Component {
     constructor(){
         super();
         this.state={
-            isOpen:false
+            isOpen:false,
+            alarmLists:[],
         }
     }
     componentDidMount(){
@@ -24,7 +25,10 @@ class BasicAlarm extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     let medicine = res.data.medicine;
-                    decodeAlert(medicine)
+                    let alarmLists = decodeAlert(medicine);
+                    this.setState({
+                        alarmLists
+                    })
                 }
             },err=>{
                 Toast.info('加载失败',1);
@@ -36,23 +40,32 @@ class BasicAlarm extends React.Component {
             {time:"08:00",repeat:'一天',isOpen:false,id:0},
             {time:"08:00",repeat:'每天',isOpen:true,id:1},
             {time:"08:00",repeat:'自定义',isOpen:false,id:2},
-        ]
+        ];
         const {getFieldProps} = this.props.form;
+
         return (
             <div>
                 {
-                    alarms.map((item,index)=>{
+                    this.state.alarmLists.map((item,index)=>{
                         return(
                             <List  key={index}>
                                 <Item
                                     extra={
-                                        <Switch {...getFieldProps(index+'',{initialValue:item.isOpen,valuePropName:'checked'})}
+                                        <Switch {...getFieldProps(index+'',{initialValue:item.checked,valuePropName:'checked'})}
                                         onClick={(checked)=>console.log(checked)}
                                     />}
                                 >
                                     <Link  to={'/edit-medicine/'+item.id}>
                                         <h3>{item.time}</h3>
-                                        <p className="alarm-repeat">{item.repeat}</p>
+                                        <p className="alarm-repeat">{
+                                            item.sequence.map(item=>{
+                                                if(item.length===1){
+                                                    return item;
+                                                }else{
+                                                    return item+' '
+                                                }
+                                            })
+                                        }</p>
                                     </Link>
 
                                 </Item>

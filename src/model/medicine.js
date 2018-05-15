@@ -2,31 +2,37 @@ export function encodeAlert(){
 
 }
 export function decodeAlert(alertStr){
-    console.log(alertStr)
     let alerts = alertStr.split(',');
     let alarms = [];
     alerts.forEach(alarm=>{
         let temp = {};
         temp.time=alarm.substr(0,alarm.indexOf('-'));
         alarm=alarm.substr(alarm.indexOf('-')+1);
-        temp.checked=!!alarm.substr(0,alarm.indexOf('-'));
+        temp.checked=alarm.substr(0,alarm.indexOf('-'))==='0'?false:true;
         alarm=alarm.substr(alarm.indexOf('-')+1);
-        let sequence = alarm.substr(0,alarm.indexOf('-'));
+        let sequence = alarm.substr(0,1);
         switch (sequence){
-            case 1:
-                temp.sequence='一次';
+            case '1':
+                temp.sequence=['一次'];
                 break;
-            case 2:
-                temp.sequence='每天';
+            case '2':
+                temp.sequence=['每天'];
                 break;
-            case 3:
+            case '3':
                 alarm=alarm.substr(alarm.indexOf('-')+1);
-                let dates = alarm.map(item=>{
-                    
-                })
+                let alarmArr=alarm.split('');
+                let cusDay = [];
+                alarmArr.forEach((item,index)=>{
+                    let weekends = ['周日','周一','周二','周三','周四','周五','周六'];
+                    if(item==='1'){
+                        cusDay.push(weekends[index]);
+                    }
+                });
+                temp.sequence=cusDay;
+                break;
         }
-        console.log(alarm)
         alarms.push(temp)
     })
     console.log(alarms)
+    return alarms;
 }

@@ -8,4 +8,4 @@ const mapStateToProps = (state)=>({
     navRightShow:state.hideNavRight,
 });
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps,null,null)(Header)

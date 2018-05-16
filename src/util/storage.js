@@ -32,6 +32,13 @@ let localStorage = {
     },
     setAlarmLists(alarms){
         window.localStorage.setItem("alarmLists",JSON.stringify(alarms))
+    },
+    getLocation(){
+        let lnglat = window.localStorage.getItem("lnglat");
+        return lnglat?JSON.parse(lnglat):[];
+    },
+    setLocation(lnglat){
+        window.localStorage.setItem('lnglat',JSON.stringify(lnglat));
     }
 }
 export default localStorage;

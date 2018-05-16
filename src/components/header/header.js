@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {NavBar,Icon,Modal} from 'antd-mobile';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
 import './header.scss';
 
 const alert = Modal.alert;
@@ -88,7 +90,9 @@ const RightIcon = (props)=>{
 };
 const ysyapp = window.ysyapp;
 class Header extends React.Component {
-
+    static contextTypes={
+        router:PropTypes.object
+    };
     constructor(){
         super();
         this.state={
@@ -99,16 +103,11 @@ class Header extends React.Component {
         this.changeFamily=this.changeFamily.bind(this);
         this.onLeftClick=this.onLeftClick.bind(this);
     }
-    componentDidMount(){
-        console.log(this.props)
-    }
     componentWillMount(){
         // fix 页面刷新时 ，nav title恢复默认的问题
-        console.log(123456)
         this.changeNavTitle();
     }
     componentWillReceiveProps(){
-        console.log(123)
         // 路由改变时，切换title
         this.changeNavTitle();
     }
@@ -131,6 +130,7 @@ class Header extends React.Component {
         })
     }
     onLeftClick(nowPath){
+        console.log(nowPath)
         const alert = Modal.alert;
         const pathArr = [
             '/sleep',
@@ -146,12 +146,11 @@ class Header extends React.Component {
                 });
                 alert("跳转到原生入口页");
             }else{
-
-                this.props.history.push('/register')
+                this.context.router.history.push('/register')
             }
         }else if(pathArr.indexOf(nowPath)!==-1){
 
-            this.props.history.push('/')
+            this.context.router.history.push('/')
         }else{
             window.history.back()
         }
@@ -166,7 +165,7 @@ class Header extends React.Component {
                 });
                 return;
             }else{
-                this.props.history.push('/register-dev')
+                this.context.router.history.push('/register-dev')
             }
         }else if(nowPath === "/location"){
             refresh();
@@ -175,8 +174,8 @@ class Header extends React.Component {
     render() {
         let rightNavShow = this.props.navRightShow; //来自redux的state
 
-        const nowPath = this.state.nowPath;
-        console.log(nowPath)
+        // const nowPath = this.state.nowPath;
+        const nowPath = this.context.router.route.location.pathname;
         return (
             <div className="header-bar">
                 <NavBar

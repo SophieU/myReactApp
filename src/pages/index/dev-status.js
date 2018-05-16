@@ -48,8 +48,10 @@ class DevStatu extends React.Component {
         }
     }
     onSelect(opt){
-        const value = opt.props.value;
-        console.log(value)
+        const value = {
+            role:opt.props.children,
+            equipmentId:opt.props.value
+        };
         this.setState({
             showPop:false,
         });
@@ -71,7 +73,7 @@ class DevStatu extends React.Component {
            marginBottom:'12px',
            fontSize:'16px'
        };
-       let role = this.props.roleList[0]?this.props.roleList[0].role:'sophie';
+
         return (
             <div className="device-status insetShadow">
                 <Popover mask
@@ -85,7 +87,7 @@ class DevStatu extends React.Component {
                          onSelect={(opt)=>this.onSelect(opt)}
                 >
                     <div style={popStyle}>
-                        {role}<Icon className="icon-color" size="xs" type="down"/>
+                        {this.props.role}<Icon className="icon-color" size="xs" type="down"/>
                     </div>
                 </Popover>
                 <img className="avatar" src={this.props.headImg?this.props.headImg:defaultAvatar}/>

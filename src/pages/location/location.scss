@@ -59,15 +59,21 @@
     position: relative;
     .avatar{
       display: block;
-      width:calcSize(48);
-      height:calcSize(48);
+      width:calcSize(32);
+      height:calcSize(32);
+      padding:2px;
+      background: #fff;
       border-radius: 100%;
+      border:1px solid #ddd;
+
     }
     .loc-text{
       width:calcSize(200);
       background: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,.3);
+      border-radius: 4px;
       position: absolute;
-      bottom:calcSize(60);
+      bottom:calcSize(40);
       padding:calcSize(10);
       left:calcSize(-100);
       .loc-title{

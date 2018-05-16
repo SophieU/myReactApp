@@ -1,6 +1,7 @@
 import React from 'react';
 import {HashRouter as Router,Route} from 'react-router-dom';
-import Header from './containers/header';
+// import Header from './containers/header';
+import Header from './components/header/header'
 import Scroll from './components/scroll/Scroll';
 
 import ChooseDev from './pages/choose-device/choose-device';
@@ -31,10 +32,7 @@ class RouterCom extends React.Component{
     componentDidMount(){
         this.setState({refreshScroll:true});
     }
-    componentWillReceiveProps(){
-        console.log(123)
-        // 路由改变时，切换title
-    }
+
     render(){
         return(
             <Router >

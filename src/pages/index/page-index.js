@@ -65,11 +65,11 @@ class Index extends React.Component{
                     // 获取设备数据
                     this.getDeviceDatas();
                     // 获取手表电话
-                    this.getWatchTel();
+                    // this.getWatchTel();
                     // 获取用户信息
                     this.getUserInfo();
                     // 获取sos电话
-                    this.getSOS();
+                    // this.getSOS();
                 }
             })
     }
@@ -92,10 +92,6 @@ class Index extends React.Component{
                      stepsNum:devData.stepsNum,
                      rollCount:devData.rollCount,
                      heartbeat:heartData
-                 })
-                 this.setState({
-                     deviceData:devData,
-                     heart:heartData
                  })
              }else{
                  console.log(res.data.msg)
@@ -142,6 +138,7 @@ class Index extends React.Component{
         axios.get(`/api/home/userInfo?openId=${openId}`)
             .then(res=>{
                 if(res.data.success){
+                    console.log(res.data.data)
                     this.setState({
                         userInfo:res.data.data
                     })
@@ -178,19 +175,37 @@ class Index extends React.Component{
     //切换角色
     changeRole=(val)=>{
         this.setState({
-            role:val
+            role:val.role
         });
         let openId = localStorage.getOpenId();
-        let equipmentId = '77795474';
+        let equipmentId = val.equipmentId;
         axios.get(`/api/home/oldmanInfo?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
+                if(res.data.success){
+                    let data = res.data.data;
+                    localStorage.setEquipmentId(data.eqid);
+                    this.setState({
+                        lnglat:{
+                            longitude:data.longitude,
+                            latitude:data.latitude
+                        },
+                        userInfo:data
+                    })
+                }
                 console.log(res.data)
+            })
+            .then(()=>{
+                // 查询网络状态
+                this.getInternetStatus();
+                // 获取设备数据
+                this.getDeviceDatas();
             })
     };
     render(){
         let devStatu = {
             electricity:this.state.electricity,
             roleList:this.state.deviceList,
+            role:this.state.role,
             status:this.state.online?'数据连接':'设备不在线',
             headImg:this.state.userInfo.headImg
         };

@@ -13,14 +13,14 @@ class GeoLocation extends React.Component {
         super();
         let now = new Date();
         let oneHour = new Date(now.getTime()-3600000);
-        let toDay = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
         this.state={
             openId:'',
             equipmentId:'',
-            toDay:toDay,
+            date:new Date(),
             timeStart:oneHour,
             timeEnd:now,
-            showHistory:false
+            showHistory:false,
+            watchAdd:''
         }
         this.getNowGeo=this.getNowGeo.bind(this);
         this.locWatch = this.locWatch.bind(this);
@@ -32,9 +32,50 @@ class GeoLocation extends React.Component {
         this.setState({
             openId,
             equipmentId
-        })
+        });
         // 初始手机定位
         this.getNowGeo();
+    }
+    // 手表定位显示
+    geolocation(lnglatXY){
+        const _this = this;
+
+        const map = new AMap.Map("geo-location",{
+            zoom:15,
+            center: lnglatXY,
+        });
+
+        AMap.service('AMap.Geocoder',function(){
+            const geocoder = new AMap.Geocoder({})
+            geocoder.getAddress(lnglatXY,function(status,result){
+                if(status==="complete"&&result.info==='OK'){
+                    let addressCom = result.regeocode.addressComponent;
+                    let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
+
+                    // 请求头像
+                    let src= "http://jk.anxinqiao.com/share/Img/'+data.headimg+'";
+                    const watchCover = '<div class="loc-marker">' +
+                        '<img class="avatar" src="'+src+'"/>' +
+                        '<div class="loc-text">' +
+                        '<div class="loc-title">'+address+'</div>' +
+                        '<p>刷新时间&nbsp;2秒前</p>'+
+                        '</div>'+
+                        '</div>';
+                    var marker = new AMap.Marker({ //添加自定义点标记
+                        map: map,
+                        position: lnglatXY, //基点位置
+                        offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
+                        draggable: false,  //是否可拖动
+                        content: watchCover   //自定义点标记覆盖物内容
+                    });
+                    _this.setState({
+                        watchAdd:address
+                    })
+                }else{
+                    Toast.info('定位失败')
+                }
+            })
+        })
     }
     // 手表定位
     locWatch(){
@@ -57,53 +98,19 @@ class GeoLocation extends React.Component {
                             let data = res.data.data;
                             let lgnlat = [data.longitude,data.latitude];
                             console.log(data)
-                            const map = new AMap.Map("geo-location",{
-                                zoom:15,
-                                center: lgnlat,
-                            });
-                            // map.getAddress(lgnlat,function(status,result){
-                            //     console.log(result)
-                            //     if(status==='complete'&&result.info==='OK'){
-                            //         let addressCom = result.regeocode.addressComponent;
-                            //         let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
-                            //         console.log(address)
-                            //     }
-                            // })
-                            let src= "http://jk.anxinqiao.com/share/Img/'+data.headimg+'";
-                            const watchCover = '<div class="loc-marker">' +
-                                '<img class="avatar" src="'+defaultAvatar+'"/>' +
-                                '<div class="loc-text">' +
-                                '<div class="loc-title">成都市武侯区科华北路35号</div>' +
-                                '<p>刷新时间&nbsp;2秒前</p>'+
-                                '</div>'+
-                                '</div>';
-                            var marker = new AMap.Marker({ //添加自定义点标记
-                                map: map,
-                                position: lgnlat, //基点位置
-                                offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
-                                draggable: false,  //是否可拖动
-                                content: watchCover   //自定义点标记覆盖物内容
-                            });
+                           this.geolocation(lgnlat)
                         }
                     })
 
             })
-
-
     }
     // 获取手机定位
     getNowGeo(){
         const map = new AMap.Map("geo-location",{
             zoom:14,
             center: lgnlat,
-        })
-        // var marker = new AMap.Marker({ //添加自定义点标记
-        //     map: map,
-        //     position: lgnlat, //基点位置
-        //     offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
-        //     draggable: false,  //是否可拖动
-        //     content: watchCover   //自定义点标记覆盖物内容
-        // });
+        });
+
         map.plugin('AMap.Geolocation',function(){
             var geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -121,20 +128,16 @@ class GeoLocation extends React.Component {
             map.addControl(geolocation);
             geolocation.getCurrentPosition();
         })
-        // map.plugin(["AMap.ToolBar"],function(){
-        //     var toolBar = new AMap.ToolBar({
-        //         locationMarker:marker
-        //     });
-        //     map.addControl(toolBar)
-        // })
+
     }
     //获取历史轨迹
     getHistoryLine=()=>{
         let openId = this.state.openId;
         let equipmentId = this.state.equipmentId;
-        let dateA = this.state.toDay+" "+this.formatTime(this.state.timeStart)+":00";
-        let dateB = this.state.toDay+" "+this.formatTime(this.state.timeEnd)+":00";
+        let dateA = this.formatTime(this.state.date,'day')+" "+this.formatTime(this.state.timeStart,'hours')+":00";
+        let dateB = this.formatTime(this.state.date,'day')+" "+this.formatTime(this.state.timeEnd,'hours')+":00";
         let paramStr = '?openId='+openId+'&equipmentId='+equipmentId+"&dateA="+dateA+"&dateB="+dateB;
+
         axios.get(`/api/home/getHistoryPosition${paramStr}`)
             .then(res=>{
                 if(res.data.success){
@@ -214,10 +217,18 @@ class GeoLocation extends React.Component {
         });
       console.log(time)
     };
-    formatTime=(time)=>{
-        let hh = time.getHours()<10?'0'+time.getHours():time.getHours();
-        let mm = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes();
-        return hh+':'+mm;
+    formatTime=(time,type)=>{
+        if(type==='hours'){
+            let hh = time.getHours()<10?'0'+time.getHours():time.getHours();
+            let mm = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes();
+            return hh+':'+mm;
+        }else if(type==='day'){
+            let yy = time.getFullYear();
+            let month = time.getMonth()+1<10?'0'+(time.getMonth()+1):time.getMont()+1;
+            let day = time.getDate()<10?'0'+time.getDate():time.getDate();
+            return yy+'-'+month+'-'+day;
+        }
+
     };
     render() {
         let historyStyle=this.state.showHistory?{display:''}:{display:'none'};
@@ -225,20 +236,27 @@ class GeoLocation extends React.Component {
             <div ref="location" className="geo-location-wrapper">
                 <div id="geo-location"></div>
                 <div className="history-time" style={historyStyle}>
-                    <button className="date-btn">{this.state.toDay}</button>
+                    <DatePicker
+                        mode={"date"}
+                        value={this.state.date}
+                        onChange={time=>this.setTime(time,'date')}
+                    >
+                        <button className="date-btn">{this.formatTime(this.state.date,'day')}</button>
+                    </DatePicker>
+
                     <DatePicker
                         mode={"time"}
                         value={this.state.timeStart}
                         onChange={time=>this.setTime(time,'timeStart')}
                     >
-                        <button className="date-btn">{this.formatTime(this.state.timeStart)}</button>
+                        <button className="date-btn">{this.formatTime(this.state.timeStart,'hours')}</button>
                     </DatePicker>
                     <DatePicker
                         mode={"time"}
                         value={this.state.timeEnd}
                         onChange={time=>this.setTime(time,'timeEnd')}
                     >
-                        <button className="date-btn">{this.formatTime(this.state.timeEnd)}</button>
+                        <button className="date-btn">{this.formatTime(this.state.timeEnd,'hours')}</button>
                     </DatePicker>
                     <button onClick={this.getHistoryLine} className="draw-btn">足迹</button>
 

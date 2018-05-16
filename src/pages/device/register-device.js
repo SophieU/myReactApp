@@ -4,9 +4,12 @@ import {createForm} from 'rc-form';
 import {List,InputItem,Toast,Button} from 'antd-mobile';
 import axios from '../../api';
 import localStorage from '../../util/storage';
+import PropTypes from 'prop-types';
 
 class BasicRegister extends React.Component{
-
+    static contextTypes= {
+        router:PropTypes.object
+    }
     constructor(){
         super();
         this.state={
@@ -18,17 +21,17 @@ class BasicRegister extends React.Component{
     componentDidMount(){
         // this.checkReg()
     }
-    checkReg=()=>{
+    checkReg=(value)=>{
         const fromPath = this.context.router;
         //检测设备是否注册
-        axios.get('/api/checkRegCode?code=439019875297094')
+        axios.get(`/api/checkRegCode?code=${value}`)
             .then(res=>{
                 const result = res.data.success;
                 if(!result){
                     Toast.info(res.data.msg,1)
                     // this.context.router.history.push('/')
                 }
-                console.log(res)
+                console.log(res.data)
             })
     }
     submitReg=()=>{
@@ -39,7 +42,7 @@ class BasicRegister extends React.Component{
             Toast.info('请完整填写再提交')
         }
         let openId = localStorage.getOpenId();
-        let paramStr = `?regCode=${regCode}&deviceName=${deviceName}&authCode=${authCode}&openId=${openId}`
+        let paramStr = `?regCode=${regCode}&deviceName=${deviceName}&manCode=${authCode}&openId=${openId}`
 
         /*const query = 'regCode=439019875297094' +
                       '&openId=83fedff0-4d54-4a02-a0a4-787c7d1b9df3' +
@@ -53,7 +56,7 @@ class BasicRegister extends React.Component{
                     Toast.info(res.data.msg,1);
                     const _this = this;
                     setTimeout(()=>{
-                        this.prop.history.push('/')
+                        this.context.router.history.push('/')
                     },1000)
 
                 }else{
@@ -76,8 +79,7 @@ class BasicRegister extends React.Component{
                         type="text"
                         placeholder="请输入设备码"
                          value={this.state.devCode}
-                        // error={this.state.hasError}
-                        // onErrorClick={this.onErrorClick}
+                        onBlur={(value)=>this.checkReg(value)}
                         onChange={(value)=>this.onChange(value,'devCode')}
                     />
                     <div className="scan-btn">
@@ -90,17 +92,12 @@ class BasicRegister extends React.Component{
                     type="text"
                     placeholder="请输入设备名称"
                     value={this.state.devName}
-                    // value="sophia"
-                    // error={this.state.hasError}
-                    // onErrorClick={this.onErrorClick}
                     onChange={(value)=>this.onChange(value,'devName')}
                 />
                 <InputItem
                     type="text"
                     placeholder="管理码"
                     value={this.state.authCode}
-                    // error={this.state.hasError}
-                    // onErrorClick={this.onErrorClick}
                     onChange={(value)=>this.onChange(value,'authCode')}
                 />
                 <Button type="primary" onClick={this.submitReg}>注册设备</Button>

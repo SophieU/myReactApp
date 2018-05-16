@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Toast} from 'antd-mobile'
+import {Toast} from 'antd-mobile';
+import localStorage from '../../util/storage'
 const AMap = window.AMap;
 
 
@@ -8,7 +9,23 @@ class LocationIndex extends React.Component {
     constructor(){
         super();
         this.state={
-            nowAddress:''
+            nowAddress:'',
+            lnglat:[]
+        }
+    }
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.latitude===undefined||nextProps.longitude===undefined) return false;
+        return true;
+    }
+    componentDidUpdate(prop){
+        const lnglat=[prop.longitude,prop.latitude];
+        if(lnglat[0]!==undefined&&lnglat[1]!==undefined&&this.state.nowAddress===''){
+            this.geolocation(lnglat);
+            return;
+        }else if(lnglat[0]!==this.state.lnglat[0]&&lnglat[1]!==this.state.lnglat[1]){
+            console.log(lnglat)
+            this.geolocation(lnglat);
+            return;
         }
     }
     geolocation(lnglatXY){
@@ -37,7 +54,8 @@ class LocationIndex extends React.Component {
                     let addressCom = result.regeocode.addressComponent;
                     let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
                     _this.setState({
-                        nowAddress:address
+                        nowAddress:address,
+                        lnglat:lnglatXY
                     })
                 }else{
                     Toast.info('定位失败')
@@ -45,15 +63,7 @@ class LocationIndex extends React.Component {
             })
         })
     }
-    componentWillUpdate(prop){
-        const lnglat=[prop.longitude,prop.latitude];
-        if(lnglat[0]!==undefined&&lnglat[1]!==undefined&&this.state.nowAddress===''){
-            this.geolocation(lnglat);
-            return;
-        }else{
-            return;
-        }
-    }
+
 
     render() {
         return (

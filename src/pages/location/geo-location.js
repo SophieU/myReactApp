@@ -208,7 +208,12 @@ class GeoLocation extends React.Component {
             passedPolyline.setPath(e.passedPath)
         })
         map.setFitView();
-        marker.moveAlong(lineArr, 100);
+        if(lineArr.length>40){
+            marker.moveAlong(lineArr, 1000);
+        }else{
+            marker.moveAlong(lineArr, 300);
+        }
+
 
     }
     setTime=(time,state)=>{

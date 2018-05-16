@@ -55,21 +55,16 @@ class Index extends React.Component{
                     const deviceData = res.data.data;
                     localStorage.setEquipmentId(deviceData.equipmentId);
                     // localStorage.setItem('equipmentId',deviceData.equipmentId);
-                    this.setState({
-                        role:deviceData.role
-                    });
                     //查询设备列表
                     this.getDeviceList();
-                    // 查询网络状态
-                    this.getInternetStatus();
-                    // 获取设备数据
-                    this.getDeviceDatas();
-                    // 获取手表电话
-                    // this.getWatchTel();
                     // 获取用户信息
                     this.getUserInfo();
+
+                    // 获取手表电话
+                    this.getWatchTel();
+
                     // 获取sos电话
-                    // this.getSOS();
+                    this.getSOS();
                 }
             })
     }
@@ -135,14 +130,27 @@ class Index extends React.Component{
     /*查询当前用户信息*/
     getUserInfo=()=>{
         let openId = localStorage.getOpenId();
-        axios.get(`/api/home/userInfo?openId=${openId}`)
+        let equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/home/oldmanInfo?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    console.log(res.data.data)
+                    let data = res.data.data;
+                    localStorage.setEquipmentId(data.eqid);
                     this.setState({
-                        userInfo:res.data.data
+                        lnglat:{
+                            longitude:data.longitude,
+                            latitude:data.latitude
+                        },
+                        userInfo:data
                     })
                 }
+                console.log(res.data)
+            })
+            .then(()=>{
+                // 查询网络状态
+                this.getInternetStatus();
+                // 获取设备数据
+                this.getDeviceDatas();
             })
     };
     /*绑定的设备列表*/
@@ -151,8 +159,10 @@ class Index extends React.Component{
         axios.get( `/api/home/deviceList?openId=${openId}`)
             .then(res=>{
                 if(res.data.success){
+                    localStorage.setEquipmentId(res.data.data[0].equipmentId);
                     this.setState({
-                        deviceList:res.data.data
+                        deviceList:res.data.data,
+                        role:res.data.data[0].role
                     })
                 }
             })
@@ -177,29 +187,9 @@ class Index extends React.Component{
         this.setState({
             role:val.role
         });
-        let openId = localStorage.getOpenId();
         let equipmentId = val.equipmentId;
-        axios.get(`/api/home/oldmanInfo?openId=${openId}&equipmentId=${equipmentId}`)
-            .then(res=>{
-                if(res.data.success){
-                    let data = res.data.data;
-                    localStorage.setEquipmentId(data.eqid);
-                    this.setState({
-                        lnglat:{
-                            longitude:data.longitude,
-                            latitude:data.latitude
-                        },
-                        userInfo:data
-                    })
-                }
-                console.log(res.data)
-            })
-            .then(()=>{
-                // 查询网络状态
-                this.getInternetStatus();
-                // 获取设备数据
-                this.getDeviceDatas();
-            })
+        localStorage.setEquipmentId(equipmentId);
+        this.getUserInfo()
     };
     render(){
         let devStatu = {

@@ -24,4 +24,13 @@
 
 注册码： 139021186251463
 管理码： 83799833
+equipmentId: 3921862146
+openId: 83fedff0-4d54-4a02-a0a4-787c7d1b9df3
 时间是2017-08-31
+
+Sophia
+openId: 83fedff0-4d54-4a02-a0a4-787c7d1b9df3
+equipmentId: 3919752709
+大爷
+openId: 83fedff0-4d54-4a02-a0a4-787c7d1b9df3
+equipmentId: 3921862146

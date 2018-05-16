@@ -1,6 +1,7 @@
 import React from 'react';
 import {Icon,Popover} from 'antd-mobile';
 import defaultAvatar from '../../images/defaultAvatar.png';
+import localStorage from '../../util/storage';
 
 
 const FamilySel=(props)=>{
@@ -55,6 +56,7 @@ class DevStatu extends React.Component {
         this.setState({
             showPop:false,
         });
+
         this.props.changeRole(value)
     }
     render() {

@@ -23,7 +23,7 @@ class LocationIndex extends React.Component {
             this.geolocation(lnglat);
             return;
         }else if(lnglat[0]!==this.state.lnglat[0]&&lnglat[1]!==this.state.lnglat[1]){
-            console.log(lnglat)
+
             this.geolocation(lnglat);
             return;
         }

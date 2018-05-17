@@ -53,7 +53,11 @@ class Index extends React.Component{
                     }
                 }else{
                     const deviceData = res.data.data;
-                    localStorage.setEquipmentId(deviceData.equipmentId);
+                    console.log(deviceData)
+                    if(localStorage.getEquipmentId()===""){
+                        localStorage.setEquipmentId(deviceData.equipmentId);
+                    }
+
                     // localStorage.setItem('equipmentId',deviceData.equipmentId);
                     //查询设备列表
                     this.getDeviceList();
@@ -117,7 +121,6 @@ class Index extends React.Component{
         axios.get(`/api/home/oldmanphone?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    console.log(res.data.data)
                     this.setState({
                         tel:res.data.data
                     })
@@ -136,13 +139,13 @@ class Index extends React.Component{
                 if(res.data.success){
                     let data = res.data.data;
                     localStorage.setEquipmentId(data.eqid);
-                    localStorage.setHeadImg(data.headimg)
+                    localStorage.setHeadImg(data.headimg);
                     this.setState({
                         lnglat:{
                             longitude:data.longitude,
                             latitude:data.latitude
                         },
-                        userInfo:data
+                        userInfo:data,
                     })
                 }
             })
@@ -159,10 +162,18 @@ class Index extends React.Component{
         axios.get( `/api/home/deviceList?openId=${openId}`)
             .then(res=>{
                 if(res.data.success){
-                    localStorage.setEquipmentId(res.data.data[0].equipmentId);
+                    let equipmentId = localStorage.getEquipmentId();
+                    let deviceList = res.data.data;
+                    let roleNow=''
+                    deviceList.map(item=>{
+                        if(item.equipmentId===equipmentId){
+                            roleNow=item.role
+                        }
+                    })
+
                     this.setState({
-                        deviceList:res.data.data,
-                        role:res.data.data[0].role
+                        deviceList:deviceList,
+                        role:roleNow
                     })
                 }
             })

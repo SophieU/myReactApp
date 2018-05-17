@@ -3,8 +3,9 @@ import HealthHeader from './health-header';
 import DataBall from './data-ball';
 import Charts from './charts';
 import DateRange from '../../components/date-range/date-range-picker'
-import {List,Switch,Modal} from 'antd-mobile';
+import {List,Switch,Modal,Toast} from 'antd-mobile';
 import axios from '../../api';
+import moment from 'moment';
 import localStorage from '../../util/storage';
 import {createForm} from 'rc-form';
 
@@ -14,19 +15,32 @@ class Walk extends React.Component {
         this.state={
             modal:false,
             timeLists:[],
+            timeToday:'',
+            steps:0,
+            pedo:'0', //计步开关 0关 1开
             modalIndex:0, // 激活modal的时间段索引
             initialTime:"00:00-00:00",  //datePicker初始值
         }
     }
     componentDidMount(){
+        this.openId = localStorage.getOpenId();
+        this.equipmentId = localStorage.getEquipmentId();
         this.getStepConfig();
+
+        let time = moment(new Date()).format("YYYY-MM-DD");
+        axios.get(`/api/step/getOneByTime?openId=${this.openId}&equipmentId=${this.equipmentId}&time=${time}`)
+            .then(res=>{
+                this.setState({
+                    timeToday:time
+                })
+                console.log(res.data)
+            })
     }
     timeSelected = (time)=>{
         let index = this.state.modalIndex;
         let timeLists = this.state.timeLists;
         timeLists[index]=time.startTime+'-'+time.endTime;
-        console.log(index)
-        console.log(timeLists)
+
         this.setState({
             timeLists:timeLists
         });
@@ -51,13 +65,29 @@ class Walk extends React.Component {
         let equipmentId = localStorage.getEquipmentId();
         axios.get(`/api/step/getStepConfig?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
-                console.log(res.data)
                 if(res.data.success){
                     let data = res.data.walkTime;
                     let timeRangeLists = data.split(',');
                     this.setState({
-                        timeLists:timeRangeLists
+                        timeLists:timeRangeLists,
+                        pedo:res.data.pedo
                     });
+                }
+            })
+    };
+    switchPedo=(checked)=>{
+      let pedo = checked?'1':'0';
+        axios.get(`/api/step/setUpPedo?openId=${this.openId}&equipmentId=${this.equipmentId}&pedo=${pedo}`)
+            .then(res=>{
+                if(res.data.success){
+                    Toast.info('成功打开计步功能')
+                }else{
+                    this.setState({
+                        pedo:'0'
+                    },()=>{
+                        console.log(this.state.pedo)
+                    });
+                    Toast.info(res.data.msg)
                 }
             })
     };
@@ -68,12 +98,12 @@ class Walk extends React.Component {
         return (
             <div className="walk">
                 <HealthHeader now="计步"/>
-                <DataBall now="计步"/>
+                <DataBall now="计步" value={this.state.steps}/>
                 <div className="recode-time">
                     <List>
                         <Item extra={<Switch
-                            {...getFieldProps('openRecord',{initialValue:true,valuePropName:'checked'})}
-                            onClick={(checked)=>console.log(checked)}/>
+                            {...getFieldProps('openRecord',{initialValue:this.state.pedo==='1',valuePropName:'checked'})}
+                            onChange={(checked)=>this.switchPedo(checked)}/>
                         }>计步</Item>
                         {
                             this.state.timeLists.map((timeRange,index)=>{

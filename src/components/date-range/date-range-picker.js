@@ -22,24 +22,27 @@ class DateRange extends React.Component {
         let timeRange = this.props.initialValue;
         let timeStart = timeRange.substr(0,timeRange.indexOf('-'));
         let timeEnd = timeRange.substr(timeRange.indexOf('-')+1);
-
+        timeStart=new Date(moment(timeStart,"hh:mm").format());
+        timeEnd = new Date(moment(timeEnd,"hh:mm").format())
+        console.log(timeStart)
         this.setState({
             timeStart:timeStart,
             timeEnd:timeEnd
         })
     }
-    timeStartChange = (time)=>{
+    timeChange= (time,target)=>{
+          if(target==='timeEnd'){
+              let timeEnd = time.getTime();
+              let timeStart = this.state.timeStart.getTime();
+              if(timeEnd<timeStart){
+                  Toast.info('请选择正确的结束时间');
+                  return false;
+              }
+          }
         this.setState({
-            timeStart:time,
-            timeEnd:time
-        })
-    }
-    timeEndChange= (time)=>{
-        this.setState({
-            timeEnd:time
-        })
-
-    }
+            [target]:time
+        });
+    };
     handleSubmit = ()=>{
         let {timeStart,timeEnd} = this.state;
        if(timeStart===null){
@@ -56,7 +59,6 @@ class DateRange extends React.Component {
                endTime:timeEnd.format("HH:mm")
            }
            this.props.sureTime(dateRange);
-           // this.props.cancle();
         }
     }
     close=()=>{
@@ -76,7 +78,7 @@ class DateRange extends React.Component {
                         <DatePickerView
                             mode="time"
                             value={this.state.timeStart}
-                            onChange={this.timeStartChange}
+                            onChange={(time)=>this.timeChange(time,'timeStart')}
                         />
                     </div>
                     <div className="center-line">至</div>
@@ -84,7 +86,7 @@ class DateRange extends React.Component {
                         <DatePickerView
                             mode="time"
                             value={this.state.timeEnd}
-                            onChange={this.timeEndChange}
+                            onChange={(time)=>this.timeChange(time,'timeEnd')}
                         />
                     </div>
                 </div>

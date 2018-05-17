@@ -1,4 +1,7 @@
 import React from 'react';
+import moment from 'moment';
+
+let time = (new Date().getMonth()+1)+'月'+(new Date().getDate())+'日';
 
 const DataBall = (props)=>(
     <div className="data-ball">
@@ -9,20 +12,20 @@ const DataBall = (props)=>(
                     <p>翻身次数</p>
                 </div>
                 <div className={props.now==="计步"?'center-data':'hide'}>
-                    <h3 className="walk-data">3200步</h3>
+                    <h3 className="walk-data">{props.value}步</h3>
                 </div>
                 <div className={props.now==="血压"?'center-data':'hide'}>
                     <h3 >120/80</h3>
                     <p>开始测量</p>
                 </div>
                 <div className={props.now==="心率"?'center-data':'hide'}>
-                    <h3 >80</h3>
-                    <p>开始测量</p>
+                    <h3 >{props.value}</h3>
+                    <p onClick={props.measure}>开始测量</p>
                 </div>
 
             </div>
         </div>
-        <p className="data-time">12月28日</p>
+        <p className="data-time">{time}</p>
     </div>
 )
 // class DataBall extends React.Component {

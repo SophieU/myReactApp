@@ -32,7 +32,6 @@ class RouterCom extends React.Component{
     }
     componentDidMount(){
         this.setState({refreshScroll:true});
-
     }
     componentDidUpdate(){
 

@@ -4,37 +4,63 @@ import DataBall from './data-ball';
 import Charts from './charts';
 import DateRange from '../../components/date-range/date-range-picker'
 import {List,Switch,Modal} from 'antd-mobile';
+import axios from '../../api';
+import localStorage from '../../util/storage';
 import {createForm} from 'rc-form';
 
 class Walk extends React.Component {
     constructor(){
         super();
         this.state={
-            modal1:false,
-            timeRange1:'全天',
-            timeRange2:'无',
-            timeRange3:'无',
+            modal:false,
+            timeLists:[],
+            modalIndex:0, // 激活modal的时间段索引
+            initialTime:"00:00-00:00",  //datePicker初始值
         }
     }
+    componentDidMount(){
+        this.getStepConfig();
+    }
     timeSelected = (time)=>{
-        let stateName = this.state.target;
+        let index = this.state.modalIndex;
+        let timeLists = this.state.timeLists;
+        timeLists[index]=time.startTime+'-'+time.endTime;
+        console.log(index)
+        console.log(timeLists)
         this.setState({
-            [stateName]:time.startTime+'-'+time.endTime
+            timeLists:timeLists
         });
-        this.closeModal('modal1')
-    }
-    closeModal=(key)=>{
+        this.closeModal('modal')
+    };
+    closeModal=()=>{
         this.setState({
-            [key]:false
+            modal:false
         })
-    }
-    showModal=(key,target)=>(e)=>{
+    };
+    showModal=(key,target,value)=>(e)=>{
         e.preventDefault(); //修复 Android 上点击穿透
         this.setState({
             [key]:true,
-            target:target
+            modalIndex:target,
+            initialTime:value
         })
-    }
+    };
+    /*get the step config from api*/
+    getStepConfig=()=>{
+        let openId = localStorage.getOpenId();
+        let equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/step/getStepConfig?openId=${openId}&equipmentId=${equipmentId}`)
+            .then(res=>{
+                console.log(res.data)
+                if(res.data.success){
+                    let data = res.data.walkTime;
+                    let timeRangeLists = data.split(',');
+                    this.setState({
+                        timeLists:timeRangeLists
+                    });
+                }
+            })
+    };
     render() {
         const Item = List.Item;
         const {getFieldProps} = this.props.form;
@@ -49,30 +75,21 @@ class Walk extends React.Component {
                             {...getFieldProps('openRecord',{initialValue:true,valuePropName:'checked'})}
                             onClick={(checked)=>console.log(checked)}/>
                         }>计步</Item>
-                        <Item arrow="horizontal"  extra={<div onClick={this.showModal('modal1','timeRange1')}>{this.state.timeRange1}</div>
-                        }>记录时间段1</Item>
+                        {
+                            this.state.timeLists.map((timeRange,index)=>{
+                                return (
+                                    <Item key={index} arrow="horizontal"  extra={<div onClick={this.showModal('modal',index,timeRange)}>{timeRange}</div>
+                                    }>记录时间段{index+1}</Item>
+                                )
+                            })
+                        }
 
-                        <Item arrow="horizontal" extra={
-                          <div  onClick={this.showModal('modal1','timeRange2')}>{this.state.timeRange2}</div>
-                        }>记录时间段2</Item>
-                        <Item arrow="horizontal" extra={
-                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
-                        }>记录时间段3</Item>
-                        <Item arrow="horizontal" extra={
-                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
-                        }>记录时间段3</Item>
-                        <Item arrow="horizontal" extra={
-                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
-                        }>记录时间段3</Item>
-                        <Item arrow="horizontal" extra={
-                            <div  onClick={this.showModal('modal1','timeRange3')}>{this.state.timeRange3}</div>
-                        }>记录时间段3</Item>
                         <Modal
                             popup
-                            visible={this.state.modal1}
+                            visible={this.state.modal}
                             animationType="slide-up"
                         >
-                            <DateRange sureTime={(time)=>this.timeSelected(time)} cancle={this.closeModal}/>
+                            <DateRange initialValue={this.state.initialTime} sureTime={(time)=>this.timeSelected(time)} cancle={this.closeModal}/>
                         </Modal>
                     </List>
                 </div>

@@ -136,6 +136,7 @@ class Index extends React.Component{
                 if(res.data.success){
                     let data = res.data.data;
                     localStorage.setEquipmentId(data.eqid);
+                    localStorage.setHeadImg(data.headimg)
                     this.setState({
                         lnglat:{
                             longitude:data.longitude,
@@ -144,7 +145,6 @@ class Index extends React.Component{
                         userInfo:data
                     })
                 }
-                console.log(res.data)
             })
             .then(()=>{
                 // 查询网络状态

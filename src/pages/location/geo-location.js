@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Toast,DatePicker} from 'antd-mobile';
 import localStorage from '../../util/storage';
+
 import axios from '../../api';
 
 import './location.scss';
@@ -33,6 +35,9 @@ class GeoLocation extends React.Component {
             openId,
             equipmentId
         });
+
+
+
         // 初始手机定位
         this.getNowGeo();
     }
@@ -51,11 +56,10 @@ class GeoLocation extends React.Component {
                 if(status==="complete"&&result.info==='OK'){
                     let addressCom = result.regeocode.addressComponent;
                     let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
-
+                    let headImg = localStorage.getHeadImg();
                     // 请求头像
-                    let src= "http://jk.anxinqiao.com/share/Img/'+data.headimg+'";
                     const watchCover = '<div class="loc-marker">' +
-                        '<img class="avatar" src="'+src+'"/>' +
+                        '<img class="avatar" src="'+headImg+'"/>' +
                         '<div class="loc-text">' +
                         '<div class="loc-title">'+address+'</div>' +
                         '<p>刷新时间&nbsp;2秒前</p>'+
@@ -98,7 +102,7 @@ class GeoLocation extends React.Component {
                             let data = res.data.data;
                             let lgnlat = [data.longitude,data.latitude];
                             console.log(data)
-                           this.geolocation(lgnlat)
+                           this.geolocation(lgnlat,data.headImg)
                         }
                     })
 
@@ -237,6 +241,7 @@ class GeoLocation extends React.Component {
     };
     render() {
         let historyStyle=this.state.showHistory?{display:''}:{display:'none'};
+
         return (
             <div ref="location" className="geo-location-wrapper">
                 <div id="geo-location"></div>

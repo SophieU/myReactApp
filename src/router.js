@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {HashRouter as Router,Route} from 'react-router-dom';
 // import Header from './containers/header';
 import Header from './components/header/header'
@@ -31,16 +32,28 @@ class RouterCom extends React.Component{
     }
     componentDidMount(){
         this.setState({refreshScroll:true});
+
+    }
+    componentDidUpdate(){
+
+        let location = window.location.hash.substr(1);
+        if(location.indexOf('/location')!==-1){
+            let sH = window.document.documentElement.clientHeight;
+            let contentDOM = ReactDOM.findDOMNode(this.refs.content);
+            let containerDOM = ReactDOM.findDOMNode(this.refs.container);
+            let sTop = contentDOM.offsetTop;
+            containerDOM.style.height=sH-sTop+'px';
+        }
     }
 
     render(){
         return(
-            <Router >
+            <Route path="/" exact>
                 <div>
                     <Header />
-                    <div className="app-content">
+                    <div className="app-content" ref="content">
                         <Scroll  >
-                            <div id="container">
+                            <div id="container" ref="container">
                                 <Route exact path='/' component={Index}></Route>
                                 <Route path='/choose-dev' component={ChooseDev}></Route>
                                 <Route path='/register' component={Register}></Route>
@@ -61,7 +74,7 @@ class RouterCom extends React.Component{
                         </Scroll>
                     </div>
                 </div>
-            </Router>
+            </Route>
         )
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import RouterCom from './router.js';
+import {HashRouter as Router,Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 
@@ -10,7 +11,9 @@ class App extends Component {
     return (
         <Provider store={store}>
           <div className='App'>
-            <RouterCom />
+              <Router>
+                  <RouterCom />
+              </Router>
           </div>
         </Provider>
 

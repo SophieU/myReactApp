@@ -18,6 +18,16 @@ class DateRange extends React.Component {
             timeEnd:null
         }
     }
+    componentDidMount(){
+        let timeRange = this.props.initialValue;
+        let timeStart = timeRange.substr(0,timeRange.indexOf('-'));
+        let timeEnd = timeRange.substr(timeRange.indexOf('-')+1);
+
+        this.setState({
+            timeStart:timeStart,
+            timeEnd:timeEnd
+        })
+    }
     timeStartChange = (time)=>{
         this.setState({
             timeStart:time,

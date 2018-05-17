@@ -39,6 +39,13 @@ let localStorage = {
     },
     setLocation(lnglat){
         window.localStorage.setItem('lnglat',JSON.stringify(lnglat));
+    },
+    getHeadImg(){
+        return window.localStorage.getItem('headImg');
+    },
+    setHeadImg(imgName){
+        let imgHref = 'http://jk.anxinqiao.com/share/Img/'+imgName;
+        window.localStorage.setItem('headImg',imgHref)
     }
 }
 export default localStorage;

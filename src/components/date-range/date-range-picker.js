@@ -34,7 +34,7 @@ class DateRange extends React.Component {
           if(target==='timeEnd'){
               let timeEnd = time.getTime();
               let timeStart = this.state.timeStart.getTime();
-              if(timeEnd<timeStart){
+              if(timeEnd<timeStart&&!this.props.notOneDay){
                   Toast.info('请选择正确的结束时间');
                   return false;
               }
@@ -51,7 +51,7 @@ class DateRange extends React.Component {
        }
         timeStart = moment(timeStart);
         timeEnd = moment(timeEnd);
-        if(moment.max(timeStart,timeEnd)!=timeEnd){
+        if(moment.max(timeStart,timeEnd)!=timeEnd&&!this.props.notOneDay){
             Toast.info('请选择正确的结束时间',1)
         }else{
            const dateRange = {

@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 let time = (new Date().getMonth()+1)+'月'+(new Date().getDate())+'日';
 
@@ -8,7 +7,7 @@ const DataBall = (props)=>(
         <div className="data-show-wrapper">
             <div className="data-show">
                 <div className={props.now==="睡眠"?'center-data':'hide'} >
-                    <h3>32</h3>
+                    <h3>{props.value}</h3>
                     <p>翻身次数</p>
                 </div>
                 <div className={props.now==="计步"?'center-data':'hide'}>

@@ -32,18 +32,22 @@ class RouterCom extends React.Component{
     }
     componentDidMount(){
         this.setState({refreshScroll:true});
+        let sH = window.document.documentElement.clientHeight;
+        let contentDOM = ReactDOM.findDOMNode(this.refs.content);
+        let containerDOM = ReactDOM.findDOMNode(this.refs.container);
+        let sTop = contentDOM.offsetTop;
+        containerDOM.style.minHeight=sH-sTop+'px';
     }
-    componentDidUpdate(){
-
-        let location = window.location.hash.substr(1);
-        if(location.indexOf('/location')!==-1){
-            let sH = window.document.documentElement.clientHeight;
-            let contentDOM = ReactDOM.findDOMNode(this.refs.content);
-            let containerDOM = ReactDOM.findDOMNode(this.refs.container);
-            let sTop = contentDOM.offsetTop;
-            containerDOM.style.height=sH-sTop+'px';
-        }
-    }
+    // componentDidUpdate(){
+    //     let location = window.location.hash.substr(1);
+    //     if(location.indexOf('/location')!==-1){
+    //         let sH = window.document.documentElement.clientHeight;
+    //         let contentDOM = ReactDOM.findDOMNode(this.refs.content);
+    //         let containerDOM = ReactDOM.findDOMNode(this.refs.container);
+    //         let sTop = contentDOM.offsetTop;
+    //         containerDOM.style.height=sH-sTop+'px';
+    //     }
+    // }
 
     render(){
         return(

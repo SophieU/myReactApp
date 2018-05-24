@@ -61,8 +61,9 @@ class MailBook extends React.Component {
     render() {
         const mails = this.state.mail;
         let match=this.props.match;
+
         return (
-            <div className="mail-book">
+            <div className="mail-book" >
                 <Nothing show={this.state.nothing} title={"您还没有亲情号码哦"}/>
                 <List >
                     {

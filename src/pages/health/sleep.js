@@ -4,6 +4,8 @@ import DataBall from './data-ball';
 import {List,Modal} from 'antd-mobile';
 import Charts from './charts';
 import DateRangePicker from '../../components/date-range/date-range-picker'
+import axios from '../../api';
+import localStorage from '../../util/storage';
 import './health.scss';
 
 class Sleep extends React.Component {
@@ -13,6 +15,19 @@ class Sleep extends React.Component {
             modal:false,
             timeRange:'',
         }
+    }
+    componentDidMount(){
+        this.openId = localStorage.getOpenId();
+        this.equipmentId = localStorage.getEquipmentId();
+        axios.get(`/api/sleeptime/getSleeptimeConfig?openId=${this.openId}&equipmentId=${this.equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    let sleeptime = res.data.sleeptime;
+                    this.setState({
+                        timeRange:sleeptime
+                    })
+                }
+            })
     }
     showModal=key=>(e)=>{
         e.preventDefault(); //修复 Android 上点击穿透
@@ -44,7 +59,7 @@ class Sleep extends React.Component {
                         onClose={this.closeModal('modal')}
                         animationType="slide-up"
                     >
-                        <DateRangePicker sureTime={this.timeSelected} />
+                        <DateRangePicker initialValue={this.state.timeRange} sureTime={this.timeSelected} />
                     </Modal>
                 </List>
                 <div className="sleep-charts">

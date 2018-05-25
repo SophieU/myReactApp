@@ -11,7 +11,8 @@ class Heart extends React.Component {
     constructor(){
         super();
         this.state={
-            heartbeat:0
+            heartbeat:0,
+            measuring:false,
         }
     }
     componentDidMount(){
@@ -30,12 +31,19 @@ class Heart extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     Toast.info('测量指令发送成功，请稍候')
+                    this.setState({
+                        measuring:true
+                    });
                     setTimeout(()=>{
                         this.heartBeat();
-                    },3000)
+                        this.setState({
+                            measuring:false
+                        })
+                    },10000)
                 }else{
                     Toast.info(res.data.msg,1)
                 }
+
             })
     };
     heartBeat=()=>{
@@ -55,7 +63,7 @@ class Heart extends React.Component {
         return (
             <div className="heart-beat">
                 <HealthHeader now="心率"/>
-                <DataBall now="心率" value={this.state.heartbeat} measure={this.measureHeart}/>
+                <DataBall now="心率" measuring={this.state.measuring} value={this.state.heartbeat} measure={this.measureHeart}/>
                 <div className="heart-intro">
                     <h4>温馨提示</h4>
                     <p>对于成年人，60-100次/每分钟的测量值通常被视为正常范围，低于60次/每分钟则偏低，高于100次/每分钟则偏高。</p>

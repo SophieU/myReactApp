@@ -39,14 +39,26 @@
   padding-bottom:calcSize(15);
   box-sizing: border-box;
   .data-show-wrapper{
+    position: relative;
+    z-index:1;
     margin:0 auto;
     width:calcSize(150);
     height:calcSize(150);
     border-radius: 100%;
-    background-image:linear-gradient(to right,#00D2FA,#0078FA);
     padding:calcSize(12);
     box-sizing: border-box;
+    .gradient-bg{
+      background-image:linear-gradient(to right,#00D2FA,#0078FA);
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      border-radius: 100%;
+      z-index:-1;
+    }
     .data-show{
+
       width:100%;
       height:100%;
       border-radius: 100%;

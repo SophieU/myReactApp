@@ -4,6 +4,7 @@ import DataBall from './data-ball';
 import Charts from './charts';
 
 class Blood extends React.Component {
+
     render() {
         return (
             <div className="blood">

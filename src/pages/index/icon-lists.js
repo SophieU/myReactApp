@@ -45,7 +45,7 @@ class IconList extends React.Component {
                 iconUrl:require('../../images/icon-chat.png'),
                 title:'微聊',
                 type:'alert',
-                handle:this.goChat
+                handle:this.goChat,
             },{
                 iconUrl:require('../../images/icon-call.png'),
                 title:'电话',

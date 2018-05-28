@@ -112,7 +112,7 @@ class Repeat extends React.Component {
                 }
             });
             if(repeats.length===0){
-                Toast.info('请选择重复日期');
+                Toast.info('请选择重复日期',1);
                 return false;
             }
         }

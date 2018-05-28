@@ -30,7 +30,7 @@ class Heart extends React.Component {
         axios.get(`/api/heart/measure?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    Toast.info('测量指令发送成功，请稍候')
+                    Toast.info('测量指令发送成功，请稍候',1)
                     this.setState({
                         measuring:true
                     });

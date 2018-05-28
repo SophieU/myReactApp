@@ -80,14 +80,14 @@ class Walk extends React.Component {
         axios.get(`/api/step/setUpPedo?openId=${this.openId}&equipmentId=${this.equipmentId}&pedo=${pedo}`)
             .then(res=>{
                 if(res.data.success){
-                    Toast.info('成功打开计步功能')
+                    Toast.info('成功打开计步功能',1)
                 }else{
                     this.setState({
                         pedo:'0'
                     },()=>{
                         console.log(this.state.pedo)
                     });
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
             })
     };

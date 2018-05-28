@@ -22,12 +22,11 @@
   .header-bar{
     font-size: 12px;
   }
-  .header-bar .am-navbar-left,.header-bar .am-navbar-right{
-    font-size: 14px;
-  }
+
   .icon-lists .icon-title{
     font-size: 11px;
   }
+
 }
 @media screen and(min-width: 321px) and (max-width:421px){
   #container{
@@ -48,7 +47,7 @@
 
 /*app 主内容*/
 .app-content{
-  position: fixed;
+  position: absolute;
   top:calcSize(46);
   left:0;
   right:0;

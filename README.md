@@ -40,13 +40,16 @@
 1. 进入首页获取 userId
     getUserId
 2. 跳转原生聊天室
-    chatRoom
+    chatRoom [需要传equipmentId]
 3. 跳转原生注册/绑定页
     bindDevice
 4. 从首页点返回，退出安心桥H5
-    backToNative
+    back
 
 ## H5对应页地址
 1. 首页(目前在本地环境)
     http://192.168.0.24:3000/#/
+
+
+    android首页定位层级遮挡问题待解决
 

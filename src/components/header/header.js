@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import './header.scss';
 
-const alert = Modal.alert;
 const refresh=()=>{
     window.location.reload()
 }
@@ -62,16 +61,7 @@ const routes={
 
 }
 const LeftIcon = (nowPath)=> <div  key="0" className="flexbox"><Icon size="lg" type="left"/><span className="text-black">返回</span></div>
-const bindDevice = ()=>{
-    if(ysyapp){
-        ysyapp({
-            funName:"bindDevice"
-        });
-        return false;
-    }else{
 
-    }
-}
 const RightIcon = (props)=>{
     switch(props.nowPath){
         case '/device-admin':
@@ -88,7 +78,7 @@ const RightIcon = (props)=>{
             return null;
     }
 };
-const ysyapp = window.ysyapp;
+
 class Header extends React.Component {
     static contextTypes={
         router:PropTypes.object
@@ -129,27 +119,24 @@ class Header extends React.Component {
             selectedFamily:opt.props.value,
         })
     }
-    onLeftClick(nowPath){
-        console.log(nowPath)
-        const alert = Modal.alert;
+    onLeftClick(nowPath,e){
+
         const pathArr = [
             '/sleep',
             '/walk',
             '/blood',
             '/heartbeat'
         ];
-
+        const ysyapp = window.ysyapp;
         if(nowPath==='/'){
             if(ysyapp){
                 ysyapp({
-                    funName:"backToNative"
+                    funName:"back"
                 });
-                alert("跳转到原生入口页");
             }else{
                 this.context.router.history.push('/register')
             }
         }else if(pathArr.indexOf(nowPath)!==-1){
-
             this.context.router.history.push('/')
         }else{
             window.history.back()
@@ -158,6 +145,7 @@ class Header extends React.Component {
     }
     goRegister=()=>{
         const nowPath = this.state.nowPath;
+        const ysyapp = window.ysyapp;
         if(nowPath==="/device-admin"){
             if(ysyapp){
                 ysyapp({
@@ -180,7 +168,7 @@ class Header extends React.Component {
             <div className="header-bar">
                 <NavBar
                     mode="light"
-                    onLeftClick={()=>this.onLeftClick(nowPath)}
+                    onLeftClick={(e)=>this.onLeftClick(nowPath,e)}
                     leftContent={[LeftIcon(nowPath)]}
                     rightContent={[
                         <RightIcon show={rightNavShow} key={0} onClick={this.goRegister} nowPath = {nowPath}/>

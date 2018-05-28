@@ -39,12 +39,11 @@ class DeviceAdmin extends React.Component {
         let openId = localStorage.getOpenId();
         axios.get(`/api/deviceManage/delOneDevice?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
-                console.log(res.data)
                 if(res.data.success){
                     Toast.info('删除成功',1);
                     window.location.reload();
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
             })
     }

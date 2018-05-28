@@ -106,7 +106,7 @@ class Index extends React.Component{
         axios.get('/api/home/deviceStatus?'+query)
             .then(res=>{
                 if(!res.data.success){
-                    Toast.info('设备不在线');
+                    Toast.info('设备不在线',1);
                 }
                 this.setState({
                     online:res.data.success
@@ -125,7 +125,7 @@ class Index extends React.Component{
                         tel:res.data.data
                     })
                 }else{
-                    Toast.info(res.data.msg);
+                    Toast.info(res.data.msg,1);
 
                 }
             })
@@ -189,7 +189,7 @@ class Index extends React.Component{
                         sos:res.data.sos1
                     })
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
             })
     };
@@ -222,9 +222,10 @@ class Index extends React.Component{
         return(
             <div>
                 <DevStatu {...devStatu} changeRole={this.changeRole}/>
-                <div className="control-panel">
+                <div  className="control-panel">
                     <IconLists {...iconList} />
                     <LocationIndex {...lnglat}/>
+
                     <div className="watch-link">
                         <Link to="/walk" className="link-item">
                             <img alt="" src={require('../../images/pic-walk.png')}/>

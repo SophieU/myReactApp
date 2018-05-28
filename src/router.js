@@ -54,8 +54,8 @@ class RouterCom extends React.Component{
             <Route path="/" exact>
                 <div>
                     <Header />
-                    <div className="app-content" ref="content">
-                        <Scroll  >
+                    <div className="app-content" ref="content" >
+                        <Scroll>
                             <div id="container" ref="container">
                                 <Route exact path='/' component={Index}></Route>
                                 <Route path='/choose-dev' component={ChooseDev}></Route>

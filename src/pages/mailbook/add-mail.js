@@ -69,10 +69,10 @@ class AddMail extends React.Component {
         };
         axios.post('/api/tel/saveOrUpdate',formData,config).then(res=>{
            if(res.data.success){
-               Toast.info(res.data.msg);
+               Toast.info(res.data.msg,1);
                router.push('/mail-book')
            }else{
-               Toast.info(res.data.msg)
+               Toast.info(res.data.msg,1)
            }
         })
 
@@ -119,9 +119,10 @@ class AddMail extends React.Component {
         return (
             <CSSTransition in={this.state.show} timeout={300} classNames="transition">
                 <div className="add-mail">
+
                     <div className="upload-block">
                         <img src={this.state.pic?this.state.pic:defaultAvatar} ref="uploadImg" alt="avatar"/>
-                        <input ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
+                        <input  ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
                     </div>
                     <List>
                         <InputItem value={this.state.nickName} error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>

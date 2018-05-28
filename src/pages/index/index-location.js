@@ -46,11 +46,7 @@ class LocationIndex extends React.Component {
             })
             geocoder.getAddress(lnglatXY,function(status,result){
                 if(status==='complete'&&result.info==='OK'){
-                    // let address = result.regeocode.formattedAddress;
-                    // let cat = address.indexOf('省');
-                    // if(cat!==-1){
-                    //     address = address.substring(cat+1)
-                    // }
+
                     let addressCom = result.regeocode.addressComponent;
                     let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
                     _this.setState({
@@ -58,7 +54,7 @@ class LocationIndex extends React.Component {
                         lnglat:lnglatXY
                     })
                 }else{
-                    Toast.info('定位失败')
+                    Toast.info('定位失败',1)
                 }
             })
         })

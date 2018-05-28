@@ -76,7 +76,7 @@ class GeoLocation extends React.Component {
                         watchAdd:address
                     })
                 }else{
-                    Toast.info('定位失败')
+                    Toast.info('定位失败',1)
                 }
             })
         })
@@ -90,9 +90,9 @@ class GeoLocation extends React.Component {
         axios.get(`/api/home/sendPositionCommand?openId=${this.state.openId}&equipmentId=${this.state.equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    Toast.info('定位指定发送成功')
+                    Toast.info('定位指定发送成功',1)
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
             })
             .then(()=>{
@@ -147,7 +147,7 @@ class GeoLocation extends React.Component {
                 if(res.data.success){
                     let lnglatHistory = res.data.data;
                     if(lnglatHistory.length===0){
-                        Toast.info('手表无历史轨迹')
+                        Toast.info('手表无历史轨迹',1)
                     }else{
                         let lineArr=[];
                         lnglatHistory.forEach((item,index)=>{
@@ -157,7 +157,7 @@ class GeoLocation extends React.Component {
                         this.drawLine(lineArr)
                     }
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
                 console.log(res.data)
             })

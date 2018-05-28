@@ -89,7 +89,7 @@ class BasicAddMed extends React.Component {
         let time = this.state.time;
         let  repeats=this.state.repeatDate;
         if(repeats.length===0){
-            Toast.info('请选择重复时间段');
+            Toast.info('请选择重复时间段',1);
             return false;
         }
         let index = parseInt(this.props.match.params.id)+1;
@@ -106,7 +106,7 @@ class BasicAddMed extends React.Component {
                         this.props.history.push('/medicine')
                     },1000)
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
             })
         console.log(repeats)

@@ -41,7 +41,7 @@ class Sleep extends React.Component {
                         rollData:rollData,
                     })
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
                 console.log(res.data)
             })
@@ -64,7 +64,7 @@ class Sleep extends React.Component {
         });
         axios.get(`/api/sleeptime/setSleeptime?openId=${this.openId}&equipmentId=${this.equipmentId}&sleeptime=${this.state.timeRange}`)
             .then(res=>{
-               Toast.info(res.data.msg)
+               Toast.info(res.data.msg,1)
             })
     }
     render() {

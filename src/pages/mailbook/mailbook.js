@@ -40,14 +40,14 @@ class MailBook extends React.Component {
         axios.get('/api/tel/delTel'+paraStr)
             .then(res=>{
                 if(res.data.success){
-                    Toast.info('删除成功');
+                    Toast.info('删除成功',1);
                     let newMail = Object.assign({},this.state.mail);
                     newMail.splice(index,1);
                     this.setState({
                         mail:newMail
                     })
                 }else{
-                    Toast.info(res.data.msg)
+                    Toast.info(res.data.msg,1)
                 }
                 console.log(res.data)
             })

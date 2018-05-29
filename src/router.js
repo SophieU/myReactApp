@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter as Router,Route} from 'react-router-dom';
-// import Header from './containers/header';
 import Header from './components/header/header'
 import Scroll from './components/scroll/Scroll';
 
@@ -19,7 +18,8 @@ import Sleep from './pages/health/sleep';
 import Walk from './pages/health/walk';
 import HeartBeat from './pages/health/heartbeat';
 import Blood from './pages/health/blood';
-import Register from './pages/device/register-device'
+import Register from './pages/device/register-device';
+import Mine from './pages/mine/Mine'
 
 import './App.scss';
 
@@ -73,6 +73,7 @@ class RouterCom extends React.Component{
                                 <Route path='/walk' component={Walk}></Route>
                                 <Route path='/heartbeat' component={HeartBeat}></Route>
                                 <Route path='/blood' component={Blood}></Route>
+                                <Route path='/mine' component={Mine}></Route>
                             </div>
                         </Scroll>
                     </div>

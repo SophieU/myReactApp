@@ -26,7 +26,7 @@ const DataBall = (props)=>(
 
             </div>
         </div>
-        <p className="data-time">{time}</p>
+        <p className="data-time">{props.time?props.time:time}</p>
     </div>
 );
 

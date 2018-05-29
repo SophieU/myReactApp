@@ -13,6 +13,7 @@ class Heart extends React.Component {
         this.state={
             heartbeat:0,
             measuring:false,
+            dataBallTime:""
         }
     }
     componentDidMount(){
@@ -60,17 +61,24 @@ class Heart extends React.Component {
                 }
             })
     };
+    setBallData=(value,time)=>{
+        let date = (new Date().getMonth()+1)+'月'+time+'日';
+        this.setState({
+            heartbeat:value,
+            dataBallTime:date
+        })
+    };
     render() {
         return (
             <div className="heart-beat">
                 <HealthHeader now="心率"/>
-                <DataBall now="心率" measuring={this.state.measuring} value={this.state.heartbeat} measure={this.measureHeart}/>
+                <DataBall now="心率" time={this.state.dataBallTime} measuring={this.state.measuring} value={this.state.heartbeat} measure={this.measureHeart}/>
                 <div className="heart-intro">
                     <h4>温馨提示</h4>
                     <p>对于成年人，60-100次/每分钟的测量值通常被视为正常范围，低于60次/每分钟则偏低，高于100次/每分钟则偏高。</p>
                 </div>
                 <div>
-                    <Charts  type="bar"/>
+                    <Charts type="bar" setBall={this.setBallData}/>
                 </div>
             </div>)
     }

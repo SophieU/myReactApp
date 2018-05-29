@@ -62,24 +62,22 @@ class Charts extends React.Component {
                 }
             ],
             series: [
-
                 {
                     type: 'bar',
                     barWidth:'60%',
                     data: data,
-
-                    markPoint:{
-                        data:[
-                            {type:'max',name:'最大值'},
-                            {type:'min',name:'最小值'}
-                        ]
-                    },
-
                 }
             ]
         };
+        let _this = this;
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option)
+        myChart.on('click',function(param){
+            let value = param.value;
+            let axis = dataAxis[param.dataIndex];
+           _this.props.setBall(value,axis)
+
+        })
 
     }
     drawLine=()=>{

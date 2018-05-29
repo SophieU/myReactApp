@@ -202,6 +202,7 @@ class Index extends React.Component{
         localStorage.setEquipmentId(equipmentId);
         this.getUserInfo()
     };
+
     render(){
         let devStatu = {
             electricity:this.state.electricity,
@@ -216,7 +217,7 @@ class Index extends React.Component{
         };
         let iconList = {
             tel:this.state.tel,
-            sos:this.state.sos
+            sos:this.state.sos,
         };
 
         return(

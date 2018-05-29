@@ -17,9 +17,7 @@ class IconList extends React.Component {
         }
 
     };
-    goMine=()=>{
-        alert('跳转到我的')
-    };
+
     goChat=()=>{
         const ysyapp = window.ysyapp;
         let equipmentId = localStorage.getEquipmentId();
@@ -65,8 +63,7 @@ class IconList extends React.Component {
             },{
                 iconUrl:require('../../images/icon-mine.png'),
                 title:'我的',
-                type:'alert',
-                handle:this.goMine
+                url:'/mine',
             }
         ]
 

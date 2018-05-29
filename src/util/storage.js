@@ -46,6 +46,7 @@ let localStorage = {
     setHeadImg(imgName){
         let imgHref = 'http://jk.anxinqiao.com/share/Img/'+imgName;
         window.localStorage.setItem('headImg',imgHref)
-    }
+    },
+
 }
 export default localStorage;

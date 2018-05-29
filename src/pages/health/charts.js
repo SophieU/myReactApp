@@ -85,6 +85,10 @@ class Charts extends React.Component {
        const yAxisTop = [101,100,106,111,120,140,139,121,103,126,122,138,129];
        const yAxisBottom = [70,60,66,77,88,68,79,80,72,90,75,83,78];
        var option = {
+           tooltip: {
+               trigger: 'axis'
+           },
+
            grid: {
                left: '5%',
                right: '2%',
@@ -103,9 +107,13 @@ class Charts extends React.Component {
            ],
             xAxis:  {
                 data: xAxisData,
-                axisLabel: {
-                    textStyle: {
-                        color: '#37394C'
+                axisPointer:{
+                    label:{
+                        formatter:function(params){
+                            let now = new Date();
+                            let dataStr =(now.getMonth() + 1)+'月'+params.value+'日';
+                            return dataStr
+                        }
                     }
                 },
                 axisLine:{
@@ -113,8 +121,18 @@ class Charts extends React.Component {
                         color:'#F0F0F0'
                     }
                 },
+                z: 10,
+                axisLabel:{
+                    textStyle: {
+                        color: '#37394C'
+                    },
+                    formatter:function(value,index){
+                        let now = new Date();
+                        let dataStr = [now.getMonth() + 1,value].join('-');
+                        return dataStr
+                    }
+                }
 
-                z: 10
             },
             yAxis: {
                 type: 'value',
@@ -141,20 +159,25 @@ class Charts extends React.Component {
             series: [
                 {
                     type:'line',
+                    name:'高压',
                     color:'#3C6DF8',
                     data:yAxisTop,
                 },
                 {
                     type:'line',
+                    name:'低压',
                     color:'#00D2FA ',
-
                     data:yAxisBottom,
                 }
             ]
         };
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option);
-
+        myChart.on('click',function(param){
+            let value = param.value;
+            let time = xAxisData[param.dataIndex];
+            console.log(value,time)
+        })
 
 
     }

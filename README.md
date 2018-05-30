@@ -49,7 +49,8 @@
 ## H5对应页地址
 1. 首页(目前在本地环境)
     http://192.168.0.24:3000/#/
+2. 测试地址
+    http://th5.yishengyue.cn/axq/index.html#/
 
 
-    android首页定位层级遮挡问题待解决
 

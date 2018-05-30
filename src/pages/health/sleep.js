@@ -16,7 +16,6 @@ class Sleep extends React.Component {
             modal:false,
             timeRange:'',
             rollData:null,
-            dataBallTime:"",//数据图表中点击的日期
         }
     }
     componentDidMount(){
@@ -68,18 +67,12 @@ class Sleep extends React.Component {
                Toast.info(res.data.msg,1)
             })
     }
-    setBallData=(value,time)=>{
-        let date = (new Date().getMonth()+1)+'月'+time+'日';
-        this.setState({
-            rollData:value,
-            dataBallTime:date
-        })
-    }
+
     render() {
         return (
             <div className="sleep">
                 <HealthHeader now="睡眠"/>
-                <DataBall now="睡眠" time={this.state.dataBallTime} value={this.state.rollData===null?0:this.state.rollData}/>
+                <DataBall now="睡眠" value={this.state.rollData===null?0:this.state.rollData}/>
                 <List className="sleep-date">
                     <List.Item arrow="horizontal" extra={this.state.timeRange===''?'请选择':this.state.timeRange} onClick={this.showModal('modal')}>记录时间段</List.Item>
                     <Modal
@@ -92,7 +85,7 @@ class Sleep extends React.Component {
                     </Modal>
                 </List>
                 <div className="sleep-charts">
-                    <Charts  type="bar" setBall={this.setBallData}/>
+                    <Charts  type="bar" />
                 </div>
             </div>)
     }

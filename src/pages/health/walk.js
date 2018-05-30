@@ -20,7 +20,6 @@ class Walk extends React.Component {
             pedo:'0', //计步开关 0关 1开
             modalIndex:0, // 激活modal的时间段索引
             initialTime:"00:00-00:00",  //datePicker初始值
-            dataBallTime:"",
         }
     }
     componentDidMount(){
@@ -92,13 +91,7 @@ class Walk extends React.Component {
                 }
             })
     };
-    setBallData=(value,time)=>{
-        let date = (new Date().getMonth()+1)+'月'+time+'日';
-        this.setState({
-            steps:value,
-            dataBallTime:date
-        })
-    };
+
     render() {
         const Item = List.Item;
         const {getFieldProps} = this.props.form;
@@ -106,7 +99,7 @@ class Walk extends React.Component {
         return (
             <div className="walk">
                 <HealthHeader now="计步"/>
-                <DataBall now="计步" value={this.state.steps} time={this.state.dataBallTime}/>
+                <DataBall now="计步" value={this.state.steps} />
                 <div className="recode-time">
                     <List>
                         <Item extra={<Switch
@@ -131,7 +124,7 @@ class Walk extends React.Component {
                     </List>
                 </div>
                 <div>
-                    <Charts type="bar" setBall={this.setBallData} />
+                    <Charts type="bar"  />
                 </div>
             </div>)
     }

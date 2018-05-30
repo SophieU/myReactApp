@@ -12,6 +12,12 @@ class Charts extends React.Component {
         }
         var option = {
             color:'#3C6DF8',
+            tooltip: {
+                formatter:function(param){
+                    let month = (new Date().getMonth()+1)+'月';
+                    return month+param.name+'日'+'：'+param.value
+                }
+            },
             grid:{
                 right:'2%',
                 left:'7%'
@@ -21,7 +27,8 @@ class Charts extends React.Component {
                 axisLabel: {
                     textStyle: {
                         color: '#37394C'
-                    }
+                    },
+
                 },
                 axisLine:{
                     lineStyle:{
@@ -72,12 +79,6 @@ class Charts extends React.Component {
         let _this = this;
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option)
-        myChart.on('click',function(param){
-            let value = param.value;
-            let axis = dataAxis[param.dataIndex];
-           _this.props.setBall(value,axis)
-
-        })
 
     }
     drawLine=()=>{
@@ -85,10 +86,9 @@ class Charts extends React.Component {
        const yAxisTop = [101,100,106,111,120,140,139,121,103,126,122,138,129];
        const yAxisBottom = [70,60,66,77,88,68,79,80,72,90,75,83,78];
        var option = {
-           tooltip: {
+           tooltip: { //点击查看详细数据
                trigger: 'axis'
            },
-
            grid: {
                left: '5%',
                right: '2%',
@@ -173,11 +173,7 @@ class Charts extends React.Component {
         };
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option);
-        myChart.on('click',function(param){
-            let value = param.value;
-            let time = xAxisData[param.dataIndex];
-            console.log(value,time)
-        })
+
 
 
     }

@@ -5,6 +5,16 @@
   bottom:0;
   left:0;
   right:0;
+  .refresh-btn{
+    padding:calcSize(4) calcSize(15);
+    background: #ffff00;
+    color: #3AA7FF;
+    border:none;
+    position: fixed;
+    top:-20px;
+    right:0;
+    z-index:99;
+  }
   .history-time{
     position: absolute;
     top:0;

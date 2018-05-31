@@ -4,7 +4,6 @@ import {Toast} from 'antd-mobile';
 import localStorage from '../../util/storage'
 const AMap = window.AMap;
 
-
 class LocationIndex extends React.Component {
     constructor(){
         super();

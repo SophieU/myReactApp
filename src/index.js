@@ -14,6 +14,8 @@ const render = ()=>ReactDOM.render(<App />, document.getElementById('root'));
 const appinit = window.appinit;
 
 appinit(function (ysyapp) {
+
+
     /*
     * ysyapp: function
     * @params:
@@ -22,6 +24,7 @@ appinit(function (ysyapp) {
     *   callback{function(res)}:调用成功后的回调，
     * */
     window.ysyapp =  ysyapp;
+
     /**
      * 获取登录信息
      */
@@ -31,13 +34,30 @@ appinit(function (ysyapp) {
             data:"",
             callback:function (res) {
                 localStorage.setOpenId(res.userId);
-                render();
+                var url = 'http://webapi.amap.com/maps?v=1.4.6&key=8a1c307c3702ccf7303aae5617321199&callback=init';
+                var jsapi = document.createElement('script');
+                jsapi.charset = 'utf-8';
+                jsapi.src = url;
+                document.head.appendChild(jsapi);
+                window.init=function(){
+
+                    render();
+                }
+
             }
         });
     }else{
         // 在非app环境中
         localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3');
-        render();
+        var url = 'http://webapi.amap.com/maps?v=1.4.6&key=8a1c307c3702ccf7303aae5617321199&callback=init';
+        var jsapi = document.createElement('script');
+        jsapi.charset = 'utf-8';
+        jsapi.src = url;
+        document.head.appendChild(jsapi);
+        window.init=function(){
+
+            render();
+        }
     }
 });
 

@@ -28,7 +28,6 @@ appinit(function (ysyapp) {
     /**
      * 获取登录信息
      */
-    console.log(1)
     if(ysyapp){
         ysyapp({
             funName:'getUserId',

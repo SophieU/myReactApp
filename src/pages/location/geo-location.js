@@ -22,25 +22,38 @@ class GeoLocation extends React.Component {
             timeStart:oneHour,
             timeEnd:now,
             showHistory:false,
-            watchAdd:''
+            watchAdd:'',
+            nowMap:'phoneLoc', //当前定位显示内容 phoneLoc:手机定位，watchLoc:手表定位,history:历史轨迹
         }
         this.getNowGeo=this.getNowGeo.bind(this);
         this.locWatch = this.locWatch.bind(this);
         this.drawLine=this.drawLine.bind(this);
     }
     componentDidMount(){
-        console.log(this.props)
         let openId = localStorage.getOpenId();
         let equipmentId = localStorage.getEquipmentId();
         this.setState({
             openId,
             equipmentId
         });
-
-
-
         // 初始手机定位
         this.getNowGeo();
+    }
+    componentWillReceiveProps(nextProps){
+        let refreshMap = nextProps.refreshMap;
+        let nowMap = this.state.nowMap;
+        if(refreshMap){
+            switch(nowMap){
+                case 'phoneLoc':
+                    this.getNowGeo();
+                    break;
+                case 'watchLoc':
+                    this.locWatch();
+                    break;
+                case 'history':
+                    this.getHistoryLine();
+            }
+        }
     }
     // 手表定位显示
     geolocation(lnglatXY){
@@ -75,7 +88,8 @@ class GeoLocation extends React.Component {
                     });
                     _this.setState({
                         watchAdd:address
-                    })
+                    });
+
                 }else{
                     Toast.info('定位失败',1)
                 }
@@ -86,6 +100,7 @@ class GeoLocation extends React.Component {
     locWatch(){
         this.setState({
             showHistory:false,
+            nowMap:'watchLoc'
         });
         // Toast.info('已发送手表定位指令')
         axios.get(`/api/home/sendPositionCommand?openId=${this.state.openId}&equipmentId=${this.state.equipmentId}`)
@@ -97,20 +112,25 @@ class GeoLocation extends React.Component {
                 }
             })
             .then(()=>{
+
                 axios.get(`/api/home/deviceData?openId=${this.state.openId}&equipmentId=${this.state.equipmentId}`)
                     .then(res=>{
                         if(res.data.success){
                             let data = res.data.data;
                             let lgnlat = [data.longitude,data.latitude];
-                            console.log(data)
                            this.geolocation(lgnlat,data.headImg)
                         }
                     })
+                // 改变刷新状态为初始值
+                this.props.refreshLocation(false)
 
             })
     }
     // 获取手机定位
     getNowGeo(){
+        this.setState({
+            nowMap:'phoneLoc'
+        });
         const map = new AMap.Map("geo-location",{
             zoom:14,
             center: lgnlat,
@@ -121,6 +141,7 @@ class GeoLocation extends React.Component {
             icon:new AMap.Icon({
                 size: new AMap.Size(32, 32),  //图标大小
                 image: "http://p3cnmw3ss.bkt.clouddn.com/add.png",
+                offset:AMap.Pixel(0,0),
             }),
         })
 
@@ -150,7 +171,8 @@ class GeoLocation extends React.Component {
             map.addControl(geolocation);
             geolocation.getCurrentPosition();
         })
-
+        // 改变刷新状态为初始值
+        this.props.refreshLocation(false)
     }
     //获取历史轨迹
     getHistoryLine=()=>{
@@ -218,7 +240,8 @@ class GeoLocation extends React.Component {
         }else{
             marker.moveAlong(lineArr, 500);
         }
-
+        // 改变刷新状态为初始值
+        this.props.refreshLocation(false)
 
     }
     setTime=(time,state)=>{
@@ -242,7 +265,6 @@ class GeoLocation extends React.Component {
     };
     render() {
         let historyStyle=this.state.showHistory?{display:''}:{display:'none'};
-
         return (
             <div ref="location" className="geo-location-wrapper">
                 <div id="geo-location"></div>
@@ -274,7 +296,7 @@ class GeoLocation extends React.Component {
                 </div>
                 <div className="controller">
                     <div onClick={this.locWatch}><img alt="手表定位" src={require('../../images/icon-watch.png')}/></div>
-                    <div onClick={()=>this.setState({showHistory:true})}><img alt="历史轨迹" src={require('../../images/icon-track.png')}/></div>
+                    <div onClick={()=>this.setState({showHistory:true,nowMap:'history'})}><img alt="历史轨迹" src={require('../../images/icon-track.png')}/></div>
                     <div onClick={this.getNowGeo}><img alt="手机定位" src={require('../../images/icon-location.png')}/></div>
                 </div>
             </div>)

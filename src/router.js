@@ -7,7 +7,8 @@ import Scroll from './components/scroll/Scroll';
 
 import ChooseDev from './pages/choose-device/choose-device';
 import Index from './pages/index/page-index';
-import GeoLocation from './pages/location/geo-location';
+// import GeoLocation from './pages/location/geo-location';
+import GeoLocation from './containers/geo-location';
 import MedicineAlarm from './containers/medicine-alarm';
 import AddMedicine from './pages/medicine/add-medicine';
 import RepeatAlarm from './pages/medicine/repeat-alarm';

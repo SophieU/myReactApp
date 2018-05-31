@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import GeoLocation from '../pages/location/geo-location';
+import * as actions from '../redux/actions';
 
 //映射props
 const mapStateToProps=(state)=>{
@@ -7,5 +8,9 @@ const mapStateToProps=(state)=>{
         refreshMap:state.refreshLocation
     })
 };
-
-export default connect(mapStateToProps,null,null)(GeoLocation)
+const mapDispatchToProps=(dispatch)=>{
+    return({
+        refreshLocation:(status)=>dispatch(actions.refreshMap(status))
+    })
+}
+export default connect(mapStateToProps,mapDispatchToProps,null)(GeoLocation)

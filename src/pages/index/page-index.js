@@ -53,7 +53,6 @@ class Index extends React.Component{
                     }
                 }else{
                     const deviceData = res.data.data;
-                    console.log(deviceData)
                     if(localStorage.getEquipmentId()===""){
                         localStorage.setEquipmentId(deviceData.equipmentId);
                     }

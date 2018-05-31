@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter as Router,Route} from 'react-router-dom';
-import Header from './components/header/header'
+// import Header from './components/header/header'
+import Header from './containers/header'
 import Scroll from './components/scroll/Scroll';
 
 import ChooseDev from './pages/choose-device/choose-device';

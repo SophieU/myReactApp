@@ -7,7 +7,7 @@ import axios from '../../api';
 
 import './location.scss';
 
-
+const AMap = window.AMap;
 const lgnlat = [104.076395,30.623233];
 const defaultAvatar='http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png';
 class GeoLocation extends React.Component {
@@ -29,6 +29,7 @@ class GeoLocation extends React.Component {
         this.drawLine=this.drawLine.bind(this);
     }
     componentDidMount(){
+        console.log(this.props)
         let openId = localStorage.getOpenId();
         let equipmentId = localStorage.getEquipmentId();
         this.setState({
@@ -44,7 +45,7 @@ class GeoLocation extends React.Component {
     // 手表定位显示
     geolocation(lnglatXY){
         const _this = this;
-        const AMap = window.AMap;
+
         const map = new AMap.Map("geo-location",{
             zoom:15,
             center: lnglatXY,
@@ -110,7 +111,6 @@ class GeoLocation extends React.Component {
     }
     // 获取手机定位
     getNowGeo(){
-        const AMap = window.AMap;
         const map = new AMap.Map("geo-location",{
             zoom:14,
             center: lgnlat,
@@ -182,7 +182,6 @@ class GeoLocation extends React.Component {
     };
     //绘制轨迹
     drawLine(lineArr){
-        const AMap = window.AMap;
         // const start = [104.143948,30.676779]
         const start=lineArr[0];
         var map = new AMap.Map("geo-location",{
@@ -246,7 +245,6 @@ class GeoLocation extends React.Component {
 
         return (
             <div ref="location" className="geo-location-wrapper">
-                <button className="refresh-btn">刷新</button>
                 <div id="geo-location"></div>
                 <div className="history-time" style={historyStyle}>
                     <DatePicker

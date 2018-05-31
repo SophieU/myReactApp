@@ -7,3 +7,7 @@ import * as ActionTypes from './actionTypes';
 export function hideNavRight(show){
     return {type:ActionTypes.Nav_RIGHT_SHOW,show};
 }
+
+export function refreshMap(state){
+    return {type:ActionTypes.REFRESH_LOCATION,state}
+}

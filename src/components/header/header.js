@@ -69,7 +69,7 @@ const RightIcon = (props)=>{
         case '/':
             return <Link key="1" to='/device-admin'>设备管理</Link>;
         case '/location':
-            return <span key="2" onClick={props.onClick} >刷新</span>;
+            return <span key="2" onClick={props.refreshMap} >刷新</span>;
         case '/medicine':
             return <Link style={props.show?{display:""}:{display:"none"}} key="3" to='/add-medicine'>添加</Link>;
         case '/mail-book':
@@ -159,10 +159,13 @@ class Header extends React.Component {
         }else if(nowPath === "/location"){
             refresh();
         }
-    }
+    };
+    refreshMapState=()=>{
+      let refreshMap= this.props.refreshLocation;
+      refreshMap(true);
+    };
     render() {
         let rightNavShow = this.props.navRightShow; //来自redux的state
-
         // const nowPath = this.state.nowPath;
         const nowPath = this.context.router.route.location.pathname;
         return (
@@ -172,7 +175,12 @@ class Header extends React.Component {
                     onLeftClick={(e)=>this.onLeftClick(nowPath,e)}
                     leftContent={[LeftIcon(nowPath)]}
                     rightContent={[
-                        <RightIcon show={rightNavShow} key={0} onClick={this.goRegister} nowPath = {nowPath}/>
+                        <RightIcon
+                            refreshMap={this.refreshMapState}
+                            show={rightNavShow}
+                            key={0}
+                            onClick={this.goRegister}
+                            nowPath = {nowPath}/>
                     ]}
                 >
                     <span>{this.state.nowRoute}</span>

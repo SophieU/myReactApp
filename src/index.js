@@ -28,36 +28,21 @@ appinit(function (ysyapp) {
     /**
      * 获取登录信息
      */
+    console.log(1)
     if(ysyapp){
         ysyapp({
             funName:'getUserId',
             data:"",
             callback:function (res) {
                 localStorage.setOpenId(res.userId);
-                var url = 'http://webapi.amap.com/maps?v=1.4.6&key=8a1c307c3702ccf7303aae5617321199&callback=init';
-                var jsapi = document.createElement('script');
-                jsapi.charset = 'utf-8';
-                jsapi.src = url;
-                document.head.appendChild(jsapi);
-                window.init=function(){
-
-                    render();
-                }
+                render();
 
             }
         });
     }else{
         // 在非app环境中
         localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3');
-        var url = 'http://webapi.amap.com/maps?v=1.4.6&key=8a1c307c3702ccf7303aae5617321199&callback=init';
-        var jsapi = document.createElement('script');
-        jsapi.charset = 'utf-8';
-        jsapi.src = url;
-        document.head.appendChild(jsapi);
-        window.init=function(){
-
-            render();
-        }
+        render();
     }
 });
 

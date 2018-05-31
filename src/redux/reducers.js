@@ -9,6 +9,7 @@ import localStorage from '../util/storage';
 //需要存储的初始状态数据
 const initialState={
     navRightShow:true, //show the right nav
+    refreshAdd:false,
 };
 
 
@@ -23,10 +24,20 @@ function hideNavRight(show=initialState.navRightShow,action){
             return show;
     }
 }
+// 刷新地图状态
+function refreshLocation(refresh=initialState.refreshAdd,action){
+    switch(action.type){
+        case ActionTypes.REFRESH_LOCATION:
+            return action.state;
+        default:
+            return refresh;
+    }
+}
 
 //合并Reducer
 const reducer = combineReducers({
     hideNavRight,
+    refreshLocation,
 });
 
 export default reducer;

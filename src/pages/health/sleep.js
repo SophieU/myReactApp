@@ -43,7 +43,6 @@ class Sleep extends React.Component {
                 }else{
                     Toast.info(res.data.msg,1)
                 }
-                console.log(res.data)
             })
     }
     showModal=key=>(e)=>{
@@ -51,28 +50,30 @@ class Sleep extends React.Component {
         this.setState({
             [key]:true
         })
-    }
+    };
     closeModal=key=>()=>{
         this.setState({
             [key]:false
         })
-    }
+    };
     timeSelected=(time)=>{
         this.setState({
             timeRange:time.startTime+'-'+time.endTime,
             modal:false
+        },()=>{
+            axios.get(`/api/sleeptime/setSleeptime?openId=${this.openId}&equipmentId=${this.equipmentId}&sleeptime=${this.state.timeRange}`)
+                .then(res=>{
+                    Toast.info(res.data.msg,1)
+                })
         });
-        axios.get(`/api/sleeptime/setSleeptime?openId=${this.openId}&equipmentId=${this.equipmentId}&sleeptime=${this.state.timeRange}`)
-            .then(res=>{
-               Toast.info(res.data.msg,1)
-            })
-    }
+
+    };
 
     render() {
         return (
             <div className="sleep">
                 <HealthHeader now="睡眠"/>
-                <DataBall now="睡眠" value={this.state.rollData===null?0:this.state.rollData}/>
+                <DataBall now="睡眠" value={this.state.rollData===null?0:this.state.rollData.rollCount}/>
                 <List className="sleep-date">
                     <List.Item arrow="horizontal" extra={this.state.timeRange===''?'请选择':this.state.timeRange} onClick={this.showModal('modal')}>记录时间段</List.Item>
                     <Modal

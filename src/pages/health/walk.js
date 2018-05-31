@@ -12,6 +12,8 @@ import {createForm} from 'rc-form';
 class Walk extends React.Component {
     constructor(){
         super();
+        this.openId=localStorage.getOpenId();
+        this.equipmentId=localStorage.getEquipmentId();
         this.state={
             modal:false,
             timeLists:[],
@@ -40,11 +42,16 @@ class Walk extends React.Component {
         let index = this.state.modalIndex;
         let timeLists = this.state.timeLists;
         timeLists[index]=time.startTime+'-'+time.endTime;
-
+        console.log(timeLists)
         this.setState({
             timeLists:timeLists
         });
+
         this.closeModal('modal')
+        axios.get(`/api/step/setUpWalkTime?openId=${this.openId}&equipmentId=${this.equipmentId}&walktime=${this.state.timeLists}`)
+            .then(res=>{
+                Toast.info(res.data.msg,1)
+            })
     };
     closeModal=()=>{
         this.setState({
@@ -76,11 +83,11 @@ class Walk extends React.Component {
             })
     };
     switchPedo=(checked)=>{
-      let pedo = checked?'1':'0';
+        let pedo = checked?'1':'0';
         axios.get(`/api/step/setUpPedo?openId=${this.openId}&equipmentId=${this.equipmentId}&pedo=${pedo}`)
             .then(res=>{
                 if(res.data.success){
-                    Toast.info('成功打开计步功能',1)
+                    Toast.info('操作成功',1)
                 }else{
                     this.setState({
                         pedo:'0'
@@ -99,12 +106,12 @@ class Walk extends React.Component {
         return (
             <div className="walk">
                 <HealthHeader now="计步"/>
-                <DataBall now="计步" value={this.state.steps} />
+                <DataBall now="计步" value={this.state.steps}/>
                 <div className="recode-time">
                     <List>
                         <Item extra={<Switch
                             {...getFieldProps('openRecord',{initialValue:this.state.pedo==='1',valuePropName:'checked'})}
-                            onChange={(checked)=>this.switchPedo(checked)}/>
+                            onClick={(checked)=>this.switchPedo(checked)}/>
                         }>计步</Item>
                         {
                             this.state.timeLists.map((timeRange,index)=>{

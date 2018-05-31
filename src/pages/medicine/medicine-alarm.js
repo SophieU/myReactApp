@@ -27,8 +27,10 @@ class BasicAlarm extends React.Component {
                     let medicine = res.data.medicine;
                     let alarmLists = decodeAlert(medicine);
                     localStorage.setAlarmLists(alarmLists);
+                    console.log(medicine)
                     this.setState({
-                        alarmLists
+                        alarmLists,
+                        initAlarm:medicine
                     },()=>{
                         if(alarmLists.length===3){
                             this.props.hideNavRight(false)
@@ -40,6 +42,26 @@ class BasicAlarm extends React.Component {
                 console.log(err)
             })
     }
+    toggleAlarm=(value,index)=>{
+        console.log(value)
+        let initAlarm = this.state.initAlarm;
+        initAlarm=initAlarm.split(',');
+        let changed = initAlarm[index];
+        changed = changed.split('-');
+        changed[1]=value?'1':'0';
+        changed=changed.join('-');
+        console.log(changed)
+        initAlarm[index]=changed;
+        initAlarm.join(',')
+        console.log(initAlarm)
+        let openId= localStorage.getOpenId();
+        let equipmentId=localStorage.getEquipmentId();
+        axios.get(`/api/medicine/setup?openId=${openId}&equipmentId=${equipmentId}&remind=${initAlarm}&udcount=${index+1}`)
+            .then(res=>{
+                Toast.info(res.data.msg,1)
+            })
+
+    };
     render() {
 
         const {getFieldProps} = this.props.form;
@@ -53,7 +75,7 @@ class BasicAlarm extends React.Component {
                                 <Item
                                     extra={
                                         <Switch {...getFieldProps(index+'',{initialValue:item.checked,valuePropName:'checked'})}
-                                        onClick={(checked)=>console.log(checked)}
+                                        onClick={(value)=>this.toggleAlarm(value,index)}
                                     />}
                                 >
                                     <Link  to={'/edit-medicine/'+index}>

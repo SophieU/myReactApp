@@ -114,7 +114,24 @@ class GeoLocation extends React.Component {
             zoom:14,
             center: lgnlat,
         });
+        var toolBar;
+        var customMarker = new AMap.Marker({
+            map:map,
+            icon:new AMap.Icon({
+                size: new AMap.Size(32, 32),  //图标大小
+                image: "http://p3cnmw3ss.bkt.clouddn.com/add.png",
+            }),
+        })
 
+        //地图中添加地图操作ToolBar插件
+        map.plugin(["AMap.ToolBar"], function() {
+            toolBar = new AMap.ToolBar({
+                locationMarker: customMarker,
+                liteStyle:true,
+                position:'LT'
+            }); //设置地位标记为自定义标记
+            map.addControl(toolBar);
+        });
         map.plugin('AMap.Geolocation',function(){
             var geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -175,28 +192,11 @@ class GeoLocation extends React.Component {
             position:start,
             icon:new AMap.Icon({
                 size: new AMap.Size(45, 45),  //图标大小
-                image: "https://resource.yishengyue.cn/walk.png",
+                image: "http://p3cnmw3ss.bkt.clouddn.com/add.png",
                 imageOffset: new AMap.Pixel(0, 5)
             }),
         })
-        // var lineArr = [
-        //     [104.143948,30.676779],
-        //     [104.144034,30.676474],
-        //     [104.143717,30.676465],
-        //     [104.144077,30.675699],
-        //     [104.144066,30.675718],
-        //     [104.144222,30.675764],
-        //     [104.144436,30.675229],
-        //     [104.143476,30.674906],
-        //     [104.143717,30.674347],
-        //     [104.143433,30.674287],
-        //     [104.143267,30.674214],
-        //     [104.14339,30.673914],
-        //     [104.143084,30.673734],
-        //     [104.14207,30.673392],
-        //     [104.141979,30.673605],
-        //     [104.141808,30.673881],
-        // ]
+
         // 绘制轨迹
         var polyline = new AMap.Polyline({
             map:map,
@@ -212,10 +212,10 @@ class GeoLocation extends React.Component {
             passedPolyline.setPath(e.passedPath)
         })
         map.setFitView();
-        if(lineArr.length>40){
-            marker.moveAlong(lineArr, 1000);
+        if(lineArr.length>30){
+            marker.moveAlong(lineArr, 4000);
         }else{
-            marker.moveAlong(lineArr, 300);
+            marker.moveAlong(lineArr, 500);
         }
 
 

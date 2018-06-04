@@ -2,25 +2,34 @@ import React from 'react';
 import * as echarts from 'echarts';
 
 class Charts extends React.Component {
-    drawBar=()=>{
-        var dataAxis = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-        var data = [10, 18, 19, 23, 29, 33, 31, 12, 20, 32, 9, 14, 21, 12, 13, 33, 19, 12, 12, 22];
-        var yMax = 50;
+    drawBar=(data)=>{
+        if(data.length===0) return;
+        let xAxis=[];
+        let yAxis=[];
+        for(let i=0;i<data.length;i++){
+            xAxis.push(data[i].date);
+            yAxis.push(data[i].itemData);
+        };
+        var dataAxis = xAxis;
+        var data = yAxis;
+        // var yMax = 500;
         var dataShadow = [];
-        for (var i = 0; i < data.length; i++) {
-            dataShadow.push(yMax);
-        }
+        // for (var i = 0; i < data.length; i++) {
+        //     dataShadow.push(yMax);
+        // }
         var option = {
             color:'#3C6DF8',
             tooltip: {
+                trigger : 'axis',
                 formatter:function(param){
+                    let data = param[0]
                     let month = (new Date().getMonth()+1)+'月';
-                    return month+param.name+'日'+'：'+param.value
+                    return month+data.name+'日'+'：'+data.value
                 }
             },
             grid:{
                 right:'2%',
-                left:'7%'
+                left:'15%'
             },
             xAxis: {
                 data: dataAxis,
@@ -38,7 +47,8 @@ class Charts extends React.Component {
                 axisTick: {
                     show: false
                 },
-                z: 10
+                z: 10,
+                triggerEvent: true,
             },
             yAxis: {
                 splitNumber:3,
@@ -79,6 +89,7 @@ class Charts extends React.Component {
         let _this = this;
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option)
+
 
     }
     drawLine=()=>{
@@ -179,10 +190,25 @@ class Charts extends React.Component {
     }
     componentDidMount(){
         const echartType = this.props.type;
+        let data = this.props.data;
+        if(!data||data.length===0) return;
         if(echartType==='line'){
-            this.drawLine();
+            this.drawLine(data);
         }else{
-            this.drawBar();
+            this.drawBar(data);
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        let chartData = nextProps.data;
+        const echartType = nextProps.type;
+        if(!chartData||chartData.length===0) return;
+
+        if(chartData.length!==0){
+            if(echartType==='line'){
+                this.drawLine(chartData);
+            }else{
+                this.drawBar(chartData);
+            }
         }
     }
     render() {

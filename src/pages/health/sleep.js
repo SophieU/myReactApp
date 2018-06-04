@@ -43,6 +43,23 @@ class Sleep extends React.Component {
                 }else{
                     Toast.info(res.data.msg,1)
                 }
+            });
+        // 获取当月睡眠信息列表
+        axios.get(`/api/sleeptime/getListOfCurrMonth?openId=${this.openId}&equipmentId=${this.equipmentId}`)
+            .then(res=>{
+                if(res.data.success){
+                    let data = res.data.data;
+                    data=data.map((item)=>{
+                        let date = new Date(item.createTime).getDate();
+                        return {
+                            date:date,
+                            itemData:item.rollCount
+                        }
+                    });
+                    this.setState({
+                        rollCountLists:data
+                    })
+                }
             })
     }
     showModal=key=>(e)=>{
@@ -86,7 +103,7 @@ class Sleep extends React.Component {
                     </Modal>
                 </List>
                 <div className="sleep-charts">
-                    <Charts  type="bar" />
+                    <Charts  type="bar"  data = {this.state.rollCountLists}/>
                 </div>
             </div>)
     }

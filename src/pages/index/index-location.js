@@ -64,7 +64,7 @@ class LocationIndex extends React.Component {
         return (
             <Link className="index-local" to='/location'>
                 <div id="index-local"></div>
-                <div className="local-text"><img alt="" className="am-icon am-icon-xs" src={require('../../images/location.svg')}/>{this.state.nowAddress}</div>
+                <div className="local-text"><img alt="" className="am-icon am-icon-xs" src={require('../../images/address.png')}/>{this.state.nowAddress}</div>
             </Link>)
 
     }

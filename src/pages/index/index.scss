@@ -98,6 +98,10 @@
     line-height: calcSize(36);
     border-bottom-left-radius: calcSize(8);
     border-bottom-right-radius: calcSize(8);
+    img{
+      position: relative;
+      top:3px;
+    }
   }
 }
 #index-local{

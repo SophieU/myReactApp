@@ -22,6 +22,7 @@ class Walk extends React.Component {
             pedo:'0', //计步开关 0关 1开
             modalIndex:0, // 激活modal的时间段索引
             initialTime:"00:00-00:00",  //datePicker初始值
+            stepsTotal:[],
         }
     }
     componentDidMount(){
@@ -35,14 +36,59 @@ class Walk extends React.Component {
                 this.setState({
                     timeToday:time
                 })
-                console.log(res.data)
+            });
+
+        axios.get(`/api/step/getListByTime?openId=${this.openId}&equipmentId=${this.equipmentId}`)
+            .then(res=>{
+                let data = res.data.data;
+
+                // let fakeData = [
+                //     {
+                //         "content": "LK",
+                //         "contentLength": "0009",
+                //         "createTime": 1525683442000,//时间戳
+                //         "electricity": 78,
+                //         "equipmentId": "3919752600",
+                //         "firms": "3G",
+                //         "id": 646,
+                //         "rollCount": 100,
+                //         "stepsNum": 15864 //当天计步数
+                //     },
+                //     {
+                //         "content": "LK",
+                //         "contentLength": "000D",
+                //         "createTime": 1526022485000,
+                //         "electricity": 100,
+                //         "equipmentId": "3919752600",
+                //         "firms": "SG",
+                //         "id": 648,
+                //         "rollCount": 100,
+                //         "stepsNum": 50
+                //     }
+                // ];
+
+
+                if(res.data.success){
+                    data=data.map((item)=>{
+                        let date = new Date(item.createTime).getDate();
+                        return {
+                            date:date,
+                            itemData:item.stepsNum
+                        }
+                    })
+
+                    this.setState({
+                        stepsTotal:data
+                    });
+                    console.log(this.state.stepsTotal)
+                }
             })
+
     }
     timeSelected = (time)=>{
         let index = this.state.modalIndex;
         let timeLists = this.state.timeLists;
         timeLists[index]=time.startTime+'-'+time.endTime;
-        console.log(timeLists)
         this.setState({
             timeLists:timeLists
         });
@@ -102,7 +148,6 @@ class Walk extends React.Component {
     render() {
         const Item = List.Item;
         const {getFieldProps} = this.props.form;
-
         return (
             <div className="walk">
                 <HealthHeader now="计步"/>
@@ -131,7 +176,7 @@ class Walk extends React.Component {
                     </List>
                 </div>
                 <div>
-                    <Charts type="bar"  />
+                    <Charts type="bar" data={this.state.stepsTotal} />
                 </div>
             </div>)
     }

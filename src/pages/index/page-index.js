@@ -68,6 +68,17 @@ class Index extends React.Component{
 
                     // 获取sos电话
                     this.getSOS();
+                    //获取近期心率数据
+                    axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
+                        .then(res=>{
+                            if(res.data.success){
+                                let data = res.data.data;
+                                this.setState({
+                                    heart:data[data.length-1].heartbeat
+                                })
+                            }
+                            console.log(res.data)
+                        })
                 }
             })
     }
@@ -81,6 +92,7 @@ class Index extends React.Component{
              if(res.data.success){
                  const devData = res.data.data;
                  const heartData = res.data.heart;
+                 console.log(res.data)
                  this.setState({
                      electricity:devData.electricity,
                      lnglat:{
@@ -237,7 +249,7 @@ class Index extends React.Component{
                         <Link to="/heartbeat" className="link-item">
                             <img alt="" src={require('../../images/pic-heartbeat.png')}/>
                             <div className="link-data">
-                                <p><strong>{this.state.heart===null?'':this.state.heart.heartbeat}</strong></p>
+                                <p><strong>{this.state.heart===null?'':this.state.heart}</strong></p>
                                 <p>心率</p>
                             </div>
                         </Link>

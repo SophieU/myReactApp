@@ -77,7 +77,6 @@ class Index extends React.Component{
                                     heart:data[data.length-1].heartbeat
                                 })
                             }
-                            console.log(res.data)
                         })
                 }
             })
@@ -92,7 +91,6 @@ class Index extends React.Component{
              if(res.data.success){
                  const devData = res.data.data;
                  const heartData = res.data.heart;
-                 console.log(res.data)
                  this.setState({
                      electricity:devData.electricity,
                      lnglat:{

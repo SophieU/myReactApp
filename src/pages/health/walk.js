@@ -80,7 +80,6 @@ class Walk extends React.Component {
                     this.setState({
                         stepsTotal:data
                     });
-                    console.log(this.state.stepsTotal)
                 }
             })
 

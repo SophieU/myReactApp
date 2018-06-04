@@ -20,18 +20,32 @@ class Heart extends React.Component {
         this.equipmentId = localStorage.getEquipmentId();
         this.heartBeat();
 
-        let time = moment(new Date()).format("YYYY-MM-DD");
-        axios.get(`/api/heart/heartList?openId=${this.openId}&equipmentId=${this.equipmentId}&time=${time}`)
+        //获取当月心率数据列表
+        axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
+                if(res.data.success){
+                    let data = res.data.data;
+                    data=data.map((item,index)=>{
+                        let date = new Date(item.createTime).getDate();
+                        return{
+                            date:date,
+                            itemData:item.heartbeat
+                        }
+                    });
+                    this.setState({
+                        heartBeatLists:data
+                    })
+                }
                 console.log(res.data)
             })
     }
+    //发送测量心率指令
     measureHeart=()=>{
         axios.get(`/api/heart/measure?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
 
                 if(res.data.success){
-                    Toast.info('测量指令发送成功，请稍候',1)
+                    Toast.info('测量指令发送成功，请稍候10s获取测量结果',2)
                     this.setState({
                         measuring:true
                     });
@@ -47,6 +61,7 @@ class Heart extends React.Component {
 
             })
     };
+    //获取测量后心率
     heartBeat=()=>{
         axios.get(`/api/heart/heartbeat?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
@@ -71,7 +86,7 @@ class Heart extends React.Component {
                     <p>对于成年人，60-100次/每分钟的测量值通常被视为正常范围，低于60次/每分钟则偏低，高于100次/每分钟则偏高。</p>
                 </div>
                 <div>
-                    <Charts type="bar" />
+                    <Charts type="bar" data={this.state.heartBeatLists}/>
                 </div>
             </div>)
     }

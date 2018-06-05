@@ -73,9 +73,12 @@ class Index extends React.Component{
                         .then(res=>{
                             if(res.data.success){
                                 let data = res.data.data;
-                                this.setState({
-                                    heart:data[data.length-1].heartbeat
-                                })
+                                if(data.length!==0){
+                                    this.setState({
+                                        heart:data[data.length-1].heartbeat
+                                    })
+                                }
+
                             }
                         })
                 }

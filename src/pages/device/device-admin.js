@@ -21,12 +21,12 @@ class DeviceAdmin extends React.Component {
             .then(res=>{
                let result = res.data;
                if(result.success){
-                   console.log(result.data)
                    this.setState({
                        deviceLists:result.data
                    })
                }
             });
+
     }
     deleteAlert(equipmentId,name){
         let tips = '确认要删除'+name+'吗？';
@@ -37,11 +37,21 @@ class DeviceAdmin extends React.Component {
     }
     deleteDevice(equipmentId){
         let openId = localStorage.getOpenId();
-        axios.get(`/api/deviceManage/delOneDevice?openId=${openId}&equipmentId=${equipmentId}`)
+
+            axios.get(`/api/deviceManage/delOneDevice?openId=${openId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 if(res.data.success){
                     Toast.info('删除成功',1);
-                    window.location.reload();
+                    let deviceLists = this.state.deviceLists;
+                    let newlists =deviceLists.filter((item)=>{
+                        if(item.equipmentId!==equipmentId){
+                            return true;
+                        }
+                    });
+                   this.setState({
+                       deviceLists:newlists
+                   });
+                    // window.location.reload();
                 }else{
                     Toast.info(res.data.msg,1)
                 }

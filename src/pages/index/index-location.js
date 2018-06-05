@@ -12,20 +12,22 @@ class LocationIndex extends React.Component {
             lnglat:[]
         }
     }
-    shouldComponentUpdate(nextProps,nextState){
+    shouldComponentUpdate(nextProps){
         if(nextProps.latitude===undefined||nextProps.longitude===undefined) return false;
         return true;
     }
-    componentDidUpdate(prop){
+    componentWillUpdate(prop){
         const lnglat=[prop.longitude,prop.latitude];
-        if(lnglat[0]!==undefined&&lnglat[1]!==undefined&&this.state.nowAddress===''){
-            this.geolocation(lnglat);
-            return;
-        }else if(lnglat[0]!==this.state.lnglat[0]&&lnglat[1]!==this.state.lnglat[1]){
-
-            this.geolocation(lnglat);
-            return;
+        if(JSON.stringify(lnglat)===JSON.stringify(this.state.lnglat)){
+            //重复渲染
+            return false;
+        }else{
+            if(lnglat[0]!==undefined&&lnglat[1]!==undefined&&this.state.nowAddress===''){
+                this.geolocation(lnglat);
+                return;
+            }
         }
+
     }
     geolocation(lnglatXY){
         const _this = this;

@@ -21,12 +21,12 @@ class Index extends React.Component{
         this.state={
             role:'',
             online:false,
-            heart:0,
+            heart:'',
             lnglat:{},
             electricity:0,
             rollCount:0,
             stepsNum:0,
-            userInfo:{},
+            avatar:'',
             tel:'',
             sol:'',
             deviceList:[],
@@ -49,38 +49,33 @@ class Index extends React.Component{
                             funName:"bindDevice"
                         })
                     }else{
-                        this.context.router.history.push('/register')
+                        this.props.history.push('/register')
                     }
                 }else{
                     const deviceData = res.data.data;
-                    if(localStorage.getEquipmentId()===""){
-                        localStorage.setEquipmentId(deviceData.equipmentId);
-                    }
-
-                    // localStorage.setItem('equipmentId',deviceData.equipmentId);
-                    //查询设备列表
+                   //查询设备列表
                     this.getDeviceList();
                     // 获取用户信息
                     this.getUserInfo();
-
-                    // 获取手表电话
+                     // 获取手表电话
                     this.getWatchTel();
 
                     // 获取sos电话
-                    this.getSOS();
-                    //获取近期心率数据
-                    axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
-                        .then(res=>{
-                            if(res.data.success){
-                                let data = res.data.data;
-                                if(data.length!==0){
-                                    this.setState({
-                                        heart:data[data.length-1].heartbeat
-                                    })
-                                }
+                   this.getSOS();
+                      //获取近期心率数据
+                      axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
+                          .then(res=>{
+                              if(res.data.success){
+                                  let data = res.data.data;
+                                  console.log(data)
+                                  if(data.length!==0){
+                                      this.setState({
+                                          heart:data[data.length-1].heartbeat
+                                      })
+                                  }
 
-                            }
-                        })
+                              }
+                          })
                 }
             })
     }
@@ -126,6 +121,7 @@ class Index extends React.Component{
 
             })
     };
+
     /*查询手表电话*/
     getWatchTel=()=>{
         let openId = localStorage.getOpenId();
@@ -150,14 +146,13 @@ class Index extends React.Component{
             .then(res=>{
                 if(res.data.success){
                     let data = res.data.data;
-                    localStorage.setEquipmentId(data.eqid);
                     localStorage.setHeadImg(data.headimg);
                     this.setState({
                         lnglat:{
                             longitude:data.longitude,
                             latitude:data.latitude
                         },
-                        userInfo:data,
+                        avatar:data.headimg,
                     })
                 }
             })
@@ -176,13 +171,19 @@ class Index extends React.Component{
                 if(res.data.success){
                     let equipmentId = localStorage.getEquipmentId();
                     let deviceList = res.data.data;
-                    let roleNow=''
-                    deviceList.map(item=>{
-                        if(item.equipmentId===equipmentId){
-                            roleNow=item.role
-                        }
-                    })
+                    //首次进入进eqId为空
+                    if(equipmentId===""){
+                        localStorage.setEquipmentId(deviceList[0].equipmentId);
+                        equipmentId=deviceList[0].equipmentId;
+                    }
 
+                    let roleNow='';
+                    deviceList.forEach(item=>{
+                        if(item.equipmentId===equipmentId){
+                            roleNow=item.role;
+                            return;
+                        }
+                    });
                     this.setState({
                         deviceList:deviceList,
                         role:roleNow
@@ -221,7 +222,7 @@ class Index extends React.Component{
             roleList:this.state.deviceList,
             role:this.state.role,
             status:this.state.online?'数据连接':'设备不在线',
-            headImg:this.state.userInfo.headimg
+            headImg:this.state.avatar
         };
         const lnglat = {
             latitude:this.state.lnglat.latitude,

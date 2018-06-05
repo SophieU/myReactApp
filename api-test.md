@@ -48,7 +48,7 @@ openId: 83fedff0-4d54-4a02-a0a4-787c7d1b9df3
 Sophia
 openId: 83fedff0-4d54-4a02-a0a4-787c7d1b9df3
 equipmentId: 3919752709
-管理码：77795474
+管理码：69247817
 注册码：439019875297094
 
 

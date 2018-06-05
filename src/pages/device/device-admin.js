@@ -50,6 +50,21 @@ class DeviceAdmin extends React.Component {
                     });
                    this.setState({
                        deviceLists:newlists
+                   },function(){
+                       if(newlists.length===0){
+                           //删空了
+                           if(window.ysyapp){
+                               window.ysyapp({
+                                   funName:"bindDevice",
+                                   data:{
+                                       empty:true, //表示当前用户删除了所有设备，不能再返回到H5中
+                                   }
+                               })
+                           }else{
+                               this.props.history.push('/register')
+                           }
+
+                       }
                    });
                     // window.location.reload();
                 }else{

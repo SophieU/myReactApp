@@ -218,7 +218,7 @@ class Index extends React.Component{
             roleList:this.state.deviceList,
             role:this.state.role,
             status:this.state.online?'数据连接':'设备不在线',
-            headImg:this.state.userInfo.headImg
+            headImg:this.state.userInfo.headimg
         };
         const lnglat = {
             latitude:this.state.lnglat.latitude,
@@ -228,7 +228,6 @@ class Index extends React.Component{
             tel:this.state.tel,
             sos:this.state.sos,
         };
-
         return(
             <div>
                 <DevStatu {...devStatu} changeRole={this.changeRole}/>

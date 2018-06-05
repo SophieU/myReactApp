@@ -75,7 +75,7 @@ class DevStatu extends React.Component {
            marginBottom:'12px',
            fontSize:'16px'
        };
-
+        let avatarSrc = 'http://jk.anxinqiao.com/share/Img/'+this.props.headImg
         return (
             <div className="device-status insetShadow">
                 <Popover mask
@@ -92,7 +92,7 @@ class DevStatu extends React.Component {
                         {this.props.role}<Icon className="icon-color" size="xs" type="down"/>
                     </div>
                 </Popover>
-                <img className="avatar" src={this.props.headImg?this.props.headImg:defaultAvatar}/>
+                <img className="avatar" src={this.props.headImg?avatarSrc:defaultAvatar}/>
                 <div className="energy-box">
                     <div className="energy-bar">
                         <div style={{width:this.props.electricity+'%'}} className="energy-bar-line"></div>

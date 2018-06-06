@@ -56,12 +56,11 @@ class Index extends React.Component{
                    //查询设备列表
                     this.getDeviceList();
                     // 获取用户信息
-                    this.getUserInfo();
+                   this.getUserInfo();
                      // 获取手表电话
                     this.getWatchTel();
-
-                    // 获取sos电话
-                   this.getSOS();
+                     // 获取sos电话
+                       this.getSOS();
                       //获取近期心率数据
                       axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
                           .then(res=>{
@@ -89,18 +88,20 @@ class Index extends React.Component{
              if(res.data.success){
                  const devData = res.data.data;
                  const heartData = res.data.heart;
-                 this.setState({
-                     electricity:devData.electricity,
-                     lnglat:{
-                         latitude:devData.latitude,
-                         longitude:devData.longitude
-                     },
-                     stepsNum:devData.stepsNum,
-                     rollCount:devData.rollCount,
-                     heartbeat:heartData
-                 })
+                 if(devData!==null){
+                     this.setState({
+                         electricity:devData.electricity,
+                         lnglat:{
+                             latitude:devData.latitude,
+                             longitude:devData.longitude
+                         },
+                         stepsNum:devData.stepsNum,
+                         rollCount:devData.rollCount,
+                         heartbeat:heartData
+                     })
+                 }
              }else{
-                 console.log(res.data.msg)
+                 Toast.info(res.data.msg)
              }
 
             })
@@ -146,14 +147,17 @@ class Index extends React.Component{
             .then(res=>{
                 if(res.data.success){
                     let data = res.data.data;
-                    localStorage.setHeadImg(data.headimg);
-                    this.setState({
-                        lnglat:{
-                            longitude:data.longitude,
-                            latitude:data.latitude
-                        },
-                        avatar:data.headimg,
-                    })
+                    if(data!==null){
+                        localStorage.setHeadImg(data.headimg);
+                        this.setState({
+                            lnglat:{
+                                longitude:data.longitude!==null?data.longitude:'',
+                                latitude:data.latitude!==null?data.latitude:''
+                            },
+                            avatar:data.headimg,
+                        })
+                    }
+
                 }
             })
             .then(()=>{

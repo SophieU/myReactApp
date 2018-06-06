@@ -117,8 +117,12 @@ class GeoLocation extends React.Component {
                     .then(res=>{
                         if(res.data.success){
                             let data = res.data.data;
-                            let lgnlat = [data.longitude,data.latitude];
-                           this.geolocation(lgnlat,data.headImg)
+                            if(!data){
+                               Toast.info('手表返回坐标：'+JSON.stringify(data),1)
+                            }else{
+                                let lgnlat = [data.longitude,data.latitude];
+                                this.geolocation(lgnlat,data.headImg)
+                            }
                         }
                     })
                 // 改变刷新状态为初始值

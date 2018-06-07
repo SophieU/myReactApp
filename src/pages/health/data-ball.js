@@ -6,7 +6,7 @@ const DataBall = (props)=>{
     let danger = {backgroundImage:'linear-gradient(to right,#FE5B48,#FF6C18)'};
    return  (<div className="data-ball ">
         <div className="data-show-wrapper ">
-            <div className={props.measuring?"gradient-bg rotate":"gradient-bg"} style={props.danger?danger:{}}></div>
+            <div className={props.measuring?"gradient-bg rotate":"gradient-bg"} style={!!props.danger&&!props.measuring?danger:{}}></div>
             <div className="data-show">
                 <div className={props.now==="睡眠"?'center-data':'hide'} >
                     <h3>{props.value}</h3>

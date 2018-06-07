@@ -25,9 +25,10 @@ class BasicAlarm extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     let medicine = res.data.medicine;
+                    
                     let alarmLists = decodeAlert(medicine);
                     localStorage.setAlarmLists(alarmLists);
-                    console.log(medicine)
+                    localStorage.setMedicine(medicine);
                     this.setState({
                         alarmLists,
                         initAlarm:medicine
@@ -43,7 +44,6 @@ class BasicAlarm extends React.Component {
             })
     }
     toggleAlarm=(value,index)=>{
-        console.log(value)
         let initAlarm = this.state.initAlarm;
         initAlarm=initAlarm.split(',');
         let changed = initAlarm[index];
@@ -53,9 +53,9 @@ class BasicAlarm extends React.Component {
         console.log(changed)
         initAlarm[index]=changed;
         initAlarm.join(',')
-        console.log(initAlarm)
         let openId= localStorage.getOpenId();
         let equipmentId=localStorage.getEquipmentId();
+        console.log(initAlarm)
         axios.get(`/api/medicine/setup?openId=${openId}&equipmentId=${equipmentId}&remind=${initAlarm}&udcount=${index+1}`)
             .then(res=>{
                 Toast.info(res.data.msg,1)

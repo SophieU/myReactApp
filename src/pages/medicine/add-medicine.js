@@ -36,6 +36,7 @@ class BasicAddMed extends React.Component {
                 repeat:alarm.sequence[0]==="一次"?false:true,
             })
         }
+
     }
     /*从重复设置跳转回时*/
     componentDidUpdate(prePro){
@@ -97,8 +98,11 @@ class BasicAddMed extends React.Component {
         let equipmentId = localStorage.getEquipmentId();
         let timeStr = this.formateTime(time);
         let dateTime = encodeAlert(timeStr,true,repeats);
-
-        axios.get(`/api/medicine/setup?openId=${openId}&equipmentId=${equipmentId}&udcount=${index}&remind=${dateTime}`)
+        let medicineAll = localStorage.getMedicine();
+        medicineAll=medicineAll.split(',');
+        medicineAll[index-1]=dateTime;
+        medicineAll=medicineAll.join(',');
+        axios.get(`/api/medicine/setup?openId=${openId}&equipmentId=${equipmentId}&remind=${medicineAll}&udcount=${index}`)
             .then(res=>{
                 if(res.data.success){
                     Toast.info('设置成功',1)
@@ -109,8 +113,6 @@ class BasicAddMed extends React.Component {
                     Toast.info(res.data.msg,1)
                 }
             })
-        console.log(repeats)
-        console.log(dateTime)
         // this.props.history.push('/medicine')
     };
 

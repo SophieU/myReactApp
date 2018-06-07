@@ -2,7 +2,6 @@ export function encodeAlert(time,open,repeat){
     let formatStr = time+'-';
    let openCode= open?1:0;
    formatStr+=openCode;
-   console.log(formatStr);
    switch (repeat[0]){
        case '一次':
            formatStr=formatStr+'-'+1;
@@ -22,7 +21,6 @@ export function encodeAlert(time,open,repeat){
                }
            });
            arr=arr.join('');
-           console.log(arr);
            formatStr=formatStr+'-'+'3'+'-'+arr;
    }
    return formatStr;

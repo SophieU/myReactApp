@@ -47,6 +47,13 @@ let localStorage = {
         let imgHref = 'http://jk.anxinqiao.com/share/Img/'+imgName;
         window.localStorage.setItem('headImg',imgHref)
     },
+    setMedicine(medicineLists){
+        window.localStorage.setItem('medicine',medicineLists);
+    },
+    getMedicine(){
+        let medicine = window.localStorage.getItem('medicine');
+        return medicine;
+    }
 
 }
 export default localStorage;

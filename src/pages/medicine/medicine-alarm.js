@@ -25,7 +25,7 @@ class BasicAlarm extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     let medicine = res.data.medicine;
-                    
+
                     let alarmLists = decodeAlert(medicine);
                     localStorage.setAlarmLists(alarmLists);
                     localStorage.setMedicine(medicine);

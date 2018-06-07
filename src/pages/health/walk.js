@@ -34,39 +34,14 @@ class Walk extends React.Component {
         axios.get(`/api/step/getOneByTime?openId=${this.openId}&equipmentId=${this.equipmentId}&time=${time}`)
             .then(res=>{
                 this.setState({
-                    timeToday:time
+                    timeToday:time,
+                    stepToday:res.data.data
                 })
             });
 
         axios.get(`/api/step/getListByTime?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
                 let data = res.data.data;
-
-                // let fakeData = [
-                //     {
-                //         "content": "LK",
-                //         "contentLength": "0009",
-                //         "createTime": 1525683442000,//时间戳
-                //         "electricity": 78,
-                //         "equipmentId": "3919752600",
-                //         "firms": "3G",
-                //         "id": 646,
-                //         "rollCount": 100,
-                //         "stepsNum": 15864 //当天计步数
-                //     },
-                //     {
-                //         "content": "LK",
-                //         "contentLength": "000D",
-                //         "createTime": 1526022485000,
-                //         "electricity": 100,
-                //         "equipmentId": "3919752600",
-                //         "firms": "SG",
-                //         "id": 648,
-                //         "rollCount": 100,
-                //         "stepsNum": 50
-                //     }
-                // ];
-
 
                 if(res.data.success){
                     data=data.map((item)=>{
@@ -75,8 +50,7 @@ class Walk extends React.Component {
                             date:date,
                             itemData:item.stepsNum
                         }
-                    })
-
+                    });
                     this.setState({
                         stepsTotal:data
                     });
@@ -150,7 +124,7 @@ class Walk extends React.Component {
         return (
             <div className="walk">
                 <HealthHeader now="计步"/>
-                <DataBall now="计步" value={this.state.steps}/>
+                <DataBall now="计步" value={this.state.stepToday}/>
                 <div className="recode-time">
                     <List>
                         <Item extra={<Switch

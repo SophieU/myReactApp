@@ -66,8 +66,10 @@
   .icon-item{
     width:calcSize(60);
     text-align: center;
+    color: #6A6A6A;
+
     a{
-      color: #6A6A6A;
+      color: inherit;
     }
   }
   img{

@@ -16,6 +16,8 @@ class AddMail extends React.Component {
             nickName:'',
             tel:'',
             show:false,
+            validInput:false, //标识是否已输入
+            imgSelected:false, //标识是否已上传图片
         }
     }
     componentDidMount(){
@@ -28,7 +30,6 @@ class AddMail extends React.Component {
             // 修改或查看详情
             this.findTel(mailType);
         }
-
     }
     findTel=(id)=>{
         let openId = localStorage.getOpenId();
@@ -70,7 +71,7 @@ class AddMail extends React.Component {
         axios.post('/api/tel/saveOrUpdate',formData,config).then(res=>{
            if(res.data.success){
                Toast.info(res.data.msg,1);
-               router.push('/mail-book')
+               router.goBack();
            }else{
                Toast.info(res.data.msg,1)
            }
@@ -85,36 +86,63 @@ class AddMail extends React.Component {
             this.refs.uploadImg.src=e.target.result;
         };
         reader.readAsDataURL(file);
+        this.setState({
+            imgSelected:true
+        })
     };
     telInput=(value)=>{
-        let telReg = /^1\d{10}/;
-        if(value.replace(/\s/g,'').length<11&&!telReg.test(value)){
-            this.setState({
-                hasErrorTel:true
-            })
-        }else{
-            this.setState({
-                hasErrorTel:false
-            })
+        let telReg = /^1[3456789]\d{9}$/;
+        if(/\D/.test(value)){
+            Toast.info('请输入数字');
+            return false;
+        }
+        if(value.length>11){
+            Toast.info('手机号超长了');
+            return false;
+        }
+        if(!telReg.test(value)&&value.length===11){
+            Toast.info('请输入正确的手机号',1);
         }
         this.setState({
             tel:value
-        })
+        },()=>{
+            this.checkValid();
+        });
+
     };
     nickNameInput=(value)=>{
-        if(value.length===0||value.length>10){
+        let reg = /^[\w\u4e00-\u9fa5]+$/;
+        if(reg.test(value)||value===''){
+            if(value.length>6) {
+               Toast.info('最多6位',1);
+                return;
+            }
             this.setState({
-                hasErrorName:true
+                nickName:value
+            },()=>{
+                this.checkValid()
+            })
+        }else{
+            Toast.info('请输入汉字,字母,数字或下划线',1);
+            return false;
+        }
+
+    };
+    checkValid(){
+        let nickName= this.state.nickName;
+        let tel = this.state.tel;
+        let telReg = /^1[3456789]\d{9}$/;
+
+        if(nickName!==''&&telReg.test(tel)){
+            this.setState({
+                validInput:true
             })
         }else{
             this.setState({
-                hasErrorName:false
+                validInput:false
             })
         }
-        this.setState({
-            nickName:value
-        })
-    };
+    }
     render() {
         return (
             <CSSTransition in={this.state.show} timeout={300} classNames="transition">
@@ -125,12 +153,12 @@ class AddMail extends React.Component {
                         <input  ref="uploadInput" name="image"  onChange={this.fileChanged} accept="image/*" className="upload-input" type="file"/>
                     </div>
                     <List>
-                        <InputItem value={this.state.nickName} error={this.state.hasErrorName} onChange={this.nickNameInput} placeholder="请输入昵称" ><span className="form-label">昵称</span></InputItem>
-                        <InputItem value={this.state.tel} error={this.state.hasErrorTel} onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
+                        <InputItem value={this.state.nickName} error={this.state.hasErrorName}  onChange={this.nickNameInput} placeholder="仅支持字母数字汉字下划线，最多6位" ><span className="form-label">昵称</span></InputItem>
+                        <InputItem value={this.state.tel} error={this.state.hasErrorTel}  onChange={this.telInput} placeholder="请输入电话号码"><span className="form-label">电话号码</span></InputItem>
                     </List>
                     <WingBlank>
                         <WhiteSpace />
-                        <Button onClick={this.submit} type="primary">保存</Button>
+                        <Button disabled={!this.state.validInput} onClick={this.submit} type="primary">保存</Button>
                     </WingBlank>
 
                 </div>

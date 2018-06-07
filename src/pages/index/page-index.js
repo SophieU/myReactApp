@@ -10,8 +10,6 @@ import {Toast} from 'antd-mobile';
 import localStorage from '../../util/storage';
 import Scroll from '../../components/scroll/Scroll';
 
-// 原生方法
-const ysyapp = window.ysyapp;
 
 
 class Index extends React.Component{
@@ -42,14 +40,15 @@ class Index extends React.Component{
         axios.get('/api/userLogin?openId='+openId)
             .then(res=>{
                 const isRegister = res.data.success;
+                // 用户无equipmentId时表示未注册
                 if(!isRegister){
                     // 未注册的跳转
+                    // 原生方法
+                    const ysyapp = window.ysyapp;
                     if(ysyapp){
                         ysyapp({
                             funName:"bindDevice"
                         })
-                    }else{
-                        this.props.history.push('/register')
                     }
                 }else{
                     const deviceData = res.data.data;
@@ -66,7 +65,6 @@ class Index extends React.Component{
                           .then(res=>{
                               if(res.data.success){
                                   let data = res.data.data;
-                                  console.log(data)
                                   if(data.length!==0){
                                       this.setState({
                                           heart:data[data.length-1].heartbeat
@@ -83,6 +81,7 @@ class Index extends React.Component{
         const openId = this.openId;
         const equipmentId = localStorage.getEquipmentId();
         const query = 'openId='+openId+'&equipmentId='+equipmentId;
+
         axios.get('/api/home/deviceData?'+query)
             .then(res=>{
              if(res.data.success){
@@ -98,7 +97,7 @@ class Index extends React.Component{
                          stepsNum:devData.stepsNum,
                          rollCount:devData.rollCount,
                          heartbeat:heartData
-                     })
+                     },console.log(this.state.lnglat))
                  }
              }else{
                  Toast.info(res.data.msg)
@@ -155,6 +154,8 @@ class Index extends React.Component{
                                 latitude:data.latitude!==null?data.latitude:''
                             },
                             avatar:data.headimg,
+                        },()=>{
+                            console.log(this.state.lnglat)
                         })
                     }
 
@@ -165,6 +166,24 @@ class Index extends React.Component{
                 this.getInternetStatus();
                 // 获取设备数据
                 this.getDeviceDatas();
+                // 获取手表电话
+                this.getWatchTel();
+                // 获取sos电话
+                this.getSOS();
+                //获取近期心率数据
+                axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
+                    .then(res=>{
+                        if(res.data.success){
+                            let data = res.data.data;
+                            if(data.length!==0){
+                                this.setState({
+                                    heart:data[data.length-1].heartbeat
+                                })
+                            }
+
+                        }
+                    })
+
             })
     };
     /*绑定的设备列表*/

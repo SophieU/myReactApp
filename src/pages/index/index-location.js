@@ -22,8 +22,12 @@ class LocationIndex extends React.Component {
             //重复渲染
             return false;
         }else{
-            if(!!lnglat[0]&&!!lnglat[1]&&this.state.nowAddress===''){
-                this.geolocation(lnglat);
+            if(!!lnglat[0]&&!!lnglat[1]){
+                this.setState({
+                    lnglat:lnglat
+                },()=>{
+                    this.geolocation(lnglat);
+                });
                 return;
             }
         }

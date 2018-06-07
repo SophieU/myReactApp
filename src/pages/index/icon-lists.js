@@ -10,7 +10,7 @@ class IconList extends React.Component {
         if(!tel){
             alert('提醒','当前手表未设置电话')
         }else{
-            alert('提醒', '确认拔打电话'+tel+'???', [
+            alert('提醒', '确认拔打电话'+tel+'?', [
                 { text: '取消', onPress: () => console.log('cancel') },
                 { text: '确认', onPress: () => window.location.href="tel:"+tel},
             ])

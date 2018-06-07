@@ -68,14 +68,15 @@ class GeoLocation extends React.Component {
             const geocoder = new AMap.Geocoder({})
             geocoder.getAddress(lnglatXY,function(status,result){
                 if(status==="complete"&&result.info==='OK'){
+                    let addressFormat = result.regeocode.formattedAddress;
                     let addressCom = result.regeocode.addressComponent;
-                    let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
+                    // let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
                     let headImg = localStorage.getHeadImg();
                     // 请求头像
                     const watchCover = '<div class="loc-marker">' +
                         '<img class="avatar" src="'+headImg+'"/>' +
                         '<div class="loc-text">' +
-                        '<div class="loc-title">'+address+'</div>' +
+                        '<div class="loc-title">'+addressFormat+'</div>' +
                         '<p>刷新时间&nbsp;2秒前</p>'+
                         '</div>'+
                         '</div>';
@@ -87,7 +88,7 @@ class GeoLocation extends React.Component {
                         content: watchCover   //自定义点标记覆盖物内容
                     });
                     _this.setState({
-                        watchAdd:address
+                        watchAdd:addressFormat
                     });
 
                 }else{
@@ -121,6 +122,7 @@ class GeoLocation extends React.Component {
                                Toast.info('手表返回坐标：'+JSON.stringify(data),1)
                             }else{
                                 let lgnlat = [data.longitude,data.latitude];
+                                console.log(lgnlat)
                                 this.geolocation(lgnlat,data.headImg)
                             }
                         }
@@ -182,6 +184,7 @@ class GeoLocation extends React.Component {
     getHistoryLine=()=>{
         let openId = this.state.openId;
         let equipmentId = this.state.equipmentId;
+
         let dateA = this.formatTime(this.state.date,'day')+" "+this.formatTime(this.state.timeStart,'hours')+":00";
         let dateB = this.formatTime(this.state.date,'day')+" "+this.formatTime(this.state.timeEnd,'hours')+":00";
         let paramStr = '?openId='+openId+'&equipmentId='+equipmentId+"&dateA="+dateA+"&dateB="+dateB;
@@ -249,10 +252,24 @@ class GeoLocation extends React.Component {
 
     }
     setTime=(time,state)=>{
+        if(state==='timeEnd'){
+            let timeStart = new Date(this.state.timeStart).getTime();
+            let timeSelected = new Date(time).getTime();
+            if(timeSelected<timeStart){
+                Toast.info('请选择正确的时间段',1);
+                return;
+            }
+        }else if(state==='timeStart'){
+            let timeEnd = new Date(this.state.timeEnd).getTime();
+            let timeSelected = new Date(time).getTime();
+            if(timeSelected>timeEnd){
+                Toast.info('请选择正确的时间段',1);
+                return;
+            }
+        }
         this.setState({
             [state]:time
         });
-      console.log(time)
     };
     formatTime=(time,type)=>{
         if(type==='hours'){

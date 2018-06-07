@@ -14,7 +14,7 @@ const routes={
         title:'选择设备'
     },
     '/':{
-        title:'首页'
+        title:'安心桥养老手表'
     },
     '/register':{
         title:'注册'

@@ -30,13 +30,14 @@ class Sleep extends React.Component {
                         timeRange:sleeptime
                     })
                 }
-            })
+            });
         // 获取睡眠信息
         let today = moment().format('YYYY-MM-DD')
         axios.get(`/api/sleeptime/getOneByTime?openId=${this.openId}&equipmentId=${this.equipmentId}&time=${today}`)
             .then(res=>{
                 if(res.data.success){
                     let rollData = res.data.data;
+                    console.log(rollData)
                     this.setState({
                         rollData:rollData,
                     })

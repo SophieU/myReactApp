@@ -19,6 +19,18 @@ class MailBook extends React.Component {
         }
     }
     componentDidMount(){
+        this.getTelLists();
+
+    }
+    componentWillUpdate(){
+        console.log(this.props)
+        let lastLocation = this.props.location.pathname;
+        lastLocation=lastLocation.substr(lastLocation.lastIndexOf('/'));
+        if(lastLocation!=='/mail-book'){
+            this.getTelLists();
+        }
+    }
+    getTelLists=()=>{
         const query="openId="+localStorage.getOpenId()+'&equipmentId='+localStorage.getEquipmentId();
         axios.get('/api/tel/telList?'+query)
             .then(res=>{
@@ -32,7 +44,7 @@ class MailBook extends React.Component {
 
                 }
             })
-    }
+    };
     delTel=(e,equipmentId,sort,index)=>{
         e.stopPropagation();
         let openId = localStorage.getOpenId();
@@ -41,7 +53,8 @@ class MailBook extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     Toast.info('删除成功',1);
-                    let newMail = Object.assign({},this.state.mail);
+                    let newMail = this.state.mail;
+
                     newMail.splice(index,1);
                     this.setState({
                         mail:newMail
@@ -56,7 +69,6 @@ class MailBook extends React.Component {
     };
     toMailDetail=(id)=>{
         this.props.history.push('/mail-book/'+id);
-
     };
     render() {
         const mails = this.state.mail;

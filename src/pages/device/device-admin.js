@@ -36,6 +36,8 @@ class DeviceAdmin extends React.Component {
         ])
     }
     deleteDevice(equipmentId){
+        const ysyapp = window.ysyapp;
+
         let openId = localStorage.getOpenId();
 
             axios.get(`/api/deviceManage/delOneDevice?openId=${openId}&equipmentId=${equipmentId}`)
@@ -53,8 +55,8 @@ class DeviceAdmin extends React.Component {
                    },function(){
                        if(newlists.length===0){
                            //删空了
-                           if(window.ysyapp){
-                               window.ysyapp({
+                           if(ysyapp){
+                               ysyapp({
                                    funName:"bindDevice",
                                    data:{
                                        empty:true, //表示当前用户删除了所有设备，不能再返回到H5中

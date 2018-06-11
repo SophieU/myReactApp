@@ -15,7 +15,7 @@ import RepeatAlarm from './pages/medicine/repeat-alarm';
 import DeviceAdmin from './pages/device/device-admin';
 import RegisterDev from './pages/device/register-device';
 import MailBook from './pages/mailbook/mailbook';
-import AddMail from './pages/mailbook/add-mail';
+// import AddMail from './pages/mailbook/add-mail';
 import Sleep from './pages/health/sleep';
 import Walk from './pages/health/walk';
 import HeartBeat from './pages/health/heartbeat';
@@ -69,7 +69,7 @@ class RouterCom extends React.Component{
                                 <Route path='/repeat-alarm' component={RepeatAlarm}></Route>
                                 <Route path='/device-admin' component={DeviceAdmin}></Route>
                                 <Route path='/register-dev' component={RegisterDev}></Route>
-                                <Route path='/mail-book/:id' component={AddMail}></Route>
+                                {/*<Route path='/mail-book/:id' component={AddMail}></Route>*/}
                                 <Route path='/mail-book' component={MailBook}></Route>
                                 <Route path='/sleep' component={Sleep}></Route>
                                 <Route path='/walk' component={Walk}></Route>

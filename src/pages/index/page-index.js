@@ -154,8 +154,6 @@ class Index extends React.Component{
                                 latitude:data.latitude!==null?data.latitude:''
                             },
                             avatar:data.headimg,
-                        },()=>{
-                            console.log(this.state.lnglat)
                         })
                     }
 

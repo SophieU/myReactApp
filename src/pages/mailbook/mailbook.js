@@ -22,14 +22,6 @@ class MailBook extends React.Component {
         this.getTelLists();
 
     }
-    componentWillUpdate(){
-        console.log(this.props)
-        let lastLocation = this.props.location.pathname;
-        lastLocation=lastLocation.substr(lastLocation.lastIndexOf('/'));
-        if(lastLocation!=='/mail-book'){
-            this.getTelLists();
-        }
-    }
     getTelLists=()=>{
         const query="openId="+localStorage.getOpenId()+'&equipmentId='+localStorage.getEquipmentId();
         axios.get('/api/tel/telList?'+query)
@@ -98,7 +90,7 @@ class MailBook extends React.Component {
                         ))
                     }
                 </List>
-                <Route path={`${match.url+'/:id'}`} component={AddMail}/>
+                <Route path={`${match.url+'/:id'}`} render={(props)=><AddMail loadLists={this.getTelLists} {...props}/>}/>
             </div>)
 
     }

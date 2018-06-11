@@ -150,7 +150,10 @@ class Header extends React.Component {
         if(nowPath==="/device-admin"){
             if(ysyapp){
                 ysyapp({
-                    funName:"bindDevice"
+                    funName:"bindDevice",
+                    data:{
+                        empty:false, //表示当前用户删除了所有设备，不能再返回到H5中
+                    }
                 });
                 return;
             }else{

@@ -65,9 +65,13 @@ class Heart extends React.Component {
         axios.get(`/api/heart/heartbeat?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    this.setState({
-                        heartbeat:res.data.data.heartbeat
-                    })
+                    console.log(res.data.data)
+                    if(res.data.data!==null){
+                        this.setState({
+                            heartbeat:res.data.data.heartbeat
+                        })
+                    }
+
                 }else{
                     Toast.info(res.data.msg,1)
                 }

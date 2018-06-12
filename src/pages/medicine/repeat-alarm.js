@@ -94,6 +94,20 @@ class Repeat extends React.Component {
                     checked:false
                 },
             })
+           let filter =  weeksData.filter((item)=>{
+                if(item.checked){
+                    return true;
+                }
+            });
+           if(filter.length===7){
+               this.setState({
+                   everyday:{
+                       value:'2',
+                       label:'每天',
+                       checked:true
+                   },
+               })
+           }
         }
 
 

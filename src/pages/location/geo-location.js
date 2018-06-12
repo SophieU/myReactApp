@@ -182,6 +182,17 @@ class GeoLocation extends React.Component {
     }
     //获取历史轨迹
     getHistoryLine=()=>{
+        //验证时间范围规则
+        let timeStart = this.state.timeStart;
+        let timeEnd = this.state.timeEnd;
+        if(new Date(timeStart).getTime()>new Date(timeEnd).getTime()){
+            Toast.info('结束时间需大于开始时间',2);
+            return ;
+        }
+
+
+
+
         let openId = this.state.openId;
         let equipmentId = this.state.equipmentId;
 
@@ -252,24 +263,25 @@ class GeoLocation extends React.Component {
 
     }
     setTime=(time,state)=>{
-        if(state==='timeEnd'){
-            let timeStart = new Date(this.state.timeStart).getTime();
-            let timeSelected = new Date(time).getTime();
-            if(timeSelected<timeStart){
-                Toast.info('请选择正确的时间段',1);
-                return;
-            }
-        }else if(state==='timeStart'){
-            let timeEnd = new Date(this.state.timeEnd).getTime();
-            let timeSelected = new Date(time).getTime();
-            if(timeSelected>timeEnd){
-                Toast.info('请选择正确的时间段',1);
-                return;
-            }
-        }
         this.setState({
             [state]:time
         });
+        // if(state==='timeEnd'){
+        //     let timeStart = new Date(this.state.timeStart).getTime();
+        //     let timeSelected = new Date(time).getTime();
+        //     if(timeSelected<timeStart){
+        //         Toast.info('请选择正确的时间段',1);
+        //         return;
+        //     }
+        // }else if(state==='timeStart'){
+        //     let timeEnd = new Date(this.state.timeEnd).getTime();
+        //     let timeSelected = new Date(time).getTime();
+        //     if(timeSelected>timeEnd){
+        //         Toast.info('请选择正确的时间段',1);
+        //         return;
+        //     }
+        // }
+
     };
     formatTime=(time,type)=>{
         if(type==='hours'){

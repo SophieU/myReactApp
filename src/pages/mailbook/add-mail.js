@@ -125,12 +125,12 @@ class AddMail extends React.Component {
 
     };
     nickNameInput=(value)=>{
-        console.log(455)
         let reg = /^[\w\u4e00-\u9fa5]+$/;
+
         if(reg.test(value)||value===''){
             if(value.length>6) {
-               Toast.info('最多6位',1);
-                return;
+                value=value.substr(0,6);
+                Toast.info('昵称最长6位',1);
             }
             this.setState({
                 nickName:value

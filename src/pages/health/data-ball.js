@@ -19,9 +19,9 @@ const DataBall = (props)=>{
                     <h3>120/80</h3>
                     <p>开始测量</p>
                 </div>
-                <div className={props.now==="心率"?'center-data':'hide'}>
+                <div className={props.now==="心率"?'center-data':'hide'} onClick={props.measure}>
                     <h3>{props.value}</h3>
-                    <p style={props.measuring?{display:"none"}:{display:""}} onClick={props.measure}>开始测量</p>
+                    <p style={props.measuring?{display:"none"}:{display:""}} >开始测量</p>
                     <p style={props.measuring?{display:""}:{display:"none"}}>测量中</p>
                 </div>
 

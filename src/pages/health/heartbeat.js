@@ -65,10 +65,15 @@ class Heart extends React.Component {
         axios.get(`/api/heart/heartbeat?openId=${this.openId}&equipmentId=${this.equipmentId}`)
             .then(res=>{
                 if(res.data.success){
-                    console.log(res.data.data)
+                    console.log(res.data)
+
                     if(res.data.data!==null){
                         this.setState({
                             heartbeat:res.data.data.heartbeat
+                        })
+                    }else{
+                        this.setState({
+                            heartbeat:res.data.data
                         })
                     }
 
@@ -85,7 +90,7 @@ class Heart extends React.Component {
                 <DataBall now="心率" measuring={this.state.measuring}
                           value={this.state.heartbeat}
                           measure={this.measureHeart}
-                          danger={this.state.heartbeat<60||this.state.heartbeat>100}
+                          danger={this.state.heartbeat!==null&&(this.state.heartbeat<60||this.state.heartbeat>100)}
                 />
                 <div className="heart-intro">
                     <h4>温馨提示{this.state.heartbeat}</h4>

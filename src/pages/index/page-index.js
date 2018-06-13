@@ -97,7 +97,7 @@ class Index extends React.Component{
                          stepsNum:devData.stepsNum,
                          rollCount:devData.rollCount,
                          heartbeat:heartData
-                     },console.log(this.state.lnglat))
+                     })
                  }
              }else{
                  Toast.info(res.data.msg)

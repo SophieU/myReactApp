@@ -15,9 +15,10 @@ const DataBall = (props)=>{
                 <div className={props.now==="计步"?'center-data':'hide'}>
                     <h3 className="walk-data">{props.value}步</h3>
                 </div>
-                <div className={props.now==="血压"?'center-data':'hide'}>
-                    <h3>120/80</h3>
-                    <p>开始测量</p>
+                <div className={props.now==="血压"?'center-data':'hide'} onClick={props.measure}>
+                    <h3>{props.low + '/' + props.high}</h3>
+                    <p style={props.measuring?{display:"none"}:{display:""}} >开始测量</p>
+                    <p style={props.measuring?{display:""}:{display:"none"}}>测量中</p>
                 </div>
                 <div className={props.now==="心率"?'center-data':'hide'} onClick={props.measure}>
                     <h3>{props.value}</h3>

@@ -3,6 +3,10 @@ import * as echarts from 'echarts';
 
 class Charts extends React.Component {
     drawBar=(data)=>{
+        /*
+        * @params : data[Array] - {date:时间，itemData数据值}
+        *
+        * */
         if(data.length===0) return;
         let xAxis=[];
         let yAxis=[];
@@ -92,10 +96,19 @@ class Charts extends React.Component {
 
 
     }
-    drawLine=()=>{
-       const xAxisData =['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11','12','13'];
-       const yAxisTop = [101,100,106,111,120,140,139,121,103,126,122,138,129];
-       const yAxisBottom = [70,60,66,77,88,68,79,80,72,90,75,83,78];
+    drawLine=(data)=>{
+        console.log(123)
+        if(data.length===0) return;
+        let xAxisData = [];
+        let yAxisTop = [];
+        let yAxisBottom = [];
+
+        data.forEach(item=>{
+            xAxisData.push(item.date)
+            yAxisTop.push(item.itemData.high);
+            yAxisBottom.push(item.itemData.low);
+        });
+
        var option = {
            tooltip: { //点击查看详细数据
                trigger: 'axis'

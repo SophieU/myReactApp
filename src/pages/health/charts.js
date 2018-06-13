@@ -97,12 +97,9 @@ class Charts extends React.Component {
 
     }
     drawLine=(data)=>{
-        console.log(123)
-        if(data.length===0) return;
         let xAxisData = [];
         let yAxisTop = [];
         let yAxisBottom = [];
-
         data.forEach(item=>{
             xAxisData.push(item.date)
             yAxisTop.push(item.itemData.high);
@@ -150,11 +147,6 @@ class Charts extends React.Component {
                     textStyle: {
                         color: '#37394C'
                     },
-                    formatter:function(value,index){
-                        let now = new Date();
-                        let dataStr = [now.getMonth() + 1,value].join('-');
-                        return dataStr
-                    }
                 }
 
             },

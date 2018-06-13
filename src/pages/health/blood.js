@@ -5,18 +5,19 @@ import Charts from './charts';
 import axios from '../../api';
 import localStorage from '../../util/storage';
 import {Toast} from 'antd-mobile';
+import moment from 'moment';
 
 class Blood extends React.Component {
     constructor(){
       super();
       this.state={
           measuring:false,
-          high:120,
+          high:110,
           low:80,
           bloodLists:[]
       }
     };
-    componentDidMount(){
+    componentWillMount(){
         this.openId= localStorage.getOpenId();
         this.equipmentId = localStorage.getEquipmentId();
         this.getMonth();
@@ -43,14 +44,14 @@ class Blood extends React.Component {
                             "createTime": "2018-06-07 18:57:52",
                             "equipmentId": "3922571752",
                             "height": "163",
-                            "high": "108",
+                            "high": "101",
                             "id": 3,
                             "low": "75",
                             "sex": "1",
                             "weight": "65"
                         }]
                     data = data.map((item,index)=>{
-                        let date = new Date(item.createTime).getDate();
+                        let date = moment(item.createTime).date();
                         let itemData = {};
                         itemData.high=item.high;
                         itemData.low=item.low;
@@ -74,9 +75,13 @@ class Blood extends React.Component {
                     Toast.info('测量指令发送成功，请等待40s后查看结果',2);
                     this.setState({
                         measuring:true
-                    })
-                    setTimeout(function(){
+                    });
+                    setTimeout(()=>{
                         // 获取测量结果
+                        this.setState({
+                            high:110,
+                            low:78
+                        })
                     },40000)
                 }else{
                     Toast.info(res.data.msg)
@@ -84,6 +89,15 @@ class Blood extends React.Component {
             })
     };
     render() {
+        let danger = false;
+        if(this.state.high!==0&&this.state.low!==0){
+            if(this.state.high<90||this.state.high>140){
+                danger=true
+
+            }else if(this.state.low<60||this.state.low>90){
+                danger=true
+            }
+        }
 
         return (
             <div className="blood">
@@ -93,7 +107,7 @@ class Blood extends React.Component {
                           measuring={this.state.measuring}
                           high={this.state.high}
                           low={this.state.low}
-                          danger={this.state.blood!==null&&(this.state.blood<60||this.state.heartbeat>100)}
+                          danger={danger}
                 />
                 <div className="blood-intro">
                     <h4>温馨提示</h4>

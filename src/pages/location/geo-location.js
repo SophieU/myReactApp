@@ -24,7 +24,7 @@ class GeoLocation extends React.Component {
             showHistory:false,
             watchAdd:'',
             nowMap:'phoneLoc', //当前定位显示内容 phoneLoc:手机定位，watchLoc:手表定位,history:历史轨迹
-        }
+        };
         this.getNowGeo=this.getNowGeo.bind(this);
         this.locWatch = this.locWatch.bind(this);
         this.drawLine=this.drawLine.bind(this);
@@ -36,8 +36,16 @@ class GeoLocation extends React.Component {
             openId,
             equipmentId
         });
-        // 初始手机定位
-        this.getNowGeo();
+        let query = this.props.location.search;
+        if(query.indexOf('sos')!==-1){
+            // 报警跳转到定位
+            this.locWatch();
+        }else{
+            // 默认初始手机定位
+            this.getNowGeo();
+        }
+
+
     }
     componentWillReceiveProps(nextProps){
         let refreshMap = nextProps.refreshMap;
@@ -189,9 +197,6 @@ class GeoLocation extends React.Component {
             Toast.info('结束时间需大于开始时间',2);
             return ;
         }
-
-
-
 
         let openId = this.state.openId;
         let equipmentId = this.state.equipmentId;

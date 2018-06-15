@@ -53,7 +53,7 @@ class Heart extends React.Component {
                         this.setState({
                             measuring:false
                         })
-                    },40000)
+                    },60000)
                 }else{
                     Toast.info(res.data.msg,1)
                 }

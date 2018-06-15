@@ -13,6 +13,7 @@ class Mine extends React.Component {
 
     render() {
         let url = `http://jk.anxinqiao.com/share/config/home?openId=${this.openId}&equipmentId=${this.equipmentId}`;
+        alert(url)
         return (
             <div id="mine" ref="mineWrapper">
                 <iframe  ref="mine"  src={url} frameBorder="0"></iframe>

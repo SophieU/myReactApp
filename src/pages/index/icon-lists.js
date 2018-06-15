@@ -33,6 +33,20 @@ class IconList extends React.Component {
        }
 
     };
+    goMine=()=>{
+        let ysyapp = window.ysyapp;
+        let openId=localStorage.getOpenId();
+        let equipmentId=localStorage.getEquipmentId();
+        // if(ysyapp){
+        //     ysyapp({
+        //         funcName:'openAxq',
+        //         url:`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+        //     })
+        // }else{
+        //     window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+        // }
+        window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+    }
     render() {
         const iconsData = [
             {
@@ -63,7 +77,9 @@ class IconList extends React.Component {
             },{
                 iconUrl:require('../../images/icon-mine.png'),
                 title:'我的',
-                url:'/mine',
+                type:'alert',
+                handle:this.goMine,
+                // url:'/mine',
             }
         ]
 

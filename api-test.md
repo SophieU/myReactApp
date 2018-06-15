@@ -59,3 +59,12 @@ equipmentId: 3921862146
 管理码： 83799833
 
 
+安心桥服务条款：
+http://jk.anxinqiao.com/share//protocol.jsp
+
+http://th5.yishengyue.cn/arg/arg.html  测试环境
+
+
+http://h5.yishengyue.cn/arg/axq.html 生产环境
+
+

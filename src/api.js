@@ -6,7 +6,7 @@ axios.interceptors.request.use((config)=>{
     return config;
 },err=>{
     Toast.hide();
-    if(err.code==='ECONNABORTED'){
+    if(err.code==='ECONNABORTED'||err.code===408){
         Toast.info('请求超时',1)
     }else{
         Toast.info('请求失败',1)

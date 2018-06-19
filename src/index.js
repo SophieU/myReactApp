@@ -4,6 +4,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import localStorage from './util/storage';
 
+
 const render = ()=>ReactDOM.render(<App />, document.getElementById('root'));
 /**
  * 如果是一生约APP进入页面需要URL加入参数
@@ -41,7 +42,8 @@ appinit(function (ysyapp) {
     }else{
         // 在非app环境中
         localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3');
-        render();
+            render();
+
     }
 });
 

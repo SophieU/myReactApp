@@ -77,11 +77,21 @@ class Blood extends React.Component {
                         measuring:true
                     });
                     setTimeout(()=>{
-                        // 获取测量结果
-                        this.setState({
-                            high:110,
-                            low:78
-                        })
+                        axios.get(`/api/bloodPressure/ getLastOne?openId=${this.openId}&equipmentId=${this.equipmentId}`)
+                            .then(res=>{
+                                if(res.data.success){
+                                    let data = res.data.data;
+                                    this.setState({
+                                        high:data?data.high:0,
+                                        low:data?data.low:0,
+                                    })
+                                }
+                            })
+                        // // 获取测量结果
+                        // this.setState({
+                        //     high:110,
+                        //     low:78
+                        // })
                     },40000)
                 }else{
                     Toast.info(res.data.msg)

@@ -28,7 +28,7 @@ class Index extends React.Component{
             tel:'',
             sol:'',
             deviceList:[],
-
+            bloodPressure:null,
         }
     }
     componentDidMount(){
@@ -60,19 +60,19 @@ class Index extends React.Component{
                     this.getWatchTel();
                      // 获取sos电话
                        this.getSOS();
-                      //获取近期心率数据
-                      axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
-                          .then(res=>{
-                              if(res.data.success){
-                                  let data = res.data.data;
-                                  if(data.length!==0){
-                                      this.setState({
-                                          heart:data[data.length-1].heartbeat
-                                      })
-                                  }
-
-                              }
-                          })
+                      // //获取近期心率数据
+                      // axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
+                      //     .then(res=>{
+                      //         if(res.data.success){
+                      //             let data = res.data.data;
+                      //             if(data.length!==0){
+                      //                 this.setState({
+                      //                     heart:data[data.length-1].heartbeat
+                      //                 })
+                      //             }
+                      //
+                      //         }
+                      //     })
                 }
             })
     }
@@ -87,6 +87,8 @@ class Index extends React.Component{
              if(res.data.success){
                  const devData = res.data.data;
                  const heartData = res.data.heart;
+                 const bloodData = res.data.bloodPressure;
+                 console.log(res.data)
                  if(devData!==null){
                      this.setState({
                          electricity:devData.electricity,
@@ -96,7 +98,8 @@ class Index extends React.Component{
                          },
                          stepsNum:devData.stepsNum,
                          rollCount:devData.rollCount,
-                         heartbeat:heartData
+                         heartbeat:heartData,
+                         bloodPressure:bloodData,
                      })
                  }
              }else{
@@ -169,18 +172,18 @@ class Index extends React.Component{
                 // 获取sos电话
                 this.getSOS();
                 //获取近期心率数据
-                axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
-                    .then(res=>{
-                        if(res.data.success){
-                            let data = res.data.data;
-                            if(data.length!==0){
-                                this.setState({
-                                    heart:data[data.length-1].heartbeat
-                                })
-                            }
-
-                        }
-                    })
+                // axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
+                //     .then(res=>{
+                //         if(res.data.success){
+                //             let data = res.data.data;
+                //             if(data.length!==0){
+                //                 this.setState({
+                //                     heart:data[data.length-1].heartbeat
+                //                 })
+                //             }
+                //
+                //         }
+                //     })
 
             })
     };
@@ -253,6 +256,7 @@ class Index extends React.Component{
             tel:this.state.tel,
             sos:this.state.sos,
         };
+        let blood = this.state.bloodPressure!==null?(this.state.bloodPressure.high+'/'+this.state.bloodPressure.low):'';
         return(
             <div>
                 <DevStatu {...devStatu} changeRole={this.changeRole}/>
@@ -278,7 +282,7 @@ class Index extends React.Component{
                         <Link to="/blood" className="link-item">
                             <img alt="" src={require('../../images/pic-blood.png')}/>
                             <div className="link-data">
-                                <p><strong>{this.state.bloodPressure}</strong>mmHg</p>
+                                <p><strong>{blood}</strong>mmHg</p>
                                 <p>血压</p>
                             </div>
                         </Link>

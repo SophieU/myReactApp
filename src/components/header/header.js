@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link,Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {NavBar,Icon,Modal} from 'antd-mobile';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -60,10 +60,13 @@ const routes={
     },
     '/house':{
         title:'绑定房屋连接物业服务'
+    },
+    '/house/bind':{
+        title:'绑定房屋连接物业服务'
     }
 
 }
-const LeftIcon = (nowPath)=> <div  key="0" className="flexbox "><Icon size="md"  type="left"/><span className="text-black">返回</span></div>
+const LeftIcon = (nowPath)=> <div  key="0" className="flexbox"><Icon size="md"  type="left"/><span className="text-black">返回</span></div>
 
 const RightIcon = (props)=>{
     switch(props.nowPath){
@@ -78,7 +81,7 @@ const RightIcon = (props)=>{
         case '/mail-book':
             return <Link key="4" to='/mail-book/add'>添加</Link>;
         case '/house':
-            return <span key="3" onClick={props.goIndex}>跳过</span>
+            return <span key="3">跳过</span>
         default:
             return null;
     }
@@ -172,9 +175,6 @@ class Header extends React.Component {
       let refreshMap= this.props.refreshLocation;
       refreshMap(true);
     };
-    goIndex=()=>{
-        console.log(this.props)
-    }
     render() {
         let rightNavShow = this.props.navRightShow; //来自redux的state
         // const nowPath = this.state.nowPath;
@@ -191,7 +191,6 @@ class Header extends React.Component {
                             show={rightNavShow}
                             key={0}
                             onClick={this.goRegister}
-                            goIndex={this.goIndex}
                             nowPath = {nowPath}/>
                     ]}
                 >

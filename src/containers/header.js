@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch)=>({
     }
 });
 
-export default connect(mapStateToProps,mapDispatchToProps,null)(Header)
+export default connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(Header)

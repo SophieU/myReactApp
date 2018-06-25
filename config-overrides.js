@@ -90,6 +90,9 @@ module.exports = function override(config, env) {
   // file-loader exclude
   let l = getLoader(config.module.rules, fileLoaderMatcher);
   l.exclude.push(/\.less$/);
+  config.optimization.splitChunks={
+      chunks:'all'
+  }
 
   return config;
 };

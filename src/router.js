@@ -22,8 +22,10 @@ import HeartBeat from './pages/health/heartbeat';
 import Blood from './pages/health/blood';
 import Register from './pages/device/register-device';
 import Mine from './pages/mine/Mine'
+import House from './pages/house/house'
 
 import './App.scss';
+
 
 class RouterCom extends React.Component{
     constructor(){
@@ -76,6 +78,7 @@ class RouterCom extends React.Component{
                                 <Route path='/heartbeat' component={HeartBeat}></Route>
                                 <Route path='/blood' component={Blood}></Route>
                                 <Route path='/mine' component={Mine}></Route>
+                                <Route path='/house' component={House}></Route>
                             </div>
                         </Scroll>
                     </div>

@@ -86,13 +86,18 @@ module.exports = function override(config, env) {
       ]
     }
   );
+    config.module.rules[1].oneOf.unshift({
+        test:/\.js$/,
+        exclude:'/node_modules',
+        use:[{
+            loader:"babel-loader",
+            options:{presets:["react","es2015","state-3"]}
+        }]
+    })
 
   // file-loader exclude
   let l = getLoader(config.module.rules, fileLoaderMatcher);
   l.exclude.push(/\.less$/);
-  config.optimization.splitChunks={
-      chunks:'all'
-  }
 
   return config;
 };

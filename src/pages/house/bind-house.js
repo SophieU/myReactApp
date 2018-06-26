@@ -1,5 +1,5 @@
 import React from 'react';
-import {List,Button,WhiteSpace,WingBlank,Picker ,InputItem} from 'antd-mobile';
+import {List,Button,WhiteSpace,WingBlank,Picker ,InputItem,Toast} from 'antd-mobile';
 
 import './house.scss'
 const Item = List.Item;
@@ -15,9 +15,28 @@ class Test extends React.Component {
             house:{
                 label:'',
                 value:''
-            }
+            },
+            tel:''
         }
     }
+    validate = ()=>{
+        let village = this.state.village;
+        let house = this.state.house;
+        let tel = this.state.tel.replace(/\ /g,'');
+        let telReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+        if(village[0]&&house[0]&&telReg.test(tel)){
+            //输入有效
+            
+        }else{
+            if(!telReg.test(tel)){
+                Toast.info('请正确填写手机号码',2);
+                return false;
+            }else{
+                Toast.info('请完整填写小区及房号',2);
+            }
+
+        }
+    };
     render() {
         const village =  [
             {
@@ -48,7 +67,6 @@ class Test extends React.Component {
                                cols={1}
                                 value={this.state.village}
                                onOk={e => this.setState({"village":e})}
-                               onDismiss={e => console.log('dismiss', e)}
                        >
                         <Item arrow="horizontal">所在小区</Item>
                        </Picker>
@@ -56,12 +74,11 @@ class Test extends React.Component {
                    <List>
                        <Picker
                            title="请选择"
-                           disabled
+                           disabled={this.state.village.value!==''?false:true}
                            data={houseNum}
                            cols={1}
-                           value={this.state.village}
-                           onOk={e => this.setState({"village":e})}
-                           onDismiss={e => console.log('dismiss', e)}
+                           value={this.state.house}
+                           onOk={e => this.setState({"house":e})}
                        >
                            <Item arrow="horizontal">房屋编号</Item>
                        </Picker>
@@ -69,14 +86,15 @@ class Test extends React.Component {
                    <List >
                         <InputItem
                             placeholder="请输入业主手机号码进行验证"
-                            // onChange={e=>console.log(e)}
+                            type="phone"
+                            onChange={e=>this.setState({tel:e})}
                         >
                             手机号码
                         </InputItem>
                    </List>
                </div>
                 <WingBlank>
-                    <Button type="primary" disabled>绑定</Button>
+                    <Button type="primary" onClick={this.validate}>绑定</Button>
                     <WhiteSpace />
                 </WingBlank>
 

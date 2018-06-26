@@ -54,6 +54,8 @@
     http://192.168.0.24:3000/#/
 2. 测试地址
     http://th5.yishengyue.cn/axq/index.html#/
+3. 绑定房屋H5
+    http://192.168.0.24:3000/#/house
 
 
 05-30

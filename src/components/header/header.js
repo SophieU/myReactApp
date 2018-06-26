@@ -58,9 +58,14 @@ const routes={
     '/blood':{
         title:'血压'
     },
-
-}
-const LeftIcon = (nowPath)=> <div  key="0" className="flexbox"><Icon size="lg" type="left"/><span className="text-black">返回</span></div>
+    '/house':{
+        title:'绑定房屋连接物业服务'
+    },
+    '/house/bind':{
+        title:'绑定房屋连接物业服务'
+    }
+};
+const LeftIcon = (nowPath)=> <div  key="0" className="flexbox"><Icon size="md" type="left"/><span className="text-black">返回</span></div>
 
 const RightIcon = (props)=>{
     switch(props.nowPath){
@@ -74,6 +79,10 @@ const RightIcon = (props)=>{
             return <Link style={props.show?{display:""}:{display:"none"}} key="3" to='/add-medicine'>添加</Link>;
         case '/mail-book':
             return <Link key="4" to='/mail-book/add'>添加</Link>;
+        case '/house':
+            return <span>跳过</span>;
+        case '/house/bind':
+            return <span>跳过</span>;
         default:
             return null;
     }

@@ -37,15 +37,15 @@ class IconList extends React.Component {
         let ysyapp = window.ysyapp;
         let openId=localStorage.getOpenId();
         let equipmentId=localStorage.getEquipmentId();
-        // if(ysyapp){
-        //     ysyapp({
-        //         funcName:'openAxq',
-        //         url:`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
-        //     })
-        // }else{
-        //     window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
-        // }
-        window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+        if(ysyapp){
+            ysyapp({
+                funcName:'openAxq',
+                url:`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+            })
+        }else{
+            window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+        }
+        // window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
     }
     render() {
         const iconsData = [

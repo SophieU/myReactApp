@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Toast} from 'antd-mobile';
 import localStorage from '../../util/storage'
-const AMap = window.AMap;
+
 
 class LocationIndex extends React.Component {
     constructor(){
@@ -26,7 +26,15 @@ class LocationIndex extends React.Component {
                 this.setState({
                     lnglat:lnglat
                 },()=>{
-                    this.geolocation(lnglat);
+                    let _this = this;
+                    let timer = setInterval(()=>{
+                        if(window.AMap){
+                            window.clearInterval(timer)
+                            _this.geolocation(lnglat);
+                        }
+                    },500)
+
+
                 });
                 return;
             }
@@ -34,6 +42,7 @@ class LocationIndex extends React.Component {
 
     }
     geolocation(lnglatXY){
+        const AMap = window.AMap;
         const _this = this;
         var map = new AMap.Map('index-local',{
             zoom:12,

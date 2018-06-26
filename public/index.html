@@ -62,9 +62,9 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!--<script src="https://webapi.amap.com/maps?v=1.4.7&key=8a1c307c3702ccf7303aae5617321199"></script>-->
     <script src="%PUBLIC_URL%/init.js"></script>
-    <script src="https://webapi.amap.com/maps?v=1.4.7&key=8a1c307c3702ccf7303aae5617321199"></script>
-    <!--<script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>-->
     <script>
         // 消除移动端点击延迟问题
 //        if ('addEventListener' in document) {
@@ -72,10 +72,17 @@
 //                FastClick.attach(document.body);
 //            }, false);
 //        }
-        if(!window.Promise) {
-            document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
-        }
+//        if(!window.Promise) {
+//            document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+//        }
         //      高德地图
+       document.addEventListener('DOMContentLoaded',function(){
+           var script = document.createElement('script');
+           script.src='https://webapi.amap.com/maps?v=1.4.7&key=8a1c307c3702ccf7303aae5617321199'
+            document.body.appendChild(script);
+       });
+
     </script>
+
   </body>
 </html>

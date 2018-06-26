@@ -11,8 +11,6 @@ class House extends React.Component {
         return (
             <div>
                 <img className="banner" src={banner} alt="banner"/>
-
-
                 <div className="house">
                     <Route exact path={`${match.url}`} component={Lists}></Route>
                     <Route exact path={`${match.url}/bind`} component={Bind}></Route>

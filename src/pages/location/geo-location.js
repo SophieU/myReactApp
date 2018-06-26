@@ -7,7 +7,8 @@ import axios from '../../api';
 
 import './location.scss';
 
-const AMap = window.AMap;
+let AMap ;
+
 const lgnlat = [104.076395,30.623233];
 const defaultAvatar='http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png';
 class GeoLocation extends React.Component {
@@ -36,16 +37,21 @@ class GeoLocation extends React.Component {
             openId,
             equipmentId
         });
-        let query = this.props.location.search;
-        if(query.indexOf('sos')!==-1){
-            // 报警跳转到定位
-            this.locWatch();
-        }else{
-            // 默认初始手机定位
-            this.getNowGeo();
-        }
-
-
+        let timer = window.setInterval(()=>{
+            if(window.AMap){
+                AMap=window.AMap;
+                window.clearInterval(timer);
+                //放在API加载之后
+                let query = this.props.location.search;
+                if(query.indexOf('sos')!==-1){
+                    // 报警跳转到定位
+                    this.locWatch();
+                }else{
+                    // 默认初始手机定位
+                    this.getNowGeo();
+                }
+            }
+        },500);
     }
     componentWillReceiveProps(nextProps){
         let refreshMap = nextProps.refreshMap;

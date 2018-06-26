@@ -34,7 +34,6 @@ class Index extends React.Component{
     componentDidMount(){
         this.openId = localStorage.getOpenId(); // app初始化时已获取
         this.checkLogin(this.openId);
-        // this.props.history.push('/house')
     }
     checkLogin(openId){
         // 检测当前openId是否已注册设备(登录)

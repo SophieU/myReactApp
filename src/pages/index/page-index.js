@@ -52,10 +52,12 @@ class Index extends React.Component{
                     }
                 }else{
                     const deviceData = res.data.data;
-                   //查询设备列表
+
+
+                    //查询设备列表
                     this.getDeviceList();
                     // 获取用户信息
-                   this.getUserInfo();
+                    this.getUserInfo();
                      // 获取手表电话
                     this.getWatchTel();
                      // 获取sos电话
@@ -124,7 +126,6 @@ class Index extends React.Component{
 
             })
     };
-
     /*查询手表电话*/
     getWatchTel=()=>{
         let openId = localStorage.getOpenId();
@@ -194,6 +195,7 @@ class Index extends React.Component{
             .then(res=>{
                 if(res.data.success){
                     let equipmentId = localStorage.getEquipmentId();
+
                     let deviceList = res.data.data;
                     //首次进入进eqId为空
                     if(equipmentId===""){
@@ -241,6 +243,7 @@ class Index extends React.Component{
     };
 
     render(){
+
         let devStatu = {
             electricity:this.state.electricity,
             roleList:this.state.deviceList,
@@ -248,6 +251,7 @@ class Index extends React.Component{
             status:this.state.online?'数据连接':'设备不在线',
             headImg:this.state.avatar
         };
+
         const lnglat = {
             latitude:this.state.lnglat.latitude,
             longitude:this.state.lnglat.longitude

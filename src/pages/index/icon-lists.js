@@ -3,15 +3,16 @@ import {Link} from 'react-router-dom';
 import {Modal} from 'antd-mobile';
 import localStorage from '../../util/storage'
 
-const alert = Modal.alert;
+// const alert = Modal.alert;
 
 class IconList extends React.Component {
     callPhone=(tel)=>{
         if(!tel){
-            alert('提醒','当前手表未设置电话')
+            Modal.alert('提醒','当前手表未设置电话')
         }else{
-            alert('提醒', '确认拔打电话'+tel+'?', [
-                { text: '取消', onPress: () => console.log('cancel') },
+console.log(1)
+            Modal.alert('提醒', '确认拔打电话'+tel+'?', [
+                { text: '取消', onPress: () =>console.log('cancel') },
                 { text: '确认', onPress: () => window.location.href="tel:"+tel},
             ])
         }
@@ -29,7 +30,7 @@ class IconList extends React.Component {
                },
            })
        }else{
-           alert('跳转到微聊')
+           window.alert('跳转到微聊'+equipmentId)
        }
 
     };

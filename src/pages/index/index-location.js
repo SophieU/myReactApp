@@ -17,22 +17,26 @@ class LocationIndex extends React.Component {
         return true;
     }
     componentWillUpdate(prop){
+
         const lnglat=[prop.longitude,prop.latitude];
         if(JSON.stringify(lnglat)===JSON.stringify(this.state.lnglat)){
             //重复渲染
             return false;
         }else{
+
             if(!!lnglat[0]&&!!lnglat[1]){
+
                 this.setState({
                     lnglat:lnglat
                 },()=>{
+
                     let _this = this;
-                    let timer = setInterval(()=>{
-                        if(window.AMap){
-                            window.clearInterval(timer)
-                            _this.geolocation(lnglat);
-                        }
-                    },500)
+                    // let timer = setInterval(()=>{
+                    //     if(window.AMap){
+                    //         _this.geolocation(lnglat);
+                    //         window.clearInterval(timer);
+                    //     }
+                    // },500)
 
 
                 });

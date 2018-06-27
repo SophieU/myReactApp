@@ -43,6 +43,7 @@ class GeoLocation extends React.Component {
                 window.clearInterval(timer);
                 //放在API加载之后
                 let query = this.props.location.search;
+                console.log(query)
                 if(query.indexOf('sos')!==-1){
                     // 报警跳转到定位
                     this.locWatch();

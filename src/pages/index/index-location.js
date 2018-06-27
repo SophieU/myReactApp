@@ -31,12 +31,12 @@ class LocationIndex extends React.Component {
                 },()=>{
 
                     let _this = this;
-                    // let timer = setInterval(()=>{
-                    //     if(window.AMap){
-                    //         _this.geolocation(lnglat);
-                    //         window.clearInterval(timer);
-                    //     }
-                    // },500)
+                    let timer = setInterval(()=>{
+                        if(window.AMap){
+                            _this.geolocation(lnglat);
+                            window.clearInterval(timer);
+                        }
+                    },500)
 
 
                 });

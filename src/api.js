@@ -25,7 +25,7 @@ axios.interceptors.response.use((config)=>{
     // }
     return Promise.reject(err)
 });
-axios.defaults.timeout=3000;
+axios.defaults.timeout=10000;
 axios.defaults.baseURL = 'http://jk.anxinqiao.com/share';
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;

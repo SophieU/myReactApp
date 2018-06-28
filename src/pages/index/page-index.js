@@ -56,12 +56,7 @@ class Index extends React.Component{
 
                     //查询设备列表
                     this.getDeviceList();
-                    // 获取用户信息
-                    this.getUserInfo();
-                     // 获取手表电话
-                    this.getWatchTel();
-                     // 获取sos电话
-                       this.getSOS();
+
                       // //获取近期心率数据
                       // axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
                       //     .then(res=>{
@@ -90,7 +85,6 @@ class Index extends React.Component{
                  const devData = res.data.data;
                  const heartData = res.data.heart;
                  const bloodData = res.data.bloodPressure;
-                 console.log(res.data)
                  if(devData!==null){
                      this.setState({
                          electricity:devData.electricity,
@@ -105,7 +99,7 @@ class Index extends React.Component{
                      })
                  }
              }else{
-                 Toast.info(res.data.msg)
+                 Toast.info(res.data.msg,1)
              }
 
             })
@@ -188,7 +182,7 @@ class Index extends React.Component{
 
             })
     };
-    /*绑定的设备列表*/
+    /* loginr后第一步：  绑定的设备列表*/
     getDeviceList(){
         let openId = localStorage.getOpenId();
         axios.get( `/api/home/deviceList?openId=${openId}`)
@@ -213,7 +207,13 @@ class Index extends React.Component{
                     this.setState({
                         deviceList:deviceList,
                         role:roleNow
-                    })
+                    });
+                    // 获取用户信息
+                    this.getUserInfo();
+                    // 获取手表电话
+                    this.getWatchTel();
+                    // 获取sos电话
+                    this.getSOS();
                 }
             })
     }

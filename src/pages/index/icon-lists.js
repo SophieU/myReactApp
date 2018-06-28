@@ -10,7 +10,6 @@ class IconList extends React.Component {
         if(!tel){
             Modal.alert('提醒','当前手表未设置电话')
         }else{
-console.log(1)
             Modal.alert('提醒', '确认拔打电话'+tel+'?', [
                 { text: '取消', onPress: () =>console.log('cancel') },
                 { text: '确认', onPress: () => window.location.href="tel:"+tel},
@@ -40,8 +39,10 @@ console.log(1)
         let equipmentId=localStorage.getEquipmentId();
         if(ysyapp){
             ysyapp({
-                funcName:'openAxq',
-                url:`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+                funName:'openAxq',
+                data:{
+                    url:`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`
+                }
             })
         }else{
             window.location.href=`http://jk.anxinqiao.com/share/config/home?openId=${openId}&equipmentId=${equipmentId}`

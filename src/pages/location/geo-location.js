@@ -134,12 +134,14 @@ class GeoLocation extends React.Component {
                         if(res.data.success){
                             let data = res.data.data;
                             if(!data){
-                               Toast.info('手表返回坐标：'+JSON.stringify(data),1)
+                               Toast.info('手表返回坐标：'+JSON.stringify(data),3)
                             }else{
                                 let lgnlat = [data.longitude,data.latitude];
-                                console.log(lgnlat)
+
                                 this.geolocation(lgnlat,data.headImg)
                             }
+                        }else{
+                            Toast.info('手表离线',1)
                         }
                     })
                 // 改变刷新状态为初始值

@@ -135,7 +135,8 @@ class Header extends React.Component {
             '/walk',
             '/blood',
             '/heartbeat',
-            '/medicine'
+            '/medicine',
+            '/location'
         ];
         const ysyapp = window.ysyapp;
         if(nowPath==='/'){

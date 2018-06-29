@@ -94,7 +94,7 @@ class Index extends React.Component{
                          },
                          stepsNum:devData.stepsNum,
                          rollCount:devData.rollCount,
-                         heartbeat:heartData,
+                         heartbeat:heartData.heartbeat,
                          bloodPressure:bloodData,
                      })
                  }
@@ -279,7 +279,7 @@ class Index extends React.Component{
                         <Link to="/heartbeat" className="link-item">
                             <img alt="" src={require('../../images/pic-heartbeat.png')}/>
                             <div className="link-data">
-                                <p><strong>{this.state.heart===null?'':this.state.heart}</strong></p>
+                                <p><strong>{this.state.heartbeat===null?'':this.state.heartbeat}</strong></p>
                                 <p>心率</p>
                             </div>
                         </Link>

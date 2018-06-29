@@ -82,6 +82,10 @@ class IconList extends React.Component {
                 type:'alert',
                 handle:this.goMine,
                 // url:'/mine',
+            },{
+                iconUrl:require('../../images/icon-mine.png'),
+                title:'房屋',
+                url:'/house',
             }
         ]
 

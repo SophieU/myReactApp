@@ -26,7 +26,8 @@ class Test extends React.Component {
         let telReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
         if(village[0]&&house[0]&&telReg.test(tel)){
             //输入有效
-            
+            console.log(this.props)
+            this.props.history.goBack()
         }else{
             if(!telReg.test(tel)){
                 Toast.info('请正确填写手机号码',2);

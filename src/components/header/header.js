@@ -80,9 +80,9 @@ const RightIcon = (props)=>{
         case '/mail-book':
             return <Link key="4" to='/mail-book/add'>添加</Link>;
         case '/house':
-            return <span>跳过</span>;
+            return <span onClick={props.goIndex}>跳过</span>;
         case '/house/bind':
-            return <span>跳过</span>;
+            return <span onClick={props.goIndex}>跳过</span>;
         default:
             return null;
     }
@@ -177,6 +177,10 @@ class Header extends React.Component {
       let refreshMap= this.props.refreshLocation;
       refreshMap(true);
     };
+    goIndex=()=>{
+        this.context.router.history.push('/')
+
+    };
     render() {
         let rightNavShow = this.props.navRightShow; //来自redux的state
         // const nowPath = this.state.nowPath;
@@ -193,7 +197,9 @@ class Header extends React.Component {
                             show={rightNavShow}
                             key={0}
                             onClick={this.goRegister}
-                            nowPath = {nowPath}/>
+                            nowPath = {nowPath}
+                            goIndex={this.goIndex}
+                        />
                     ]}
                 >
                     <span>{this.state.nowRoute}</span>

@@ -53,6 +53,14 @@ let localStorage = {
     getMedicine(){
         let medicine = window.localStorage.getItem('medicine');
         return medicine;
+    },
+    setYsyApi(){
+        let url = 'http://trest.yishengyue.cn';
+        window.localStorage.setItem('ysyApi',url);
+    },
+    getYsyApi(){
+        let url=window.localStorage.getItem('ysyApi')
+        return url;
     }
 
 }

@@ -1,43 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Icon,Popover} from 'antd-mobile';
 import defaultAvatar from '../../images/defaultAvatar.png';
 import localStorage from '../../util/storage';
 
-
-const FamilySel=(props)=>{
-    const Item = Popover.Item;
-    let overlay  = [];
-    props.list.forEach((item,index)=>{
-        let tpl = (<Item key={index} value={item.equipmentId}>{item.role}</Item>)
-        overlay.push(tpl)
-    });
-    return (
-        <Popover mask
-             className="popover"
-             visible={props.visible}
-                 overlay={overlay}
-             align={{
-                 overflow: { adjustY: 0, adjustX: 0 },
-                 offset: [0, 0],
-             }}
-
-             onSelect={(opt)=>props.onSelect(opt)}
-        >
-            <div style={{
-                height: '100%',
-                padding: '0 15px',
-                display: 'flex',
-                alignItems: 'center',
-                color: '#4A4A4A',
-                marginBottom:'12px',
-                fontSize:'16px'
-            }}
-            >
-                {props.value}<Icon className="icon-color" size="xs" type="down"/>
-            </div>
-        </Popover>
-    )
-}
 
 
 class DevStatu extends React.Component {
@@ -58,6 +24,12 @@ class DevStatu extends React.Component {
         });
 
         this.props.changeRole(value)
+    }
+    //图片不存在的处理
+    imgError=()=>{
+        let avatar = ReactDOM.findDOMNode(this.refs.avatar);
+        avatar.src=defaultAvatar;
+        console.log(avatar)
     }
     render() {
         const Item = Popover.Item;
@@ -92,7 +64,7 @@ class DevStatu extends React.Component {
                         {this.props.role}<Icon className="icon-color" size="xs" type="down"/>
                     </div>
                 </Popover>
-                <img className="avatar" src={this.props.headImg?avatarSrc:defaultAvatar}/>
+                <img ref="avatar" className="avatar" onError={this.imgError} src={this.props.headImg?avatarSrc:defaultAvatar}/>
                 <div className="energy-box">
                     <div className="energy-bar">
                         <div style={{width:this.props.electricity+'%'}} className="energy-bar-line"></div>

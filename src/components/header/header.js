@@ -178,8 +178,7 @@ class Header extends React.Component {
       refreshMap(true);
     };
     goIndex=()=>{
-        this.context.router.history.push('/')
-
+        this.context.router.history.push({pathname:'/',params:{from:'house'}})
     };
     render() {
         let rightNavShow = this.props.navRightShow; //来自redux的state

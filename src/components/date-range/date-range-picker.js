@@ -20,10 +20,17 @@ class DateRange extends React.Component {
     }
     componentDidMount(){
         let timeRange = this.props.initialValue;
-        let timeStart = timeRange.substr(0,timeRange.indexOf('-'));
-        let timeEnd = timeRange.substr(timeRange.indexOf('-')+1);
-        timeStart=new Date(moment(timeStart,"hh:mm").format());
-        timeEnd = new Date(moment(timeEnd,"hh:mm").format())
+        let timeStart,timeEnd;
+        if(timeRange){
+            timeStart = timeRange.substr(0,timeRange.indexOf('-'));
+            timeEnd = timeRange.substr(timeRange.indexOf('-')+1);
+            timeStart=new Date(moment(timeStart,"hh:mm").format());
+            timeEnd = new Date(moment(timeEnd,"hh:mm").format())
+        }else{
+            timeStart=new Date();
+            timeEnd=new Date();
+        }
+
         console.log(timeStart)
         this.setState({
             timeStart:timeStart,

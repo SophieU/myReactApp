@@ -1,4 +1,7 @@
-@import "../../style/base.scss";
+$baseSize:37.5;
+@function calcSize($px){
+  @return $px/$baseSize +rem;
+}
 /*电量*/
 .energy-box{
   display: flex;

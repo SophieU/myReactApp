@@ -1,4 +1,7 @@
-@import "../../style/base";
+$baseSize:37.5;
+@function calcSize($px){
+  @return $px/$baseSize +rem;
+}
 .banner{
   width:100%;
 }
@@ -22,18 +25,28 @@
 }
 .lists-box{
   .add-btn{
-    color: #3AA7FF;
-    font-size: 14px;
-    display: inline-block;
-    padding:calcSize(15) 0;
+    color: #fff;
+    display: block;
+    outline: 0 none;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
     text-align: center;
-    text-decoration: underline;
-    letter-spacing: 2px;
+    font-size: 18px;
+    height: 47px;
+    line-height: 47px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    white-space: nowrap;
+    border-radius: 5px;
+    background-color: #108ee9;
+    border: 1PX solid #108ee9;
+    margin-top: calcSize(20);
   }
-  .bind-btn{
-    margin-top: calcSize(40);
 
-  }
 }
 .lists-wrapper{
   .am-list-item .am-list-line .am-list-content{
@@ -58,6 +71,12 @@
     .am-list-item .am-input-control input{
       font-size: 14px;
       color: #B5B5B5;
+    }
+    .am-list-line{
+      display: flex;
+      .am-list-extra{
+        flex:2 1;
+      }
     }
 
   }

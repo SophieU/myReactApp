@@ -34,6 +34,8 @@ class Index extends React.Component{
     componentDidMount(){
         this.openId = localStorage.getOpenId(); // app初始化时已获取
         this.checkLogin(this.openId);
+
+
     }
     checkLogin(openId){
         // 检测当前openId是否已注册设备(登录)
@@ -73,6 +75,28 @@ class Index extends React.Component{
                 }
             })
     }
+    //检测房屋绑定
+    checkHouse(id,eqId){
+        const ysyAPI = localStorage.getYsyApi();
+
+        axios.get(`${ysyAPI}/api/v1/family/house/isBindEquipment?userId=${id}&equipmentId=${eqId}`)
+            .then(res=>{
+
+                if(res.data.code===0){ //请求成功，判断是否绑定过房屋
+                    if(res.data.data===false){
+                        this.props.history.push('/house')
+                    }else{
+                        //绑定过房屋
+                        // 获取用户信息
+                        this.getUserInfo();
+                        // 获取手表电话
+                        this.getWatchTel();
+                        // 获取sos电话
+                        this.getSOS();
+                    }
+                }
+            })
+    }
     // 获取设备信息
     getDeviceDatas=()=>{
         const openId = this.openId;
@@ -94,7 +118,7 @@ class Index extends React.Component{
                          },
                          stepsNum:devData.stepsNum,
                          rollCount:devData.rollCount,
-                         heartbeat:heartData.heartbeat,
+                         heartbeat:heartData?heartData.heartbeat:0,
                          bloodPressure:bloodData,
                      })
                  }
@@ -167,18 +191,6 @@ class Index extends React.Component{
                 // 获取sos电话
                 this.getSOS();
                 //获取近期心率数据
-                // axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
-                //     .then(res=>{
-                //         if(res.data.success){
-                //             let data = res.data.data;
-                //             if(data.length!==0){
-                //                 this.setState({
-                //                     heart:data[data.length-1].heartbeat
-                //                 })
-                //             }
-                //
-                //         }
-                //     })
 
             })
     };
@@ -191,7 +203,7 @@ class Index extends React.Component{
                     let equipmentId = localStorage.getEquipmentId();
 
                     let deviceList = res.data.data;
-                    //首次进入进eqId为空
+                    //首次进入eqId为空
                     if(equipmentId===""){
                         localStorage.setEquipmentId(deviceList[0].equipmentId);
                         equipmentId=deviceList[0].equipmentId;
@@ -208,12 +220,20 @@ class Index extends React.Component{
                         deviceList:deviceList,
                         role:roleNow
                     });
-                    // 获取用户信息
-                    this.getUserInfo();
-                    // 获取手表电话
-                    this.getWatchTel();
-                    // 获取sos电话
-                    this.getSOS();
+                    console.log(this.props)
+                    let from =this.props.location.params?this.props.location.params.from:'';
+                    if(!from){
+                        this.checkHouse(openId,equipmentId);
+                    }else{
+                        // 获取用户信息
+                        this.getUserInfo();
+                        // 获取手表电话
+                        this.getWatchTel();
+                        // 获取sos电话
+                        this.getSOS();
+                    }
+
+
                 }
             })
     }

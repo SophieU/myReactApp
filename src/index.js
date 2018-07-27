@@ -35,13 +35,16 @@ appinit(function (ysyapp) {
             data:"",
             callback:function (res) {
                 localStorage.setOpenId(res.userId);
+                localStorage.setYsyApi();
                 render();
 
             }
         });
     }else{
+        //userId=5a325c69b2574c9f8157f93e2abd3a0b
         // 在非app环境中
-        localStorage.setOpenId('83fedff0-4d54-4a02-a0a4-787c7d1b9df3');
+        localStorage.setOpenId('5a325c69b2574c9f8157f93e2abd3a0b');
+        localStorage.setYsyApi();
             render();
 
     }

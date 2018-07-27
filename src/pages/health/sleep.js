@@ -14,7 +14,7 @@ class Sleep extends React.Component {
         super();
         this.state={
             modal:false,
-            timeRange:'',
+            timeRange:null,
             rollData:null,
         }
     }
@@ -37,7 +37,6 @@ class Sleep extends React.Component {
             .then(res=>{
                 if(res.data.success){
                     let rollData = res.data.data;
-                    console.log(rollData)
                     this.setState({
                         rollData:rollData,
                     })
@@ -93,7 +92,7 @@ class Sleep extends React.Component {
                 <HealthHeader now="睡眠"/>
                 <DataBall now="睡眠" value={this.state.rollData===null?0:this.state.rollData.rollCount}/>
                 <List className="sleep-date">
-                    <List.Item arrow="horizontal" extra={this.state.timeRange===''?'请选择':this.state.timeRange} onClick={this.showModal('modal')}>记录时间段</List.Item>
+                    <List.Item arrow="horizontal" extra={this.state.timeRange===null?'请选择':this.state.timeRange} onClick={this.showModal('modal')}>记录时间段</List.Item>
                     <Modal
                         popup
                         visible={this.state.modal}

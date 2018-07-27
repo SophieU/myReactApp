@@ -1,4 +1,7 @@
-@import "../../style/base";
+$baseSize:37.5;
+@function calcSize($px){
+  @return $px/$baseSize +rem;
+}
 .add-mail{
   position: absolute;
   top:0;

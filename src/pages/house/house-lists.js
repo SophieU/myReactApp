@@ -1,10 +1,12 @@
 import React from 'react';
-import axsio from '../../api';
-import {List,Button,WhiteSpace,WingBlank } from 'antd-mobile';
+import axios from '../../api';
+import localStorage from '../../util/storage';
+import {List,Button,WhiteSpace,WingBlank ,Toast} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 const Item = List.Item;
 const Brief = Item.Brief;
 
+const ysyApi = localStorage.getYsyApi();
 class Lists extends React.Component {
     constructor(){
         super();
@@ -14,37 +16,70 @@ class Lists extends React.Component {
 
     }
     componentWillMount(){
-        this.setState({
-            houseList:[
-                {
-                    name:'力宝大厦',
-                    house:'1栋-2单元501',
-                    default:false
-                },{
-                    name:'力宝大厦',
-                    house:'1栋-2单元503',
-                    default:false
-                }
-            ]
-        })
+
+        this.getHouseLists();
     }
-    setHouse=(index)=>{
+    getHouseLists=()=>{
+        let userId =  localStorage.getOpenId();
+        console.log(userId);
+        axios.get(`${ysyApi}/api/v1/family/house/bind/list?userId=${userId}`)
+            .then(res=>{
+                if(res.data.code===0){
+                    let data = res.data.data;
+                    console.log(data)
 
-        let houseList = this.state.houseList;
-        let value = !houseList[index].default;
+                    data = data.map(item=>{
+                        let nameTotal = item.detailedAddress;
+                        let village = nameTotal.substr(0,nameTotal.indexOf(' '));
+                        let house = nameTotal.substr(nameTotal.indexOf(' ')+1);
 
-        houseList.forEach((item,indexInner)=>{
-            if(indexInner===index&&value){
-                item.default=value
-            }else{
-                item.default=false
-            }
-        })
-        // houseList[index].default=!houseList[index]
+                        return {
+                            village:village,
+                            house:house,
+                            id:item.id,
+                            biotopeId:item.biotopeId,
+                            isDefault:item.isDefault,
+                            isOldMan:item.isOldMan
 
-        this.setState({
-            houseList:houseList
-        })
+                        }
+                    });
+                    this.setState({
+                        houseList:data
+                    })
+                }else{
+                    Toast.info(res.data.msg,1)
+                }
+            })
+    }
+    //设为老人房
+    setHouse=(id)=>{
+        let familyHouseId=id;
+        let userId=localStorage.getOpenId();
+        let equipmentId=localStorage.getEquipmentId();
+        axios.get(`${ysyApi}/api/v1/family/house/bind/setting?userId=${userId}&familyHouseId=${familyHouseId}&equipmentId=${equipmentId}`)
+            .then(res=>{
+                if(res.data.code===0){
+                    Toast.info('房屋绑定成功',1);
+                    let newData = this.state.houseList.map(house=>{
+                        if(house.id===familyHouseId){
+                            house.isOldMan='Y'
+                        }else{
+                            house.isOldMan='N'
+                        }
+                        return house;
+                    });
+
+                    console.log(this.props)
+                    this.setState({
+                        houseList:newData
+                    },function(){
+                        this.props.history.replace('/')
+                    })
+                }else{
+                    Toast.info(res.data.msg,1);
+                }
+            })
+
     }
     render() {
         let lists = this.state.houseList;
@@ -57,18 +92,16 @@ class Lists extends React.Component {
                     {
                         lists.map((item,index)=>(
                             <List key={index} className="my-list">
-                                <Item multipleLine extra={<button className="radio-btn" onClick={()=>this.setHouse(index)} style={item.default?checked:{}}>设为老人房</button>}>
-                                    {item.name}
+                                <Item multipleLine extra={<button className="radio-btn" onClick={()=>this.setHouse(item.id)} style={item.isOldMan==='Y'?checked:{}}>设为老人房</button>}>
+                                    {item.village}
                                     <Brief>{item.house}</Brief>
                                 </Item>
                             </List>
                         ))
                     }
                 </div>
-                <Link className="add-btn" to={`${match.url}/bind`}>添加房屋</Link>
                 <WingBlank>
-                    <Button className="bind-btn" type="primary" disabled>绑定</Button>
-                    <WhiteSpace />
+                <Link className="add-btn" to={`${match.url}/bind`}>添加房屋</Link>
                 </WingBlank>
 
             </div>)

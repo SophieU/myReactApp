@@ -43,7 +43,7 @@ appinit(function (ysyapp) {
     }else{
         //userId=5a325c69b2574c9f8157f93e2abd3a0b
         // 在非app环境中
-        localStorage.setOpenId('5a325c69b2574c9f8157f93e2abd3a0b');
+        localStorage.setOpenId('1ef7701580c7468ebbcd8ab4cfe956f9');
         localStorage.setYsyApi();
             render();
 

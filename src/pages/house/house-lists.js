@@ -16,18 +16,16 @@ class Lists extends React.Component {
 
     }
     componentWillMount(){
-
         this.getHouseLists();
     }
     getHouseLists=()=>{
         let userId =  localStorage.getOpenId();
-        console.log(userId);
+ 
         axios.get(`${ysyApi}/api/v1/family/house/bind/list?userId=${userId}`)
             .then(res=>{
                 if(res.data.code===0){
                     let data = res.data.data;
                     console.log(data)
-
                     data = data.map(item=>{
                         let nameTotal = item.detailedAddress;
                         let village = nameTotal.substr(0,nameTotal.indexOf(' '));

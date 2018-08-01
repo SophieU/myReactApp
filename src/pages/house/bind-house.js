@@ -179,7 +179,8 @@ class Test extends React.Component {
                         <InputItem
                             placeholder="请输入业主手机号码进行验证"
                             type="phone"
-                            onChange={e=>this.setState({tel:e})}
+                            value={this.state.tel}
+                            onChange={e=>this.setState({"tel":e})}
                         >
                             手机号码
                         </InputItem>

@@ -20,7 +20,7 @@ class Lists extends React.Component {
     }
     getHouseLists=()=>{
         let userId =  localStorage.getOpenId();
- 
+        Toast.loading('加载已有房屋中')
         axios.get(`${ysyApi}/api/v1/family/house/bind/list?userId=${userId}`)
             .then(res=>{
                 if(res.data.code===0){
@@ -44,8 +44,10 @@ class Lists extends React.Component {
                     this.setState({
                         houseList:data
                     })
+                    Toast.hide();
                 }else{
-                    Toast.info(res.data.msg,1)
+                    Toast.info(res.data.msg, 1);
+                    Toast.hide();
                 }
             })
     }

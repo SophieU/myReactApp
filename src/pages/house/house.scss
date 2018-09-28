@@ -81,3 +81,13 @@ $baseSize:37.5;
 
   }
 }
+.lists-wrapper .am-list-item .am-list-line .am-list-extra{
+  overflow: auto;
+  line-height: 0;
+  overflow: auto;
+  line-height: 0;
+  height: 100%;
+}
+.lists-box{
+  padding-bottom: calcSize(20);
+}

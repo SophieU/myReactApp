@@ -60,7 +60,7 @@ let localStorage = {
     },
     getYsyApi(){
         let url=window.localStorage.getItem('ysyApi')
-        return url;
+        return url?url:'http://trest.yishengyue.cn';
     }
 
 }

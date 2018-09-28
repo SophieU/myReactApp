@@ -4,7 +4,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import localStorage from './util/storage';
 
-
+/*
+import vconsole from 'vconsole';
+var vConsole = new vconsole();
+*/
 const render = ()=>ReactDOM.render(<App />, document.getElementById('root'));
 /**
  * 如果是一生约APP进入页面需要URL加入参数

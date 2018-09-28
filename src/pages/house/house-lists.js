@@ -19,7 +19,8 @@ class Lists extends React.Component {
         this.getHouseLists();
     }
     getHouseLists=()=>{
-        let userId =  localStorage.getOpenId();
+        let userId = localStorage.getOpenId();
+        let ysyApi = 'http://trest.yishengyue.cn'
         Toast.loading('加载已有房屋中')
         axios.get(`${ysyApi}/api/v1/family/house/bind/list?userId=${userId}`)
             .then(res=>{
@@ -103,7 +104,7 @@ class Lists extends React.Component {
                 <WingBlank>
                 <Link className="add-btn" to={`${match.url}/bind`}>添加房屋</Link>
                 </WingBlank>
-
+                    
             </div>)
     }
 }

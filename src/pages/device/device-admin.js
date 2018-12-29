@@ -48,6 +48,8 @@ class DeviceAdmin extends React.Component {
                     let newlists =deviceLists.filter((item)=>{
                         if(item.equipmentId!==equipmentId){
                             return true;
+                        }else{
+                            return false;
                         }
                     });
                    this.setState({

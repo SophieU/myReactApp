@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {NavBar,Icon,Modal} from 'antd-mobile';
-import ReactDOM from 'react-dom';
+import {NavBar,Icon} from 'antd-mobile';
+// import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import './header.scss';

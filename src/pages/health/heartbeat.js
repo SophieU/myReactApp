@@ -5,7 +5,6 @@ import DataBall from './data-ball';
 import Charts from './charts';
 import localStorage from '../../util/storage';
 import axios from '../../api';
-import moment from 'moment';
 
 class Heart extends React.Component {
     constructor(){

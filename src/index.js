@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import localStorage from './util/storage';
 
 /*
@@ -45,8 +45,10 @@ appinit(function (ysyapp) {
         });
     }else{
         //userId=5a325c69b2574c9f8157f93e2abd3a0b
+        // userId = 1ef7701580c7468ebbcd8ab4cfe956f9
+        // userId = cbd91afa3642465d9d4b26452833837e
         // 在非app环境中
-        localStorage.setOpenId('1ef7701580c7468ebbcd8ab4cfe956f9');
+        localStorage.setOpenId('cbd91afa3642465d9d4b26452833837e');
         localStorage.setYsyApi();
             render();
 

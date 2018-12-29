@@ -15,9 +15,9 @@ class Charts extends React.Component {
             yAxis.push(data[i].itemData);
         };
         var dataAxis = xAxis;
-        var data = yAxis;
+        var dataYAxis = yAxis;
         // var yMax = 500;
-        var dataShadow = [];
+        //var dataShadow = [];
         // for (var i = 0; i < data.length; i++) {
         //     dataShadow.push(yMax);
         // }
@@ -28,7 +28,8 @@ class Charts extends React.Component {
                 formatter:function(param){
                     let data = param[0]
                     let month = (new Date().getMonth()+1)+'月';
-                    return month+data.name+'日'+'：'+data.value
+                    // return month+data.name+'日'+'：'+data.value
+                    return `${month}${data.name}日：${data.value}`
                 }
             },
             grid:{
@@ -86,11 +87,10 @@ class Charts extends React.Component {
                 {
                     type: 'bar',
                     barWidth:'60%',
-                    data: data,
+                    data: dataYAxis,
                 }
             ]
         };
-        let _this = this;
         var myChart = echarts.init(document.getElementById('chart-container'))
         myChart.setOption(option)
 

@@ -5,10 +5,10 @@ import IconLists from './icon-lists';
 import LocationIndex from './index-location'
 import DevStatu from './dev-status';
 import axios from '../../api';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {Toast} from 'antd-mobile';
 import localStorage from '../../util/storage';
-import Scroll from '../../components/scroll/Scroll';
+// import Scroll from '../../components/scroll/Scroll';
 
 
 
@@ -53,32 +53,14 @@ class Index extends React.Component{
                         })
                     }
                 }else{
-                    const deviceData = res.data.data;
-
-
                     //查询设备列表
                     this.getDeviceList();
-
-                      // //获取近期心率数据
-                      // axios.get(`/api/heart/getListOfCurrMonth?openId=${this.openId}&equipmentId=${localStorage.getEquipmentId()}`)
-                      //     .then(res=>{
-                      //         if(res.data.success){
-                      //             let data = res.data.data;
-                      //             if(data.length!==0){
-                      //                 this.setState({
-                      //                     heart:data[data.length-1].heartbeat
-                      //                 })
-                      //             }
-                      //
-                      //         }
-                      //     })
                 }
             })
     }
     //检测房屋绑定
     checkHouse(id,eqId){
         const ysyAPI = localStorage.getYsyApi();
-
         axios.get(`${ysyAPI}/api/v1/family/house/isBindEquipment?userId=${id}&equipmentId=${eqId}`)
             .then(res=>{
 
@@ -220,7 +202,6 @@ class Index extends React.Component{
                         deviceList:deviceList,
                         role:roleNow
                     });
-                    console.log(this.props)
                     let from =this.props.location.params?this.props.location.params.from:'';
                     if(!from){
                         this.checkHouse(openId,equipmentId);
@@ -281,13 +262,20 @@ class Index extends React.Component{
             sos:this.state.sos,
         };
         let blood = this.state.bloodPressure!==null?(this.state.bloodPressure.high+'/'+this.state.bloodPressure.low):'';
+        let Map ;
+        if(window.AMap){
+            Map = (<LocationIndex {...lnglat}/>)
+        }else{
+            Map=(<div>loading...</div>)
+        }
+
+        //   <LocationIndex {...lnglat}/>
         return(
             <div>
                 <DevStatu {...devStatu} changeRole={this.changeRole}/>
                 <div  className="control-panel">
                     <IconLists {...iconList} />
-                    <LocationIndex {...lnglat}/>
-
+                    {Map}
                     <div className="watch-link">
                         <Link to="/walk" className="link-item">
                             <img alt="" src={require('../../images/pic-walk.png')}/>

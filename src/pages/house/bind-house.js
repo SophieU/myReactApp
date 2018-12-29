@@ -5,7 +5,8 @@ import axios from '../../api';
 import './house.scss'
 const Item = List.Item;
 
-const ysyUrl = localStorage.getYsyApi();
+
+//  let ysyApi = 'https://api.yishengyue.cn/' //正式API
 class Test extends React.Component {
     constructor(){
         super();
@@ -27,8 +28,9 @@ class Test extends React.Component {
             nextPage:2,
         }
     }
-    componentDidMount(){
-        axios.get(`${ysyUrl}/api/v1/family/biotope/listWithCity`)
+    componentDidMount() {
+        let ysyApi = localStorage.getYsyApi() //测试API
+        axios.get(`${ysyApi}/api/v1/family/biotope/listWithCity`)
             .then(res=>{
                 if(res.data.code===0){
                     let data = res.data.data;
@@ -57,8 +59,9 @@ class Test extends React.Component {
     validate = ()=>{
         let village = this.state.village;
         let house = this.state.house;
-        let tel = this.state.tel.replace(/\ /g,'');
-        console.log(house)
+        let tel = this.state.tel.replace(/\s/g, '');
+        let ysyApi = localStorage.getYsyApi() //测试API
+    
         let telReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
         if(village[0]&&house[0]&&telReg.test(tel)){
             //输入有效
@@ -66,7 +69,7 @@ class Test extends React.Component {
             let userId=localStorage.getOpenId();
             let familyHouseId=house[0];
 
-            axios.get(`${ysyUrl}/api/v1/family/house/bindhouse?userId=${userId}&familyHouseId=${familyHouseId}&mobile=${tel}`)
+            axios.get(`${ysyApi}/api/v1/family/house/bindhouse?userId=${userId}&familyHouseId=${familyHouseId}&mobile=${tel}`)
                 .then(res=>{
                     console.log(res.data)
                     if(res.data.code===0){
@@ -109,14 +112,13 @@ class Test extends React.Component {
 
     };
     getHouse=(id,val)=>{
-        console.log(2)
+    
         let villageId=id;
         let pageNo=this.state.pageNo;
-        let pageTotal=this.state.pageTotal;
-        console.log('pageTotal'+pageTotal);
 
+        let ysyApi = localStorage.getYsyApi() //测试API
         if(this.state.hasNextPage){
-            axios.get(`${ysyUrl}/api/v1/family/house/listByFamilyBiotope?familyBiotopeId=${villageId}&pageNo=${pageNo}`)
+            axios.get(`${ysyApi}/api/v1/family/house/listByFamilyBiotope?familyBiotopeId=${villageId}&pageNo=${pageNo}`)
                 .then(res=>{
                     if(res.data.code===0){
                         let data = res.data.data.list;
@@ -178,7 +180,7 @@ class Test extends React.Component {
                    <List >
                         <InputItem
                             placeholder="请输入业主手机号码进行验证"
-                            type="phone"
+                            type="digit"
                             value={this.state.tel}
                             onChange={e=>this.setState({"tel":e})}
                         >

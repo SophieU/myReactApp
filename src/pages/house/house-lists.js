@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from '../../api';
 import localStorage from '../../util/storage';
-import {List,Button,WhiteSpace,WingBlank ,Toast} from 'antd-mobile';
+import {List,WingBlank ,Toast} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 const Item = List.Item;
 const Brief = Item.Brief;
 
-const ysyApi = localStorage.getYsyApi();
+
+// let ysyApi = 'https://api.yishengyue.cn/' //正式API
 class Lists extends React.Component {
     constructor(){
         super();
@@ -20,13 +21,12 @@ class Lists extends React.Component {
     }
     getHouseLists=()=>{
         let userId = localStorage.getOpenId();
-        let ysyApi = 'http://trest.yishengyue.cn'
-        Toast.loading('加载已有房屋中')
+        Toast.loading('加载已有房屋中');
+        let ysyApi = localStorage.getYsyApi(); 
         axios.get(`${ysyApi}/api/v1/family/house/bind/list?userId=${userId}`)
             .then(res=>{
                 if(res.data.code===0){
                     let data = res.data.data;
-                    console.log(data)
                     data = data.map(item=>{
                         let nameTotal = item.detailedAddress;
                         let village = nameTotal.substr(0,nameTotal.indexOf(' '));
@@ -56,7 +56,8 @@ class Lists extends React.Component {
     setHouse=(id)=>{
         let familyHouseId=id;
         let userId=localStorage.getOpenId();
-        let equipmentId=localStorage.getEquipmentId();
+        let equipmentId = localStorage.getEquipmentId();
+        let ysyApi = localStorage.getYsyApi(); 
         axios.get(`${ysyApi}/api/v1/family/house/bind/setting?userId=${userId}&familyHouseId=${familyHouseId}&equipmentId=${equipmentId}`)
             .then(res=>{
                 if(res.data.code===0){
@@ -93,7 +94,7 @@ class Lists extends React.Component {
                     {
                         lists.map((item,index)=>(
                             <List key={index} className="my-list">
-                                <Item multipleLine extra={<button className="radio-btn" onClick={()=>this.setHouse(item.id)} style={item.isOldMan==='Y'?checked:{}}>设为老人房</button>}>
+                                <Item multipleLine extra={<button className="radio-btn" onClick={() => this.setHouse(item.id)} style={item.isOldMan === 'Y' ? checked : {}}>{item.isOldMan==='Y'?'默认房屋':'设为老人房'}</button>}>
                                     {item.village}
                                     <Brief>{item.house}</Brief>
                                 </Item>

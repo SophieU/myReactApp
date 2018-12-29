@@ -25,7 +25,7 @@ class BasicAddMed extends React.Component {
             console.log('添加')
 
         }else{
-            let index = parseInt(this.props.match.params.id);
+            let index = parseInt(this.props.match.params.id,10);
             let alarmLists = localStorage.getAlarmLists();
             let alarm = alarmLists[index]; // 00:00
             let dateTime = new Date().getFullYear() + '/'+(new Date().getMonth()+1)+'/'+new Date().getDate()
@@ -93,7 +93,7 @@ class BasicAddMed extends React.Component {
             Toast.info('请选择重复时间段',1);
             return false;
         }
-        let index = parseInt(this.props.match.params.id)+1;
+        let index = parseInt(this.props.match.params.id,10)+1;
         let openId = localStorage.getOpenId();
         let equipmentId = localStorage.getEquipmentId();
         let timeStr = this.formateTime(time);

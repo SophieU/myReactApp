@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import RouterCom from './router.js';
-import {HashRouter as Router,Route} from 'react-router-dom';
+import {HashRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 

@@ -21,7 +21,8 @@ export function encodeAlert(time,open,repeat){
                }
            });
            arr=arr.join('');
-           formatStr=formatStr+'-'+'3'+'-'+arr;
+           // formatStr=formatStr+'-'+'3'+'-'+arr;
+           formatStr=`${formatStr}-3-${arr}`;
    }
    return formatStr;
 
@@ -55,6 +56,9 @@ export function decodeAlert(alertStr){
                 });
                 temp.sequence=cusDay;
                 break;
+            default:
+                temp.sequence=['一次'];
+
         }
         alarms.push(temp)
     })

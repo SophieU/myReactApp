@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Icon,Popover} from 'antd-mobile';
 import defaultAvatar from '../../images/defaultAvatar.png';
-import localStorage from '../../util/storage';
 
 
 
@@ -29,7 +28,6 @@ class DevStatu extends React.Component {
     imgError=()=>{
         let avatar = ReactDOM.findDOMNode(this.refs.avatar);
         avatar.src=defaultAvatar;
-        console.log(avatar)
     }
     render() {
         const Item = Popover.Item;
@@ -64,7 +62,7 @@ class DevStatu extends React.Component {
                         {this.props.role}<Icon className="icon-color" size="xs" type="down"/>
                     </div>
                 </Popover>
-                <img ref="avatar" className="avatar" onError={this.imgError} src={this.props.headImg?avatarSrc:defaultAvatar}/>
+                <img alt="" ref="avatar" className="avatar" onError={this.imgError} src={this.props.headImg?avatarSrc:defaultAvatar}/>
                 <div className="energy-box">
                     <div className="energy-bar">
                         <div style={{width:this.props.electricity+'%'}} className="energy-bar-line"></div>

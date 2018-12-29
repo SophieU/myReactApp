@@ -54,13 +54,27 @@ let localStorage = {
         let medicine = window.localStorage.getItem('medicine');
         return medicine;
     },
-    setYsyApi(){
-        let url = 'http://trest.yishengyue.cn';
-        window.localStorage.setItem('ysyApi',url);
+    setYsyApi() {
+        let invite = window.location.host;
+        let baseAPI = '';
+        switch (invite) {
+            case 'th5.yishengyue.cn':
+                baseAPI = 'http://trest.yishengyue.cn'; //测试
+                break;
+            case 'h5.yishengyue.cn':
+                baseAPI = 'https://api.yishengyue.cn'; //正式
+                break;
+            case 'yanshih5.yishengyue.cn':
+                baseAPI = 'http://yanshiwuyeapi.yishengyue.cn'; //演示
+                break;
+            default:
+                baseAPI = 'http://trest.yishengyue.cn';
+        }
+        window.localStorage.setItem('ysyApi',baseAPI);
     },
     getYsyApi(){
         let url=window.localStorage.getItem('ysyApi')
-        return url?url:'http://trest.yishengyue.cn';
+        return url;
     }
 
 }

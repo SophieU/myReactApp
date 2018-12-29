@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import localStorage from '../../util/storage';
 
 class Mine extends React.Component {
@@ -16,7 +15,7 @@ class Mine extends React.Component {
         alert(url)
         return (
             <div id="mine" ref="mineWrapper">
-                <iframe  ref="mine"  src={url} frameBorder="0"></iframe>
+                <iframe title="我的" ref="mine"  src={url} frameBorder="0"></iframe>
             </div>
             )
     }

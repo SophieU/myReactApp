@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Toast,DatePicker} from 'antd-mobile';
 import localStorage from '../../util/storage';
 
@@ -9,8 +8,8 @@ import './location.scss';
 
 let AMap ;
 
-const lgnlat = [104.076395,30.623233];
-const defaultAvatar='http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png';
+// const lgnlat = [104.076395,30.623233];
+//const defaultAvatar='http://p3cnmw3ss.bkt.clouddn.com/defaultAvatar.png';
 class GeoLocation extends React.Component {
     constructor(){
         super();
@@ -43,7 +42,6 @@ class GeoLocation extends React.Component {
                 window.clearInterval(timer);
                 //放在API加载之后
                 let query = this.props.location.search;
-                console.log(query)
                 if(query.indexOf('sos')!==-1){
                     // 报警跳转到定位
                     this.locWatch();
@@ -67,6 +65,9 @@ class GeoLocation extends React.Component {
                     break;
                 case 'history':
                     this.getHistoryLine();
+                    break;
+                default:
+                    this.getNowGeo();
             }
         }
     }
@@ -84,7 +85,7 @@ class GeoLocation extends React.Component {
             geocoder.getAddress(lnglatXY,function(status,result){
                 if(status==="complete"&&result.info==='OK'){
                     let addressFormat = result.regeocode.formattedAddress;
-                    let addressCom = result.regeocode.addressComponent;
+                    // let addressCom = result.regeocode.addressComponent;
                     // let address = addressCom.city+addressCom.district+addressCom.township+addressCom.street+addressCom.streetNumber+addressCom.building
                     let headImg = localStorage.getHeadImg();
                     // 请求头像
@@ -95,7 +96,10 @@ class GeoLocation extends React.Component {
                         '<p>刷新时间&nbsp;2秒前</p>'+
                         '</div>'+
                         '</div>';
-                    var marker = new AMap.Marker({ //添加自定义点标记
+                    /*
+                        var marker =
+                    * */
+                    new AMap.Marker({ //添加自定义点标记
                         map: map,
                         position: lnglatXY, //基点位置
                         offset: new AMap.Pixel(0, 0), //相对于基点的偏移位置
@@ -156,27 +160,8 @@ class GeoLocation extends React.Component {
         });
         const map = new AMap.Map("geo-location",{
             zoom:14,
-            center: lgnlat,
         });
-        var toolBar;
-        var customMarker = new AMap.Marker({
-            map:map,
-            icon:new AMap.Icon({
-                size: new AMap.Size(32, 32),  //图标大小
-                image: "http://p3cnmw3ss.bkt.clouddn.com/add.png",
-                offset:AMap.Pixel(0,0),
-            }),
-        })
 
-        //地图中添加地图操作ToolBar插件
-        map.plugin(["AMap.ToolBar"], function() {
-            toolBar = new AMap.ToolBar({
-                locationMarker: customMarker,
-                liteStyle:true,
-                position:'LT'
-            }); //设置地位标记为自定义标记
-            map.addControl(toolBar);
-        });
         map.plugin('AMap.Geolocation',function(){
             var geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -193,7 +178,27 @@ class GeoLocation extends React.Component {
             })
             map.addControl(geolocation);
             geolocation.getCurrentPosition();
+            AMap.event.addListener(geolocation, 'complete', function(data){
+                var lng = data.position.lng;
+                var lat = data.position.lat;
+                var toolBar;
+                var customMarker = new AMap.Marker({
+                    map:map,
+                    offset: new AMap.Pixel(-5, -25), // 相对于基点的偏移位置
+                    position:new AMap.LngLat(lng,lat)
+                });
+                //地图中添加地图操作ToolBar插件
+                map.plugin(["AMap.ToolBar"], function() {
+                    toolBar = new AMap.ToolBar({
+                        locationMarker: customMarker,
+                        liteStyle:true,
+                        position:'LT'
+                    }); //设置地位标记为自定义标记
+                    map.addControl(toolBar);
+                });
+            })
         })
+
         // 改变刷新状态为初始值
         this.props.refreshLocation(false)
     }
@@ -245,15 +250,12 @@ class GeoLocation extends React.Component {
         var marker = new AMap.Marker({
             map:map,
             position:start,
-            icon:new AMap.Icon({
-                size: new AMap.Size(45, 45),  //图标大小
-                image: "http://p3cnmw3ss.bkt.clouddn.com/add.png",
-                imageOffset: new AMap.Pixel(0, 5)
-            }),
         })
 
         // 绘制轨迹
-        var polyline = new AMap.Polyline({
+        /*var polyline =
+        * */
+        new AMap.Polyline({
             map:map,
             path:lineArr,
             strokeColor:"transparent",
@@ -280,21 +282,6 @@ class GeoLocation extends React.Component {
         this.setState({
             [state]:time
         });
-        // if(state==='timeEnd'){
-        //     let timeStart = new Date(this.state.timeStart).getTime();
-        //     let timeSelected = new Date(time).getTime();
-        //     if(timeSelected<timeStart){
-        //         Toast.info('请选择正确的时间段',1);
-        //         return;
-        //     }
-        // }else if(state==='timeStart'){
-        //     let timeEnd = new Date(this.state.timeEnd).getTime();
-        //     let timeSelected = new Date(time).getTime();
-        //     if(timeSelected>timeEnd){
-        //         Toast.info('请选择正确的时间段',1);
-        //         return;
-        //     }
-        // }
 
     };
     formatTime=(time,type)=>{
@@ -304,7 +291,7 @@ class GeoLocation extends React.Component {
             return hh+':'+mm;
         }else if(type==='day'){
             let yy = time.getFullYear();
-            let month = time.getMonth()+1<10?'0'+(time.getMonth()+1):time.getMont()+1;
+            let month = time.getMonth()+1<10?'0'+(time.getMonth()+1):time.getMonth()+1;
             let day = time.getDate()<10?'0'+time.getDate():time.getDate();
             return yy+'-'+month+'-'+day;
         }

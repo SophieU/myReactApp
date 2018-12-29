@@ -97,6 +97,8 @@ class Repeat extends React.Component {
            let filter =  weeksData.filter((item)=>{
                 if(item.checked){
                     return true;
+                }else{
+                    return false;
                 }
             });
            if(filter.length===7){

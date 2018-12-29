@@ -86,3 +86,14 @@ $baseSize:37.5;
 
   }
 }
+.pickerReg{
+  justify-content: space-between;
+  .am-list-line{
+    .am-list-extra{
+      flex:1;
+      font-size: 14px;
+      color: #BBBBBB;
+    }
+  }
+
+}

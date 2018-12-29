@@ -82,7 +82,8 @@ class IconList extends React.Component {
                 type:'alert',
                 handle:this.goMine,
                 // url:'/mine',
-            },{
+            }
+            , {
                 iconUrl:require('../../images/icon-mine.png'),
                 title:'房屋',
                 url:'/house',
@@ -99,11 +100,11 @@ class IconList extends React.Component {
                                     {
                                      icon.type==='alert'?
                                          (<div onClick={()=>icon.handle(icon.tel)}>
-                                             <img src={icon.iconUrl}/>
+                                             <img src={icon.iconUrl} alt="img"/>
                                              <span className="icon-title">{icon.title}</span>
                                          </div>):
                                          (<Link to={icon.url}>
-                                             <img src={icon.iconUrl}/>
+                                             <img src={icon.iconUrl}  alt="img"/>
                                              <span className="icon-title">{icon.title}</span>
                                          </Link>)
                                     }

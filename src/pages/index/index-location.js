@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Toast} from 'antd-mobile';
-import localStorage from '../../util/storage'
 
 
 class LocationIndex extends React.Component {
@@ -30,13 +29,14 @@ class LocationIndex extends React.Component {
                     lnglat:lnglat
                 },()=>{
 
-                    let _this = this;
-                    let timer = setInterval(()=>{
+                    // let _this = this;
+                    this.geolocation(lnglat);
+                    /*let timer = setInterval(()=>{
                         if(window.AMap){
                             _this.geolocation(lnglat);
                             window.clearInterval(timer);
                         }
-                    },500)
+                    },500)*/
 
 
                 });
@@ -48,16 +48,22 @@ class LocationIndex extends React.Component {
     geolocation(lnglatXY){
         const AMap = window.AMap;
         const _this = this;
-        var map = new AMap.Map('index-local',{
+        /*
+        * var map = new AMap.Map('index-local',{
             zoom:12,
             center: lnglatXY,
-        })
+        });
+        * */
+        new AMap.Map('index-local',{
+            zoom:12,
+            center: lnglatXY,
+        });
 
-        // 在新中心点添加 marker
-        var marker = new AMap.Marker({
+        // 在新中心点添加 marker  2018-11-16 注释
+      /*  var marker = new AMap.Marker({
             map: map,
             position: lnglatXY,
-        });
+        });*/
         AMap.service('AMap.Geocoder',function(){
             const geocoder = new AMap.Geocoder({
                 city:"028"
